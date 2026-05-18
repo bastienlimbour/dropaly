@@ -43,8 +43,6 @@ The MVP focuses on:
 
 Early product framing and MVP definition.
 
-The canonical product brief lives in [product-brief.md](.initiatives/001-ai-brain-dump-product/product-brief.md).
-
 ## License
 
 Proprietary. All rights reserved.
