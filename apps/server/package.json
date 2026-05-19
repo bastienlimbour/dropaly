@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc -b",
+    "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.mjs"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "catalog:ai",
+    "@dropzen/api": "workspace:*",
+    "@dropzen/auth": "workspace:*",
+    "@dropzen/env": "workspace:*",
+    "@fastify/cors": "^11.2.0",
+    "@trpc/server": "catalog:trpc",
+    "ai": "catalog:ai",
+    "better-auth": "catalog:auth",
+    "fastify": "^5.8.5"
+  },
+  "devDependencies": {
+    "@ai-sdk/devtools": "catalog:ai",
+    "@dropzen/config": "workspace:*",
+    "@types/node": "catalog:",
+    "tsdown": "^0.22.0",
+    "tsx": "^4.22.2",
+    "typescript": "catalog:"
+  }
+}

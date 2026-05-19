@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-mira",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "iconLibrary": "tabler",
+  "aliases": {
+    "components": "@dropzen/ui/components",
+    "utils": "@dropzen/ui/lib/utils",
+    "hooks": "@dropzen/ui/hooks",
+    "lib": "@dropzen/ui/lib",
+    "ui": "@dropzen/ui/components"
+  },
+  "menuColor": "default-translucent",
+  "menuAccent": "subtle"
+}

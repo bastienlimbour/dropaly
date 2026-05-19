@@ -1,0 +1,25 @@
+{
+  "name": "@dropzen/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@better-auth/expo": "catalog:auth",
+    "@dropzen/db": "workspace:*",
+    "@dropzen/env": "workspace:*",
+    "@polar-sh/better-auth": "catalog:auth",
+    "@polar-sh/sdk": "catalog:auth",
+    "better-auth": "catalog:auth"
+  },
+  "devDependencies": {
+    "@dropzen/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

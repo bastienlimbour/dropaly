@@ -1,0 +1,25 @@
+{
+  "name": "@dropzen/api",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@dropzen/auth": "workspace:*",
+    "@dropzen/db": "workspace:*",
+    "@trpc/server": "catalog:trpc",
+    "better-auth": "catalog:auth",
+    "drizzle-orm": "catalog:db",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@dropzen/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

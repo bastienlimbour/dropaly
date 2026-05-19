@@ -1,0 +1,3 @@
+{
+  "extends": "@dropzen/config/tsconfig.base.json"
+}

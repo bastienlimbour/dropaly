@@ -1,0 +1,84 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  esbuild: true
+  lefthook: true
+  msw: true
+  sharp: true
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+catalog:
+  dotenv: ^17.4.2
+  "@types/node": ^22.19.19
+  typescript: ^5.9.3
+  zod: ^4.4.3
+catalogs:
+  ai:
+    "@ai-sdk/devtools": ^0.0.18
+    "@ai-sdk/google": ^3.0.75
+    "@ai-sdk/react": ^3.0.187
+    "ai": ^6.0.185
+  auth:
+    "@better-auth/expo": ^1.6.11
+    "@polar-sh/better-auth": ^1.8.4
+    "@polar-sh/sdk": ^0.47.1
+    "better-auth": ^1.6.11
+  db:
+    "@types/pg": ^8.20.0
+    "drizzle-kit": ^0.31.10
+    "drizzle-orm": ^0.45.2
+    "pg": ^8.21.0
+  react:
+    "@types/react": ~19.2.15
+    "@types/react-dom": ~19.2.3
+    "react": 19.2.1
+    "react-dom": 19.2.1
+  tanstack:
+    "@tanstack/react-form": ^1.32.0
+    "@tanstack/react-query": ^5.100.11
+    "@tanstack/react-query-devtools": ^5.100.11
+    "@tanstack/react-router": ^1.170.4
+    "@tanstack/react-router-devtools": ^1.167.0
+    "@tanstack/router-plugin": ^1.168.6
+  trpc:
+    "@trpc/client": ^11.17.0
+    "@trpc/server": ^11.17.0
+    "@trpc/tanstack-react-query": ^11.17.0
+  ui:
+    "@tabler/icons-react": "^3.44.0"
+    "next-themes": ^0.4.6
+    "sonner": ^2.0.7
+    "tailwindcss": ^4.3.0
+    "@tailwindcss/vite": ^4.3.0
+minimumReleaseAgeExclude:
+  - "@ai-sdk/gateway@3.0.116"
+  - "@ai-sdk/react@3.0.187"
+  - "@expo/cli@55.0.31"
+  - "@expo/metro-config@55.0.22"
+  - "@expo/router-server@55.0.17"
+  - "@tanstack/query-core@5.100.11"
+  - "@tanstack/query-devtools@5.100.11"
+  - "@tanstack/react-query-devtools@5.100.11"
+  - "@tanstack/react-query@5.100.11"
+  - "@types/react@19.2.15"
+  - ai@6.0.185
+  - babel-preset-expo@55.0.22
+  - expo-file-system@55.0.21
+  - expo-font@55.0.8
+  - expo-modules-autolinking@55.0.23
+  - expo-router@55.0.15
+  - expo-server@55.0.10
+  - expo-symbols@55.0.9
+  - expo@55.0.25
+  - lefthook-darwin-arm64@2.1.8
+  - lefthook-darwin-x64@2.1.8
+  - lefthook-freebsd-arm64@2.1.8
+  - lefthook-freebsd-x64@2.1.8
+  - lefthook-linux-arm64@2.1.8
+  - lefthook-linux-x64@2.1.8
+  - lefthook-openbsd-arm64@2.1.8
+  - lefthook-openbsd-x64@2.1.8
+  - lefthook-windows-arm64@2.1.8
+  - lefthook-windows-x64@2.1.8
+  - lefthook@2.1.8

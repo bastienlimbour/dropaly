@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "scheme": "dropzen",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "dropzen",
+    "slug": "dropzen",
+    "plugins": [
+      "expo-font",
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
