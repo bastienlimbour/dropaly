@@ -43,11 +43,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "dropaly",
+        title: "Dropaly",
       },
       {
         name: "description",
-        content: "dropaly is a web application",
+        content:
+          "Dropaly is an app for capturing and structuring thoughts into tasks, lists, and notes.",
       },
     ],
     links: [
