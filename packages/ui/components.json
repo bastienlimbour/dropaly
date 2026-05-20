@@ -11,11 +11,11 @@
   },
   "iconLibrary": "tabler",
   "aliases": {
-    "components": "@dropzen/ui/components",
-    "utils": "@dropzen/ui/lib/utils",
-    "hooks": "@dropzen/ui/hooks",
-    "lib": "@dropzen/ui/lib",
-    "ui": "@dropzen/ui/components"
+    "components": "@dropaly/ui/components",
+    "utils": "@dropaly/ui/lib/utils",
+    "hooks": "@dropaly/ui/hooks",
+    "lib": "@dropaly/ui/lib",
+    "ui": "@dropaly/ui/components"
   },
   "menuColor": "default-translucent",
   "menuAccent": "subtle"

@@ -1,7 +1,7 @@
 import { expo } from "@better-auth/expo";
-import { createDb } from "@dropzen/db";
-import * as schema from "@dropzen/db/schema/auth";
-import { env } from "@dropzen/env/server";
+import { createDb } from "@dropaly/db";
+import * as schema from "@dropaly/db/schema/auth";
+import { env } from "@dropaly/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { paymentsPlugin } from "./lib/payments";
@@ -10,7 +10,7 @@ export function createAuth() {
   const db = createDb();
 
   return betterAuth({
-    appName: "Dropzen",
+    appName: "Dropaly",
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: schema,
@@ -24,7 +24,7 @@ export function createAuth() {
       : env.BETTER_AUTH_URL,
     trustedOrigins: [
       ...env.CORS_ORIGINS,
-      "dropzen://",
+      "dropaly://",
       ...(env.NODE_ENV === "development"
         ? [
             "exp://",

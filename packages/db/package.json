@@ -1,5 +1,5 @@
 {
-  "name": "@dropzen/db",
+  "name": "@dropaly/db",
   "type": "module",
   "exports": {
     ".": {
@@ -21,13 +21,13 @@
     "db:down": "docker compose down"
   },
   "dependencies": {
-    "@dropzen/env": "workspace:*",
+    "@dropaly/env": "workspace:*",
     "dotenv": "catalog:",
     "drizzle-orm": "catalog:db",
     "pg": "catalog:db"
   },
   "devDependencies": {
-    "@dropzen/config": "workspace:*",
+    "@dropaly/config": "workspace:*",
     "@types/pg": "catalog:db",
     "drizzle-kit": "catalog:db",
     "typescript": "catalog:"

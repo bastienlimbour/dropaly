@@ -1,5 +1,5 @@
-import { db } from "@dropzen/db";
-import { todo } from "@dropzen/db/schema/todo";
+import { db } from "@dropaly/db";
+import { todo } from "@dropaly/db/schema/todo";
 import { eq } from "drizzle-orm";
 import z from "zod";
 
@@ -21,10 +21,15 @@ export const todoRouter = router({
   toggle: publicProcedure
     .input(z.object({ id: z.number(), completed: z.boolean() }))
     .mutation(async ({ input }) => {
-      return await db.update(todo).set({ completed: input.completed }).where(eq(todo.id, input.id));
+      return await db
+        .update(todo)
+        .set({ completed: input.completed })
+        .where(eq(todo.id, input.id));
     }),
 
-  delete: publicProcedure.input(z.object({ id: z.number() })).mutation(async ({ input }) => {
-    return await db.delete(todo).where(eq(todo.id, input.id));
-  }),
+  delete: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input }) => {
+      return await db.delete(todo).where(eq(todo.id, input.id));
+    }),
 });

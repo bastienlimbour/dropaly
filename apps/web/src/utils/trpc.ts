@@ -1,5 +1,5 @@
-import type { AppRouter } from "@dropzen/api/routers/index";
-import { env } from "@dropzen/env/web";
+import type { AppRouter } from "@dropaly/api/routers/index";
+import { env } from "@dropaly/env/web";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";

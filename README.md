@@ -1,8 +1,8 @@
-# dropzen
+# Dropaly
 
 ## Overview
 
-DropZen is a mobile-first structured brain dump app.
+Dropaly is a mobile-first structured brain dump app.
 
 It helps users capture short thoughts in text or voice and turn them into structured tasks, lists, or notes.
 
@@ -88,7 +88,7 @@ npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
 Import shared components like this:
 
 ```tsx
-import { Button } from "@dropzen/ui/components/button";
+import { Button } from "@dropaly/ui/components/button";
 ```
 
 ### Add app-specific blocks
@@ -98,7 +98,7 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 ## Project Structure
 
 ```text
-dropzen/
+dropaly/
 ├── apps/
 │   ├── web/         # Frontend application (React + TanStack Router)
 │   ├── native/      # Mobile application (React Native, Expo)

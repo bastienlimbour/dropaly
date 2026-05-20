@@ -1,4 +1,4 @@
-import { env } from "@dropzen/env/server";
+import { env } from "@dropaly/env/server";
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 

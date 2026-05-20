@@ -1,4 +1,4 @@
-import { cn } from "@dropzen/ui/lib/utils";
+import { cn } from "@dropaly/ui/lib/utils";
 import * as React from "react";
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {

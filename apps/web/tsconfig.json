@@ -1,5 +1,5 @@
 {
-  "extends": "@dropzen/config/tsconfig.base.json",
+  "extends": "@dropaly/config/tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
@@ -8,5 +8,10 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "pwa-assets.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "pwa-assets.config.ts"
+  ]
 }

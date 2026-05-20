@@ -1,5 +1,5 @@
 {
-  "name": "@dropzen/auth",
+  "name": "@dropaly/auth",
   "type": "module",
   "exports": {
     ".": {
@@ -14,14 +14,14 @@
   },
   "dependencies": {
     "@better-auth/expo": "catalog:auth",
-    "@dropzen/db": "workspace:*",
-    "@dropzen/env": "workspace:*",
+    "@dropaly/db": "workspace:*",
+    "@dropaly/env": "workspace:*",
     "@polar-sh/better-auth": "catalog:auth",
     "@polar-sh/sdk": "catalog:auth",
     "better-auth": "catalog:auth"
   },
   "devDependencies": {
-    "@dropzen/config": "workspace:*",
+    "@dropaly/config": "workspace:*",
     "typescript": "catalog:"
   }
 }

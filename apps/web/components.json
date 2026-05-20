@@ -14,8 +14,8 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@dropzen/ui/lib/utils",
-    "ui": "@dropzen/ui/components"
+    "utils": "@dropaly/ui/lib/utils",
+    "ui": "@dropaly/ui/components"
   },
   "menuColor": "default-translucent",
   "menuAccent": "subtle"

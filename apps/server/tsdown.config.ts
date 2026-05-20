@@ -1,7 +1,7 @@
 import { defineConfig } from "tsdown";
 
 const isExternalDependency = (id: string) =>
-  !id.startsWith("@dropzen/") &&
+  !id.startsWith("@dropaly/") &&
   !id.startsWith(".") &&
   !id.startsWith("/") &&
   !id.startsWith("\0");
@@ -15,7 +15,7 @@ export default defineConfig({
     NODE_ENV: "production",
   },
   deps: {
-    alwaysBundle: [/@dropzen\/.*/],
+    alwaysBundle: [/@dropaly\/.*/],
     neverBundle: isExternalDependency,
   },
 });

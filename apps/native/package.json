@@ -15,8 +15,8 @@
   "dependencies": {
     "@ai-sdk/react": "catalog:ai",
     "@better-auth/expo": "catalog:auth",
-    "@dropzen/api": "workspace:*",
-    "@dropzen/env": "workspace:*",
+    "@dropaly/api": "workspace:*",
+    "@dropaly/env": "workspace:*",
     "@expo/metro-runtime": "~55.0.11",
     "@expo/vector-icons": "~15.1.1",
     "@gorhom/bottom-sheet": "^5.2.14",

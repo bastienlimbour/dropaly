@@ -1,7 +1,7 @@
 import { useChat } from "@ai-sdk/react";
-import { env } from "@dropzen/env/web";
-import { Button } from "@dropzen/ui/components/button";
-import { Input } from "@dropzen/ui/components/input";
+import { env } from "@dropaly/env/web";
+import { Button } from "@dropaly/ui/components/button";
+import { Input } from "@dropaly/ui/components/input";
 import { createFileRoute } from "@tanstack/react-router";
 import { DefaultChatTransport } from "ai";
 import { IconSend } from "@tabler/icons-react";

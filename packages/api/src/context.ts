@@ -1,4 +1,4 @@
-import { auth } from "@dropzen/auth";
+import { auth } from "@dropaly/auth";
 import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import { fromNodeHeaders } from "better-auth/node";
 

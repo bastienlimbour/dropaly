@@ -1,5 +1,5 @@
 {
-  "name": "@dropzen/env",
+  "name": "@dropaly/env",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -17,7 +17,7 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@dropzen/config": "workspace:*",
+    "@dropaly/config": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:"
   }

@@ -26,9 +26,9 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "dropzen",
-        short_name: "dropzen",
-        description: "dropzen - PWA Application",
+        name: "dropaly",
+        short_name: "dropaly",
+        description: "dropaly - PWA Application",
         theme_color: "#0c0c0c",
       },
       pwaAssets: { disabled: false, config: true },

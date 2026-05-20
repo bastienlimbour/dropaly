@@ -1,10 +1,10 @@
-import { Button } from "@dropzen/ui/components/button";
+import { Button } from "@dropaly/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@dropzen/ui/components/dropdown-menu";
+} from "@dropaly/ui/components/dropdown-menu";
 import { IconMoon, IconSun } from "@tabler/icons-react";
 
 import { useTheme } from "@/components/theme-provider";

@@ -1,8 +1,8 @@
 import { google } from "@ai-sdk/google";
-import { createContext } from "@dropzen/api/context";
-import { appRouter, type AppRouter } from "@dropzen/api/routers/index";
-import { auth } from "@dropzen/auth";
-import { env } from "@dropzen/env/server";
+import { createContext } from "@dropaly/api/context";
+import { appRouter, type AppRouter } from "@dropaly/api/routers/index";
+import { auth } from "@dropaly/auth";
+import { env } from "@dropaly/env/server";
 import fastifyCors from "@fastify/cors";
 import {
   fastifyTRPCPlugin,

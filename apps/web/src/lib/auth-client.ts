@@ -1,4 +1,4 @@
-import { env } from "@dropzen/env/web";
+import { env } from "@dropaly/env/web";
 import { polarClient } from "@polar-sh/better-auth";
 import { createAuthClient } from "better-auth/react";
 

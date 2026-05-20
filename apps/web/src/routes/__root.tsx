@@ -1,6 +1,10 @@
-import { Toaster } from "@dropzen/ui/components/sonner";
+import { Toaster } from "@dropaly/ui/components/sonner";
 import type { QueryClient } from "@tanstack/react-query";
-import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Outlet,
+  createRootRouteWithContext,
+} from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import Header from "@/components/header";
@@ -11,17 +15,21 @@ import "../index.css";
 
 const ReactQueryDevtools = import.meta.env.DEV
   ? lazy(() =>
-      import("@tanstack/react-query-devtools").then(({ ReactQueryDevtools }) => ({
-        default: ReactQueryDevtools,
-      }))
+      import("@tanstack/react-query-devtools").then(
+        ({ ReactQueryDevtools }) => ({
+          default: ReactQueryDevtools,
+        }),
+      ),
     )
   : null;
 
 const TanStackRouterDevtools = import.meta.env.DEV
   ? lazy(() =>
-      import("@tanstack/react-router-devtools").then(({ TanStackRouterDevtools }) => ({
-        default: TanStackRouterDevtools,
-      }))
+      import("@tanstack/react-router-devtools").then(
+        ({ TanStackRouterDevtools }) => ({
+          default: TanStackRouterDevtools,
+        }),
+      ),
     )
   : null;
 
@@ -35,11 +43,11 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   head: () => ({
     meta: [
       {
-        title: "dropzen",
+        title: "dropaly",
       },
       {
         name: "description",
-        content: "dropzen is a web application",
+        content: "dropaly is a web application",
       },
     ],
     links: [

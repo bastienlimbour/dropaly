@@ -1,13 +1,13 @@
-import { Button } from "@dropzen/ui/components/button";
+import { Button } from "@dropaly/ui/components/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@dropzen/ui/components/card";
-import { Checkbox } from "@dropzen/ui/components/checkbox";
-import { Input } from "@dropzen/ui/components/input";
+} from "@dropaly/ui/components/card";
+import { Checkbox } from "@dropaly/ui/components/checkbox";
+import { Input } from "@dropaly/ui/components/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { IconLoader, IconTrash } from "@tabler/icons-react";

@@ -1,4 +1,4 @@
-import { Button } from "@dropzen/ui/components/button";
+import { Button } from "@dropaly/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,8 +7,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@dropzen/ui/components/dropdown-menu";
-import { Skeleton } from "@dropzen/ui/components/skeleton";
+} from "@dropaly/ui/components/dropdown-menu";
+import { Skeleton } from "@dropaly/ui/components/skeleton";
 import { Link, useNavigate } from "@tanstack/react-router";
 
 import { authClient } from "@/lib/auth-client";

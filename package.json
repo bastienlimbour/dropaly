@@ -1,5 +1,5 @@
 {
-  "name": "dropzen",
+  "name": "dropaly",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -18,17 +18,17 @@
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
-    "db:push": "turbo -F @dropzen/db db:push",
-    "db:studio": "turbo -F @dropzen/db db:studio",
-    "db:generate": "turbo -F @dropzen/db db:generate",
-    "db:migrate": "turbo -F @dropzen/db db:migrate",
-    "db:start": "turbo -F @dropzen/db db:start",
-    "db:watch": "turbo -F @dropzen/db db:watch",
-    "db:stop": "turbo -F @dropzen/db db:stop",
-    "db:down": "turbo -F @dropzen/db db:down"
+    "db:push": "turbo -F @dropaly/db db:push",
+    "db:studio": "turbo -F @dropaly/db db:studio",
+    "db:generate": "turbo -F @dropaly/db db:generate",
+    "db:migrate": "turbo -F @dropaly/db db:migrate",
+    "db:start": "turbo -F @dropaly/db db:start",
+    "db:watch": "turbo -F @dropaly/db db:watch",
+    "db:stop": "turbo -F @dropaly/db db:stop",
+    "db:down": "turbo -F @dropaly/db db:down"
   },
   "devDependencies": {
-    "@dropzen/config": "workspace:*",
+    "@dropaly/config": "workspace:*",
     "@types/node": "catalog:",
     "lefthook": "^2.1.8",
     "turbo": "^2.9.14",

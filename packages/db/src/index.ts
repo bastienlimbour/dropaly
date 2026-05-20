@@ -1,4 +1,4 @@
-import { env } from "@dropzen/env/server";
+import { env } from "@dropaly/env/server";
 import { drizzle } from "drizzle-orm/node-postgres";
 
 import * as schema from "./schema";

@@ -1,5 +1,5 @@
-import { env } from "@dropzen/env/web";
-import { Button } from "@dropzen/ui/components/button";
+import { env } from "@dropaly/env/web";
+import { Button } from "@dropaly/ui/components/button";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
@@ -28,7 +28,8 @@ function RouteComponent() {
 
   const privateData = useQuery(trpc.privateData.queryOptions());
 
-  const hasProSubscription = (customerState?.activeSubscriptions ?? []).length > 0;
+  const hasProSubscription =
+    (customerState?.activeSubscriptions ?? []).length > 0;
 
   return (
     <div>
@@ -43,7 +44,9 @@ function RouteComponent() {
               Manage Subscription
             </Button>
           ) : (
-            <Button onClick={async () => await authClient.checkout({ slug: "pro" })}>
+            <Button
+              onClick={async () => await authClient.checkout({ slug: "pro" })}
+            >
               Upgrade to Pro
             </Button>
           )}

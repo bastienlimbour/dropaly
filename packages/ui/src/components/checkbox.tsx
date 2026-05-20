@@ -1,7 +1,7 @@
 "use client";
 
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
-import { cn } from "@dropzen/ui/lib/utils";
+import { cn } from "@dropaly/ui/lib/utils";
 import { IconCheck } from "@tabler/icons-react";
 
 function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
