@@ -1,3 +1,7 @@
 {
-  "extends": "@dropzen/config/tsconfig.base.json"
+  "extends": "@dropzen/config/tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts"]
 }

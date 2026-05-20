@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "serve": "vite preview",
-    "start": "vite",
-    "typecheck": "vite build && tsc --noEmit",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {

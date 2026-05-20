@@ -1,17 +1,12 @@
 {
+  "extends": "@dropzen/config/tsconfig.base.json",
   "compilerOptions": {
-    "strict": true,
-    "esModuleInterop": true,
     "jsx": "react-jsx",
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],
-    "rootDirs": ["."],
     "paths": {
-      "@/*": ["./src/*"],
-      "@dropzen/ui/*": ["../../packages/ui/src/*"]
+      "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "pwa-assets.config.ts"]
 }

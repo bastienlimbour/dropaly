@@ -1,12 +1,12 @@
 {
   "extends": "@dropzen/config/tsconfig.base.json",
   "compilerOptions": {
+    "noEmit": true,
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "paths": {
       "@dropzen/ui/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
