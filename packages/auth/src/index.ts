@@ -10,10 +10,18 @@ export function createAuth() {
   const db = createDb();
 
   return betterAuth({
+    appName: "Dropzen",
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: schema,
     }),
+    baseURL: env.BETTER_AUTH_ALLOWED_HOSTS
+      ? {
+          allowedHosts: env.BETTER_AUTH_ALLOWED_HOSTS,
+          fallback: env.BETTER_AUTH_URL,
+          protocol: env.NODE_ENV === "development" ? "http" : "https",
+        }
+      : env.BETTER_AUTH_URL,
     trustedOrigins: [
       ...env.CORS_ORIGINS,
       "dropzen://",
@@ -25,17 +33,10 @@ export function createAuth() {
           ]
         : []),
     ],
+    secret: env.BETTER_AUTH_SECRET,
     emailAndPassword: {
       enabled: true,
     },
-    secret: env.BETTER_AUTH_SECRET,
-    baseURL: env.BETTER_AUTH_ALLOWED_HOSTS
-      ? {
-          allowedHosts: env.BETTER_AUTH_ALLOWED_HOSTS,
-          fallback: env.BETTER_AUTH_URL,
-          protocol: env.NODE_ENV === "development" ? "http" : "https",
-        }
-      : env.BETTER_AUTH_URL,
     plugins: [...(env.PAYMENTS_ENABLED ? [paymentsPlugin()] : []), expo()],
   });
 }
