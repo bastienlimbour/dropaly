@@ -49,20 +49,25 @@ fastify.route({
   url: "/api/auth/*",
   async handler(request, reply) {
     try {
-      const url = new URL(request.url, `http://${request.headers.host}`);
-      const headers = fromNodeHeaders(request.headers);
+      const url = new URL(
+        request.url,
+        `${request.protocol}://${request.headers.host}`,
+      );
       const req = new Request(url.toString(), {
         method: request.method,
-        headers,
+        headers: fromNodeHeaders(request.headers),
         body: request.body ? JSON.stringify(request.body) : undefined,
       });
       const response = await auth.handler(req);
       reply.status(response.status);
-      response.headers.forEach((value, key) => reply.header(key, value));
-      reply.send(response.body ? await response.text() : null);
-    } catch (error) {
-      fastify.log.error({ err: error }, "Authentication Error:");
-      reply.status(500).send({
+      response.headers.forEach((value, key) => {
+        reply.header(key, value);
+      });
+      const body = response.body ? await response.text() : null;
+      return reply.send(body);
+    } catch (err) {
+      request.log.error({ err }, "Authentication error");
+      return reply.status(500).send({
         error: "Internal authentication error",
         code: "AUTH_FAILURE",
       });
@@ -75,8 +80,8 @@ fastify.register(fastifyTRPCPlugin, {
   trpcOptions: {
     router: appRouter,
     createContext,
-    onError({ path, error }) {
-      console.error(`Error in tRPC handler on path '${path}':`, error);
+    onError({ req, path, error }) {
+      req.log.error({ err: error, path }, "tRPC error");
     },
   } satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
 });
