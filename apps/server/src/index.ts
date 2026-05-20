@@ -17,7 +17,24 @@ import {
 import { fromNodeHeaders } from "better-auth/node";
 import Fastify from "fastify";
 
-const fastify = Fastify({ logger: true });
+const loggerOptions = {
+  development: {
+    transport: {
+      target: "pino-pretty",
+      options: {
+        colorize: true,
+        translateTime: "HH:MM:ss Z",
+        ignore: "pid,hostname",
+      },
+    },
+  },
+  production: true,
+  test: false,
+};
+
+const fastify = Fastify({
+  logger: loggerOptions[env.NODE_ENV] ?? true,
+});
 
 fastify.register(fastifyCors, {
   origin: env.CORS_ORIGINS,
