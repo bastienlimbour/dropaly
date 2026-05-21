@@ -5,7 +5,7 @@ import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { Platform } from "react-native";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/src/lib/auth-client";
 
 export const queryClient = new QueryClient();
 

@@ -5,7 +5,7 @@ import { useThemeColor } from "heroui-native";
 import React, { useCallback } from "react";
 import { Pressable, Text } from "react-native";
 
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/src/components/theme-toggle";
 
 function DrawerLayout() {
   const themeColorForeground = useThemeColor("foreground");
@@ -31,7 +31,9 @@ function DrawerLayout() {
         options={{
           headerTitle: "Home",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>Home</Text>
+            <Text style={{ color: focused ? color : themeColorForeground }}>
+              Home
+            </Text>
           ),
           drawerIcon: ({ size, color, focused }) => (
             <Ionicons
@@ -47,7 +49,9 @@ function DrawerLayout() {
         options={{
           headerTitle: "Tabs",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>Tabs</Text>
+            <Text style={{ color: focused ? color : themeColorForeground }}>
+              Tabs
+            </Text>
           ),
           drawerIcon: ({ size, color, focused }) => (
             <MaterialIcons
@@ -59,7 +63,11 @@ function DrawerLayout() {
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable className="mr-4">
-                <Ionicons name="add-outline" size={24} color={themeColorForeground} />
+                <Ionicons
+                  name="add-outline"
+                  size={24}
+                  color={themeColorForeground}
+                />
               </Pressable>
             </Link>
           ),
@@ -70,7 +78,9 @@ function DrawerLayout() {
         options={{
           headerTitle: "Todos",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>Todos</Text>
+            <Text style={{ color: focused ? color : themeColorForeground }}>
+              Todos
+            </Text>
           ),
           drawerIcon: ({ size, color, focused }) => (
             <Ionicons
@@ -86,7 +96,9 @@ function DrawerLayout() {
         options={{
           headerTitle: "AI",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>AI</Text>
+            <Text style={{ color: focused ? color : themeColorForeground }}>
+              AI
+            </Text>
           ),
           drawerIcon: ({ size, color, focused }) => (
             <Ionicons

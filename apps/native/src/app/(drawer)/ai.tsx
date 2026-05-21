@@ -22,7 +22,7 @@ import {
   Platform,
 } from "react-native";
 
-import { Container } from "@/components/container";
+import { Container } from "@/src/components/container";
 
 const generateAPIUrl = (relativePath: string) => {
   const serverUrl = env.EXPO_PUBLIC_SERVER_URL;

@@ -13,8 +13,8 @@ import {
 import { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 
-import { Container } from "@/components/container";
-import { trpc } from "@/utils/trpc";
+import { Container } from "@/src/components/container";
+import { trpc } from "@/src/utils/trpc";
 
 export default function TodosScreen() {
   const [newTodoText, setNewTodoText] = useState("");
@@ -76,7 +76,9 @@ export default function TodosScreen() {
       <ScrollView className="flex-1" contentContainerClassName="p-4">
         <View className="py-4 mb-4">
           <View className="flex-row items-center justify-between">
-            <Text className="text-2xl font-semibold text-foreground tracking-tight">Tasks</Text>
+            <Text className="text-2xl font-semibold text-foreground tracking-tight">
+              Tasks
+            </Text>
             {totalCount > 0 && (
               <Chip variant="secondary" color="accent" size="sm">
                 <Chip.Label>
@@ -103,7 +105,11 @@ export default function TodosScreen() {
             </View>
             <Button
               isIconOnly
-              variant={createMutation.isPending || !newTodoText.trim() ? "secondary" : "primary"}
+              variant={
+                createMutation.isPending || !newTodoText.trim()
+                  ? "secondary"
+                  : "primary"
+              }
               isDisabled={createMutation.isPending || !newTodoText.trim()}
               onPress={handleAddTodo}
               size="sm"
@@ -115,7 +121,9 @@ export default function TodosScreen() {
                   name="add"
                   size={20}
                   color={
-                    createMutation.isPending || !newTodoText.trim() ? mutedColor : foregroundColor
+                    createMutation.isPending || !newTodoText.trim()
+                      ? mutedColor
+                      : foregroundColor
                   }
                 />
               )}
@@ -131,21 +139,34 @@ export default function TodosScreen() {
         )}
 
         {todos?.data && todos.data.length === 0 && !isLoading && (
-          <Surface variant="secondary" className="items-center justify-center py-10 rounded-lg">
+          <Surface
+            variant="secondary"
+            className="items-center justify-center py-10 rounded-lg"
+          >
             <Ionicons name="checkbox-outline" size={40} color={mutedColor} />
-            <Text className="text-foreground font-medium mt-3">No tasks yet</Text>
-            <Text className="text-muted text-xs mt-1">Add your first task to get started</Text>
+            <Text className="text-foreground font-medium mt-3">
+              No tasks yet
+            </Text>
+            <Text className="text-muted text-xs mt-1">
+              Add your first task to get started
+            </Text>
           </Surface>
         )}
 
         {todos?.data && todos.data.length > 0 && (
           <View className="gap-2">
             {todos.data.map((todo) => (
-              <Surface key={todo.id} variant="secondary" className="p-3 rounded-lg">
+              <Surface
+                key={todo.id}
+                variant="secondary"
+                className="p-3 rounded-lg"
+              >
                 <View className="flex-row items-center gap-3">
                   <Checkbox
                     isSelected={todo.completed}
-                    onSelectedChange={() => handleToggleTodo(todo.id, todo.completed)}
+                    onSelectedChange={() =>
+                      handleToggleTodo(todo.id, todo.completed)
+                    }
                   />
                   <View className="flex-1">
                     <Text
@@ -160,7 +181,11 @@ export default function TodosScreen() {
                     onPress={() => handleDeleteTodo(todo.id)}
                     size="sm"
                   >
-                    <Ionicons name="trash-outline" size={16} color={dangerColor} />
+                    <Ionicons
+                      name="trash-outline"
+                      size={16}
+                      color={dangerColor}
+                    />
                   </Button>
                 </View>
               </Surface>

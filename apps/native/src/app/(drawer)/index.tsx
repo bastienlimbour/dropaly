@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, Chip, useThemeColor } from "heroui-native";
 import { Text, View, Pressable } from "react-native";
 
-import { Container } from "@/components/container";
-import { SignIn } from "@/components/sign-in";
-import { SignUp } from "@/components/sign-up";
-import { authClient } from "@/lib/auth-client";
-import { queryClient, trpc } from "@/utils/trpc";
+import { Container } from "@/src/components/container";
+import { SignIn } from "@/src/components/sign-in";
+import { SignUp } from "@/src/components/sign-up";
+import { authClient } from "@/src/lib/auth-client";
+import { queryClient, trpc } from "@/src/utils/trpc";
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
