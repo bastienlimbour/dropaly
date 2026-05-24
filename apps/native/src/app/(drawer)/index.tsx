@@ -3,20 +3,20 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, Chip, useThemeColor } from "heroui-native";
 import { Text, View, Pressable } from "react-native";
 
-import { Container } from "@/src/components/container";
-import { SignIn } from "@/src/components/sign-in";
-import { SignUp } from "@/src/components/sign-up";
-import { authClient } from "@/src/lib/auth-client";
-import { queryClient, trpc } from "@/src/utils/trpc";
+import { Container } from "@/components/container";
+import { SignIn, SignUp } from "@/features/auth";
+import { authClient } from "@/lib/auth-client";
+import { queryClient, trpc } from "@/lib/trpc-client";
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
-  const privateData = useQuery(trpc.privateData.queryOptions());
+  const { data: session } = authClient.useSession();
+  const privateData = useQuery({
+    ...trpc.privateData.queryOptions(),
+    enabled: Boolean(session?.user),
+  });
   const isConnected = healthCheck?.data === "OK";
   const isLoading = healthCheck?.isLoading;
-  const { data: session } = authClient.useSession();
-
-  console.log(session);
 
   const mutedColor = useThemeColor("muted");
   const successColor = useThemeColor("success");
@@ -41,7 +41,7 @@ export default function Home() {
             className="bg-danger py-3 px-4 rounded-lg self-start active:opacity-70"
             onPress={() => {
               authClient.signOut();
-              queryClient.invalidateQueries();
+              void queryClient.invalidateQueries();
             }}
           >
             <Text className="text-foreground font-medium">Sign Out</Text>

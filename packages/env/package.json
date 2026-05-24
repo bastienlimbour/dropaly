@@ -4,12 +4,23 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./server": "./src/server.ts",
-    "./web": "./src/web.ts",
-    "./native": "./src/native.ts"
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "default": "./src/server.ts"
+    },
+    "./web": {
+      "types": "./dist/web.d.ts",
+      "default": "./src/web.ts"
+    },
+    "./native": {
+      "types": "./dist/native.d.ts",
+      "default": "./src/native.ts"
+    }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.13.1",

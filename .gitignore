@@ -53,5 +53,6 @@ temp
 # AI Coding Workflow
 .initiatives/
 
-# Cursor Rules
+# Cursor
 .cursorrules
+.cursorignore

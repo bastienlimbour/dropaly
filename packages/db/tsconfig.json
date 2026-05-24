@@ -1,7 +1,4 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json",
-  "compilerOptions": {
-    "noEmit": true
-  },
-  "include": ["src/**/*.ts", "drizzle.config.ts"]
+  "extends": "@dropaly/config/tsconfig.declaration-package.json",
+  "include": ["src/**/*.ts"]
 }

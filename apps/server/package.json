@@ -9,18 +9,17 @@
     "start": "node dist/index.mjs"
   },
   "dependencies": {
-    "@ai-sdk/google": "catalog:ai",
     "@dropaly/api": "workspace:*",
     "@dropaly/auth": "workspace:*",
     "@dropaly/env": "workspace:*",
     "@fastify/cors": "^11.2.0",
     "@trpc/server": "catalog:trpc",
-    "ai": "catalog:ai",
     "better-auth": "catalog:auth",
-    "fastify": "^5.8.5"
+    "fastify": "^5.8.5",
+    "fastify-type-provider-zod": "^6.0.0",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@ai-sdk/devtools": "catalog:ai",
     "@dropaly/config": "workspace:*",
     "@types/node": "catalog:",
     "pino-pretty": "^13.1.3",

@@ -13,10 +13,15 @@ import { useRef } from "react";
 import { Text, TextInput, View } from "react-native";
 import z from "zod";
 
-import { authClient } from "@/src/lib/auth-client";
-import { queryClient } from "@/src/utils/trpc";
+import { authClient } from "@/lib/auth-client";
+import { queryClient } from "@/lib/trpc-client";
 
-const signInSchema = z.object({
+const signUpSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .min(2, "Name must be at least 2 characters"),
   email: z
     .string()
     .trim()
@@ -55,21 +60,24 @@ function getErrorMessage(error: unknown): string | null {
   return null;
 }
 
-function SignIn() {
+export function SignUp() {
+  const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const { toast } = useToast();
 
   const form = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
     validators: {
-      onSubmit: signInSchema,
+      onSubmit: signUpSchema,
     },
     onSubmit: async ({ value, formApi }) => {
-      await authClient.signIn.email(
+      await authClient.signUp.email(
         {
+          name: value.name.trim(),
           email: value.email.trim(),
           password: value.password,
         },
@@ -77,14 +85,14 @@ function SignIn() {
           onError(error) {
             toast.show({
               variant: "danger",
-              label: error.error?.message || "Failed to sign in",
+              label: error.error?.message || "Failed to sign up",
             });
           },
           onSuccess() {
             formApi.reset();
             toast.show({
               variant: "success",
-              label: "Signed in successfully",
+              label: "Account created successfully",
             });
             queryClient.refetchQueries();
           },
@@ -95,7 +103,7 @@ function SignIn() {
 
   return (
     <Surface variant="secondary" className="p-4 rounded-lg">
-      <Text className="text-foreground font-medium mb-4">Sign In</Text>
+      <Text className="text-foreground font-medium mb-4">Create Account</Text>
 
       <form.Subscribe
         selector={(state) => ({
@@ -113,11 +121,33 @@ function SignIn() {
               </FieldError>
 
               <View className="gap-3">
+                <form.Field name="name">
+                  {(field) => (
+                    <TextField>
+                      <Label>Name</Label>
+                      <Input
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChangeText={field.handleChange}
+                        placeholder="John Doe"
+                        autoComplete="name"
+                        textContentType="name"
+                        returnKeyType="next"
+                        blurOnSubmit={false}
+                        onSubmitEditing={() => {
+                          emailInputRef.current?.focus();
+                        }}
+                      />
+                    </TextField>
+                  )}
+                </form.Field>
+
                 <form.Field name="email">
                   {(field) => (
                     <TextField>
                       <Label>Email</Label>
                       <Input
+                        ref={emailInputRef}
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChangeText={field.handleChange}
@@ -147,8 +177,8 @@ function SignIn() {
                         onChangeText={field.handleChange}
                         placeholder="••••••••"
                         secureTextEntry
-                        autoComplete="password"
-                        textContentType="password"
+                        autoComplete="new-password"
+                        textContentType="newPassword"
                         returnKeyType="go"
                         onSubmitEditing={form.handleSubmit}
                       />
@@ -164,7 +194,7 @@ function SignIn() {
                   {isSubmitting ? (
                     <Spinner size="sm" color="default" />
                   ) : (
-                    <Button.Label>Sign In</Button.Label>
+                    <Button.Label>Create Account</Button.Label>
                   )}
                 </Button>
               </View>
@@ -175,5 +205,3 @@ function SignIn() {
     </Surface>
   );
 }
-
-export { SignIn };

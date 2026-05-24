@@ -28,6 +28,7 @@ catalogs:
     "@types/pg": ^8.20.0
     "drizzle-kit": ^0.31.10
     "drizzle-orm": ^0.45.2
+    "drizzle-zod": ^0.8.3
     "pg": ^8.21.0
   react:
     "@types/react": ~19.2.15

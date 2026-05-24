@@ -9,7 +9,7 @@ import { lazy, Suspense } from "react";
 
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import type { trpc } from "@/utils/trpc";
+import type { trpc } from "@/lib/trpc-client";
 
 import "../index.css";
 

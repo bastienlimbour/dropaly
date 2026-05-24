@@ -1,7 +1,4 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json",
-  "compilerOptions": {
-    "noEmit": true
-  },
+  "extends": "@dropaly/config/tsconfig.declaration-package.json",
   "include": ["src/**/*.ts"]
 }

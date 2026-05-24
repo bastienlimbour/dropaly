@@ -3,24 +3,30 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./*": {
-      "default": "./src/*.ts"
+    "./server": {
+      "types": "./dist/index.server.d.ts",
+      "default": "./src/index.server.ts"
     }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@dropaly/auth": "workspace:*",
     "@dropaly/db": "workspace:*",
+    "@ai-sdk/google": "catalog:ai",
     "@trpc/server": "catalog:trpc",
-    "better-auth": "catalog:auth",
     "drizzle-orm": "catalog:db",
+    "drizzle-zod": "catalog:db",
+    "ai": "catalog:ai",
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@ai-sdk/devtools": "catalog:ai",
     "@dropaly/config": "workspace:*",
     "typescript": "catalog:"
   }

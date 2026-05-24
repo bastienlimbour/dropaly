@@ -1,13 +1,13 @@
-import "@/polyfills";
-import "@/global.css";
+import "../../polyfills";
+import "../../global.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { HeroUINativeProvider } from "heroui-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
-import { AppThemeProvider } from "@/src/contexts/app-theme-context";
-import { queryClient } from "@/src/utils/trpc";
+import { AppThemeProvider } from "@/contexts/app-theme-context";
+import { queryClient } from "@/lib/trpc-client";
 
 export const unstable_settings = {
   initialRouteName: "(drawer)",

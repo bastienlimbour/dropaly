@@ -5,12 +5,47 @@
   "type": "module",
   "exports": {
     "./globals.css": "./src/styles/globals.css",
-    "./lib/*": "./src/lib/*.ts",
-    "./components/*": "./src/components/*.tsx",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./lib/utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "default": "./src/lib/utils.ts"
+    },
+    "./components/button": {
+      "types": "./dist/components/button.d.ts",
+      "default": "./src/components/button.tsx"
+    },
+    "./components/card": {
+      "types": "./dist/components/card.d.ts",
+      "default": "./src/components/card.tsx"
+    },
+    "./components/checkbox": {
+      "types": "./dist/components/checkbox.d.ts",
+      "default": "./src/components/checkbox.tsx"
+    },
+    "./components/dropdown-menu": {
+      "types": "./dist/components/dropdown-menu.d.ts",
+      "default": "./src/components/dropdown-menu.tsx"
+    },
+    "./components/input": {
+      "types": "./dist/components/input.d.ts",
+      "default": "./src/components/input.tsx"
+    },
+    "./components/label": {
+      "types": "./dist/components/label.d.ts",
+      "default": "./src/components/label.tsx"
+    },
+    "./components/skeleton": {
+      "types": "./dist/components/skeleton.d.ts",
+      "default": "./src/components/skeleton.tsx"
+    },
+    "./components/sonner": {
+      "types": "./dist/components/sonner.d.ts",
+      "default": "./src/components/sonner.tsx"
+    }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

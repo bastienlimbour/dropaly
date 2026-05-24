@@ -2,7 +2,7 @@ import { env } from "@dropaly/env/server";
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 
-export function paymentsPlugin() {
+export function paymentsPlugin(): ReturnType<typeof polar> {
   if (!env.POLAR_ACCESS_TOKEN) {
     throw new Error(
       "POLAR_ACCESS_TOKEN is required when PAYMENTS_ENABLED=true",
