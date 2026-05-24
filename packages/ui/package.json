@@ -5,41 +5,20 @@
   "type": "module",
   "exports": {
     "./globals.css": "./src/styles/globals.css",
-    "./lib/utils": {
-      "types": "./dist/lib/utils.d.ts",
-      "default": "./src/lib/utils.ts"
+    "./components/*": {
+      "source": "./src/components/*.tsx",
+      "types": "./dist/components/*.d.ts",
+      "default": "./src/components/*.tsx"
     },
-    "./components/button": {
-      "types": "./dist/components/button.d.ts",
-      "default": "./src/components/button.tsx"
+    "./hooks/*": {
+      "source": "./src/hooks/*.ts",
+      "types": "./dist/hooks/*.d.ts",
+      "default": "./src/hooks/*.ts"
     },
-    "./components/card": {
-      "types": "./dist/components/card.d.ts",
-      "default": "./src/components/card.tsx"
-    },
-    "./components/checkbox": {
-      "types": "./dist/components/checkbox.d.ts",
-      "default": "./src/components/checkbox.tsx"
-    },
-    "./components/dropdown-menu": {
-      "types": "./dist/components/dropdown-menu.d.ts",
-      "default": "./src/components/dropdown-menu.tsx"
-    },
-    "./components/input": {
-      "types": "./dist/components/input.d.ts",
-      "default": "./src/components/input.tsx"
-    },
-    "./components/label": {
-      "types": "./dist/components/label.d.ts",
-      "default": "./src/components/label.tsx"
-    },
-    "./components/skeleton": {
-      "types": "./dist/components/skeleton.d.ts",
-      "default": "./src/components/skeleton.tsx"
-    },
-    "./components/sonner": {
-      "types": "./dist/components/sonner.d.ts",
-      "default": "./src/components/sonner.tsx"
+    "./lib/*": {
+      "source": "./src/lib/*.ts",
+      "types": "./dist/lib/*.d.ts",
+      "default": "./src/lib/*.ts"
     }
   },
   "scripts": {
