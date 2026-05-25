@@ -1,19 +1,17 @@
 import { useForm } from "@tanstack/react-form";
-import {
-  Button,
-  FieldError,
-  Input,
-  Label,
-  Spinner,
-  Surface,
-  TextField,
-  useToast,
-} from "heroui-native";
 import { useRef } from "react";
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import z from "zod";
 
+import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field-error";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
+import { Surface } from "@/components/ui/surface";
+import { Text } from "@/components/ui/text";
 import { authClient } from "@/lib/auth-client";
+import { showToast } from "@/lib/toast";
 import { queryClient } from "@/lib/trpc-client";
 
 const signUpSchema = z.object({
@@ -63,7 +61,6 @@ function getErrorMessage(error: unknown): string | null {
 export function SignUp() {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
-  const { toast } = useToast();
 
   const form = useForm({
     defaultValues: {
@@ -83,14 +80,14 @@ export function SignUp() {
         },
         {
           onError(error) {
-            toast.show({
+            showToast({
               variant: "danger",
               label: error.error?.message || "Failed to sign up",
             });
           },
           onSuccess() {
             formApi.reset();
-            toast.show({
+            showToast({
               variant: "success",
               label: "Account created successfully",
             });
@@ -123,7 +120,7 @@ export function SignUp() {
               <View className="gap-3">
                 <form.Field name="name">
                   {(field) => (
-                    <TextField>
+                    <View className="gap-1.5">
                       <Label>Name</Label>
                       <Input
                         value={field.state.value}
@@ -138,13 +135,13 @@ export function SignUp() {
                           emailInputRef.current?.focus();
                         }}
                       />
-                    </TextField>
+                    </View>
                   )}
                 </form.Field>
 
                 <form.Field name="email">
                   {(field) => (
-                    <TextField>
+                    <View className="gap-1.5">
                       <Label>Email</Label>
                       <Input
                         ref={emailInputRef}
@@ -162,13 +159,13 @@ export function SignUp() {
                           passwordInputRef.current?.focus();
                         }}
                       />
-                    </TextField>
+                    </View>
                   )}
                 </form.Field>
 
                 <form.Field name="password">
                   {(field) => (
-                    <TextField>
+                    <View className="gap-1.5">
                       <Label>Password</Label>
                       <Input
                         ref={passwordInputRef}
@@ -182,19 +179,19 @@ export function SignUp() {
                         returnKeyType="go"
                         onSubmitEditing={form.handleSubmit}
                       />
-                    </TextField>
+                    </View>
                   )}
                 </form.Field>
 
                 <Button
                   onPress={form.handleSubmit}
-                  isDisabled={isSubmitting}
+                  disabled={isSubmitting}
                   className="mt-1"
                 >
                   {isSubmitting ? (
                     <Spinner size="sm" color="default" />
                   ) : (
-                    <Button.Label>Create Account</Button.Label>
+                    <Text>Create Account</Text>
                   )}
                 </Button>
               </View>

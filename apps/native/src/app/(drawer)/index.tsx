@@ -1,12 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "@tanstack/react-query";
-import { Card, Chip, useThemeColor } from "heroui-native";
-import { Text, View, Pressable } from "react-native";
+import { View } from "react-native";
+import { withUniwind } from "uniwind";
 
 import { Container } from "@/components/container";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Text } from "@/components/ui/text";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { queryClient, trpc } from "@/lib/trpc-client";
+
+const StyledIonicons = withUniwind(Ionicons);
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
@@ -18,11 +24,6 @@ export default function Home() {
   const isConnected = healthCheck?.data === "OK";
   const isLoading = healthCheck?.isLoading;
 
-  const mutedColor = useThemeColor("muted");
-  const successColor = useThemeColor("success");
-  const dangerColor = useThemeColor("danger");
-  const foregroundColor = useThemeColor("foreground");
-
   return (
     <Container className="p-6">
       <View className="py-4 mb-6">
@@ -32,73 +33,83 @@ export default function Home() {
       </View>
 
       {session?.user ? (
-        <Card variant="secondary" className="mb-6 p-4">
+        <Card className="mb-6 gap-0 p-4">
           <Text className="text-foreground text-base mb-2">
             Welcome, <Text className="font-medium">{session.user.name}</Text>
           </Text>
-          <Text className="text-muted text-sm mb-4">{session.user.email}</Text>
-          <Pressable
-            className="bg-danger py-3 px-4 rounded-lg self-start active:opacity-70"
+          <Text className="text-muted-foreground text-sm mb-4">
+            {session.user.email}
+          </Text>
+          <Button
+            variant="destructive"
+            className="self-start"
             onPress={() => {
               authClient.signOut();
               void queryClient.invalidateQueries();
             }}
           >
-            <Text className="text-foreground font-medium">Sign Out</Text>
-          </Pressable>
+            <Text>Sign Out</Text>
+          </Button>
         </Card>
       ) : null}
 
-      <Card variant="secondary" className="p-6">
+      <Card className="gap-4 p-6">
         <View className="flex-row items-center justify-between mb-4">
-          <Card.Title>System Status</Card.Title>
-          <Chip
-            variant="secondary"
-            color={isConnected ? "success" : "danger"}
-            size="sm"
+          <CardTitle>System Status</CardTitle>
+          <Badge
+            variant={isConnected ? "default" : "destructive"}
+            className={isConnected ? "bg-success" : undefined}
           >
-            <Chip.Label>{isConnected ? "LIVE" : "OFFLINE"}</Chip.Label>
-          </Chip>
+            <Text>{isConnected ? "LIVE" : "OFFLINE"}</Text>
+          </Badge>
         </View>
 
-        <Card className="p-4">
+        <Card className="gap-0 p-4">
           <View className="flex-row items-center">
             <View
-              className={`w-3 h-3 rounded-full mr-3 ${isConnected ? "bg-success" : "bg-muted"}`}
+              className={`size-3 rounded-full mr-3 ${isConnected ? "bg-success" : "bg-muted"}`}
             />
             <View className="flex-1">
               <Text className="text-foreground font-medium mb-1">
                 TRPC Backend
               </Text>
-              <Card.Description>
+              <CardDescription>
                 {isLoading
                   ? "Checking connection..."
                   : isConnected
                     ? "Connected to API"
                     : "API Disconnected"}
-              </Card.Description>
+              </CardDescription>
             </View>
             {isLoading && (
-              <Ionicons name="hourglass-outline" size={20} color={mutedColor} />
+              <StyledIonicons
+                name="hourglass-outline"
+                size={20}
+                className="text-muted-foreground"
+              />
             )}
             {!isLoading && isConnected && (
-              <Ionicons
+              <StyledIonicons
                 name="checkmark-circle"
                 size={20}
-                color={successColor}
+                className="text-success"
               />
             )}
             {!isLoading && !isConnected && (
-              <Ionicons name="close-circle" size={20} color={dangerColor} />
+              <StyledIonicons
+                name="close-circle"
+                size={20}
+                className="text-destructive"
+              />
             )}
           </View>
         </Card>
       </Card>
 
-      <Card variant="secondary" className="mt-6 p-4">
-        <Card.Title className="mb-3">Private Data</Card.Title>
+      <Card className="mt-6 gap-0 p-4">
+        <CardTitle className="mb-3">Private Data</CardTitle>
         {privateData && (
-          <Card.Description>{privateData.data?.message}</Card.Description>
+          <CardDescription>{privateData.data?.message}</CardDescription>
         )}
       </Card>
 

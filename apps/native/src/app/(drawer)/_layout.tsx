@@ -1,29 +1,28 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import { useThemeColor } from "heroui-native";
 import React, { useCallback } from "react";
 import { Pressable, Text } from "react-native";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useThemeColors } from "@/lib/theme-colors";
 
 function DrawerLayout() {
-  const themeColorForeground = useThemeColor("foreground");
-  const themeColorBackground = useThemeColor("background");
+  const colors = useThemeColors();
 
   const renderThemeToggle = useCallback(() => <ThemeToggle />, []);
 
   return (
     <Drawer
       screenOptions={{
-        headerTintColor: themeColorForeground,
-        headerStyle: { backgroundColor: themeColorBackground },
+        headerTintColor: colors.foreground,
+        headerStyle: { backgroundColor: colors.background },
         headerTitleStyle: {
           fontWeight: "600",
-          color: themeColorForeground,
+          color: colors.foreground,
         },
         headerRight: renderThemeToggle,
-        drawerStyle: { backgroundColor: themeColorBackground },
+        drawerStyle: { backgroundColor: colors.background },
       }}
     >
       <Drawer.Screen
@@ -31,7 +30,7 @@ function DrawerLayout() {
         options={{
           headerTitle: "Home",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>
+            <Text style={{ color: focused ? color : colors.foreground }}>
               Home
             </Text>
           ),
@@ -39,7 +38,7 @@ function DrawerLayout() {
             <Ionicons
               name="home-outline"
               size={size}
-              color={focused ? color : themeColorForeground}
+              color={focused ? color : colors.foreground}
             />
           ),
         }}
@@ -49,7 +48,7 @@ function DrawerLayout() {
         options={{
           headerTitle: "Tabs",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>
+            <Text style={{ color: focused ? color : colors.foreground }}>
               Tabs
             </Text>
           ),
@@ -57,7 +56,7 @@ function DrawerLayout() {
             <MaterialIcons
               name="border-bottom"
               size={size}
-              color={focused ? color : themeColorForeground}
+              color={focused ? color : colors.foreground}
             />
           ),
           headerRight: () => (
@@ -66,7 +65,7 @@ function DrawerLayout() {
                 <Ionicons
                   name="add-outline"
                   size={24}
-                  color={themeColorForeground}
+                  color={colors.foreground}
                 />
               </Pressable>
             </Link>
@@ -78,7 +77,7 @@ function DrawerLayout() {
         options={{
           headerTitle: "Todos",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>
+            <Text style={{ color: focused ? color : colors.foreground }}>
               Todos
             </Text>
           ),
@@ -86,7 +85,7 @@ function DrawerLayout() {
             <Ionicons
               name="checkbox-outline"
               size={size}
-              color={focused ? color : themeColorForeground}
+              color={focused ? color : colors.foreground}
             />
           ),
         }}
@@ -96,7 +95,7 @@ function DrawerLayout() {
         options={{
           headerTitle: "AI",
           drawerLabel: ({ color, focused }) => (
-            <Text style={{ color: focused ? color : themeColorForeground }}>
+            <Text style={{ color: focused ? color : colors.foreground }}>
               AI
             </Text>
           ),
@@ -104,7 +103,7 @@ function DrawerLayout() {
             <Ionicons
               name="chatbubble-ellipses-outline"
               size={size}
-              color={focused ? color : themeColorForeground}
+              color={focused ? color : colors.foreground}
             />
           ),
         }}

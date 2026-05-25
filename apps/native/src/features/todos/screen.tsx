@@ -1,22 +1,22 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  Button,
-  Checkbox,
-  Chip,
-  Spinner,
-  Surface,
-  Input,
-  TextField,
-  useThemeColor,
-} from "heroui-native";
 import { useState } from "react";
-import { View, Text, ScrollView, Alert } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
+import { withUniwind } from "uniwind";
 
 import { Container } from "@/components/container";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
+import { Surface } from "@/components/ui/surface";
+import { Text } from "@/components/ui/text";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { todoMutations, todoQueries } from "./api";
+
+const StyledIonicons = withUniwind(Ionicons);
 
 export function TodosScreen() {
   const [newTodoText, setNewTodoText] = useState("");
@@ -37,10 +37,6 @@ export function TodosScreen() {
   );
   const toggleMutation = useMutation(todoMutations.toggle(queryClient));
   const deleteMutation = useMutation(todoMutations.delete(queryClient));
-
-  const mutedColor = useThemeColor("muted");
-  const dangerColor = useThemeColor("danger");
-  const foregroundColor = useThemeColor("foreground");
 
   const handleAddTodo = () => {
     if (newTodoText.trim() && isAuthenticated) {
@@ -88,11 +84,11 @@ export function TodosScreen() {
               Tasks
             </Text>
             {totalCount > 0 && (
-              <Chip variant="secondary" color="accent" size="sm">
-                <Chip.Label>
+              <Badge variant="secondary">
+                <Text>
                   {completedCount}/{totalCount}
-                </Chip.Label>
-              </Chip>
+                </Text>
+              </Badge>
             )}
           </View>
         </View>
@@ -100,38 +96,36 @@ export function TodosScreen() {
         <Surface variant="secondary" className="mb-4 p-3 rounded-lg">
           <View className="flex-row items-center gap-2">
             <View className="flex-1">
-              <TextField>
-                <Input
-                  value={newTodoText}
-                  onChangeText={setNewTodoText}
-                  placeholder="Add a new task..."
-                  editable={!createMutation.isPending}
-                  onSubmitEditing={handleAddTodo}
-                  returnKeyType="done"
-                />
-              </TextField>
+              <Input
+                value={newTodoText}
+                onChangeText={setNewTodoText}
+                placeholder="Add a new task..."
+                editable={!createMutation.isPending}
+                onSubmitEditing={handleAddTodo}
+                returnKeyType="done"
+              />
             </View>
             <Button
-              isIconOnly
+              size="icon"
+              className="size-9"
               variant={
                 createMutation.isPending || !newTodoText.trim()
                   ? "secondary"
-                  : "primary"
+                  : "default"
               }
-              isDisabled={createMutation.isPending || !newTodoText.trim()}
+              disabled={createMutation.isPending || !newTodoText.trim()}
               onPress={handleAddTodo}
-              size="sm"
             >
               {createMutation.isPending ? (
                 <Spinner size="sm" color="default" />
               ) : (
-                <Ionicons
+                <StyledIonicons
                   name="add"
                   size={20}
-                  color={
+                  className={
                     createMutation.isPending || !newTodoText.trim()
-                      ? mutedColor
-                      : foregroundColor
+                      ? "text-muted-foreground"
+                      : "text-primary-foreground"
                   }
                 />
               )}
@@ -142,7 +136,7 @@ export function TodosScreen() {
         {isLoading && (
           <View className="items-center justify-center py-12">
             <Spinner size="lg" />
-            <Text className="text-muted text-sm mt-3">Loading tasks...</Text>
+            <Text className="text-muted-foreground text-sm mt-3">Loading tasks...</Text>
           </View>
         )}
 
@@ -151,9 +145,13 @@ export function TodosScreen() {
             variant="secondary"
             className="items-center justify-center py-10 rounded-lg"
           >
-            <Ionicons name="checkbox-outline" size={40} color={mutedColor} />
+            <StyledIonicons
+              name="checkbox-outline"
+              size={40}
+              className="text-muted-foreground"
+            />
             <Text className="text-foreground font-medium mt-3">No tasks yet</Text>
-            <Text className="text-muted text-xs mt-1">
+            <Text className="text-muted-foreground text-xs mt-1">
               Add your first task to get started
             </Text>
           </Surface>
@@ -165,8 +163,8 @@ export function TodosScreen() {
               <Surface key={todo.id} variant="secondary" className="p-3 rounded-lg">
                 <View className="flex-row items-center gap-3">
                   <Checkbox
-                    isSelected={todo.completed}
-                    onSelectedChange={() =>
+                    checked={todo.completed}
+                    onCheckedChange={() =>
                       handleToggleTodo(todo.id, todo.completed)
                     }
                   />
@@ -174,7 +172,7 @@ export function TodosScreen() {
                     <Text
                       className={`text-sm ${
                         todo.completed
-                          ? "text-muted line-through"
+                          ? "text-muted-foreground line-through"
                           : "text-foreground"
                       }`}
                     >
@@ -182,12 +180,16 @@ export function TodosScreen() {
                     </Text>
                   </View>
                   <Button
-                    isIconOnly
+                    size="icon"
+                    className="size-9"
                     variant="ghost"
                     onPress={() => handleDeleteTodo(todo.id)}
-                    size="sm"
                   >
-                    <Ionicons name="trash-outline" size={16} color={dangerColor} />
+                    <StyledIonicons
+                      name="trash-outline"
+                      size={16}
+                      className="text-destructive"
+                    />
                   </Button>
                 </View>
               </Surface>

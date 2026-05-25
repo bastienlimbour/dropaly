@@ -1,28 +1,27 @@
 import { useChat } from "@ai-sdk/react";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Button,
-  Separator,
-  FieldError,
-  Spinner,
-  Surface,
-  Input,
-  TextField,
-  useThemeColor,
-} from "heroui-native";
 import { useRef, useEffect, useState } from "react";
 import {
   View,
-  Text,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { withUniwind } from "uniwind";
 
 import { Container } from "@/components/container";
+import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field-error";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
+import { Surface } from "@/components/ui/surface";
+import { Text } from "@/components/ui/text";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { createAiChatTransport } from "./api";
+
+const StyledIonicons = withUniwind(Ionicons);
 
 export function AiScreen() {
   const [input, setInput] = useState("");
@@ -32,8 +31,6 @@ export function AiScreen() {
     onError: (error) => console.error(error, "AI Chat Error"),
   });
   const scrollViewRef = useRef<ScrollView>(null);
-  const foregroundColor = useThemeColor("foreground");
-  const mutedColor = useThemeColor("muted");
   const isBusy = status === "submitted" || status === "streaming";
 
   useEffect(() => {
@@ -66,10 +63,10 @@ export function AiScreen() {
         <View className="flex-1 justify-center items-center px-4">
           <Surface variant="secondary" className="p-4 rounded-lg">
             <FieldError isInvalid>
-              <Text className="text-danger text-center font-medium mb-1">
+              <Text className="text-destructive text-center font-medium mb-1">
                 {error.message}
               </Text>
-              <Text className="text-muted text-center text-xs">
+              <Text className="text-muted-foreground text-center text-xs">
                 Please check your connection and try again.
               </Text>
             </FieldError>
@@ -90,7 +87,7 @@ export function AiScreen() {
             <Text className="text-2xl font-semibold text-foreground tracking-tight">
               AI Chat
             </Text>
-            <Text className="text-muted text-sm mt-1">
+            <Text className="text-muted-foreground text-sm mt-1">
               Chat with our AI assistant
             </Text>
           </View>
@@ -107,12 +104,12 @@ export function AiScreen() {
                 variant="secondary"
                 className="flex-1 justify-center items-center py-8 rounded-xl"
               >
-                <Ionicons
+                <StyledIonicons
                   name="chatbubble-ellipses-outline"
                   size={32}
-                  color={mutedColor}
+                  className="text-muted-foreground"
                 />
-                <Text className="text-muted text-sm mt-3">
+                <Text className="text-muted-foreground text-sm mt-3">
                   Ask me anything to get started
                 </Text>
               </Surface>
@@ -126,7 +123,7 @@ export function AiScreen() {
                       message.role === "user" ? "ml-8" : "mr-8"
                     }`}
                   >
-                    <Text className="text-xs font-medium mb-1 text-muted">
+                    <Text className="text-xs font-medium mb-1 text-muted-foreground">
                       {message.role === "user" ? "You" : "AI"}
                     </Text>
                     <View className="gap-1">
@@ -152,12 +149,12 @@ export function AiScreen() {
                 ))}
                 {isBusy && (
                   <Surface variant="secondary" className="p-3 mr-8 rounded-xl">
-                    <Text className="text-xs font-medium mb-1 text-muted">
+                    <Text className="text-xs font-medium mb-1 text-muted-foreground">
                       AI
                     </Text>
                     <View className="flex-row items-center gap-2">
                       <Spinner size="sm" />
-                      <Text className="text-muted text-sm">Thinking...</Text>
+                      <Text className="text-muted-foreground text-sm">Thinking...</Text>
                     </View>
                   </Surface>
                 )}
@@ -169,28 +166,30 @@ export function AiScreen() {
 
           <View className="flex-row items-center gap-2">
             <View className="flex-1">
-              <TextField>
-                <Input
-                  value={input}
-                  onChangeText={setInput}
-                  placeholder="Type a message..."
-                  onSubmitEditing={onSubmit}
-                  returnKeyType="send"
-                  editable={!isBusy}
-                />
-              </TextField>
+              <Input
+                value={input}
+                onChangeText={setInput}
+                placeholder="Type a message..."
+                onSubmitEditing={onSubmit}
+                returnKeyType="send"
+                editable={!isBusy}
+              />
             </View>
             <Button
-              isIconOnly
-              variant={input.trim() && !isBusy ? "primary" : "secondary"}
+              size="icon"
+              className="size-9"
+              variant={input.trim() && !isBusy ? "default" : "secondary"}
               onPress={onSubmit}
-              isDisabled={!input.trim() || isBusy}
-              size="sm"
+              disabled={!input.trim() || isBusy}
             >
-              <Ionicons
+              <StyledIonicons
                 name="arrow-up"
                 size={18}
-                color={input.trim() && !isBusy ? foregroundColor : mutedColor}
+                className={
+                  input.trim() && !isBusy
+                    ? "text-primary-foreground"
+                    : "text-muted-foreground"
+                }
               />
             </Button>
           </View>
