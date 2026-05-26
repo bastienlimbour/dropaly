@@ -1,17 +1,16 @@
 import { useChat } from "@ai-sdk/react";
-import { Ionicons } from "@expo/vector-icons";
-import { useRef, useEffect, useState } from "react";
+import { IconArrowUp, IconMessageChatbot } from "@tabler/icons-react-native";
+import { useEffect, useRef, useState, type ElementRef } from "react";
+import { View } from "react-native";
 import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import { withUniwind } from "uniwind";
+  KeyboardChatScrollView,
+  KeyboardStickyView,
+} from "react-native-keyboard-controller";
 
-import { Container } from "@/components/container";
+import { ScreenScrollView, ScreenView } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { FieldError } from "@/components/ui/field-error";
+import { Icon } from "@/components/ui/icon";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
@@ -21,7 +20,7 @@ import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { createAiChatTransport } from "./api";
 
-const StyledIonicons = withUniwind(Ionicons);
+type ChatScrollViewRef = ElementRef<typeof KeyboardChatScrollView>;
 
 export function AiScreen() {
   const [input, setInput] = useState("");
@@ -30,7 +29,7 @@ export function AiScreen() {
     transport: createAiChatTransport(),
     onError: (error) => console.error(error, "AI Chat Error"),
   });
-  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollViewRef = useRef<ChatScrollViewRef>(null);
   const isBusy = status === "submitted" || status === "streaming";
 
   useEffect(() => {
@@ -47,19 +46,19 @@ export function AiScreen() {
 
   if (!session?.user) {
     return (
-      <Container className="p-6">
-        <Text className="text-2xl font-semibold text-foreground mb-4">
+      <ScreenScrollView contentContainerClassName="p-6 gap-4">
+        <Text className="text-2xl font-semibold text-foreground">
           Sign in to chat with AI
         </Text>
         <SignIn />
         <SignUp />
-      </Container>
+      </ScreenScrollView>
     );
   }
 
   if (error) {
     return (
-      <Container isScrollable={false}>
+      <ScreenView>
         <View className="flex-1 justify-center items-center px-4">
           <Surface variant="secondary" className="p-4 rounded-lg">
             <FieldError isInvalid>
@@ -72,96 +71,83 @@ export function AiScreen() {
             </FieldError>
           </Surface>
         </View>
-      </Container>
+      </ScreenView>
     );
   }
 
   return (
-    <Container isScrollable={false}>
-      <KeyboardAvoidingView
-        className="flex-1"
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <View className="flex-1 px-4 py-4">
-          <View className="py-4 mb-4">
-            <Text className="text-2xl font-semibold text-foreground tracking-tight">
-              AI Chat
-            </Text>
-            <Text className="text-muted-foreground text-sm mt-1">
-              Chat with our AI assistant
-            </Text>
-          </View>
+    <ScreenView>
+      <View className="flex-1 px-4 pt-4">
+        <KeyboardChatScrollView
+          ref={scrollViewRef}
+          className="flex-1"
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 12 }}
+          keyboardLiftBehavior="whenAtEnd"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          {messages.length === 0 ? (
+            <Surface
+              variant="secondary"
+              className="flex-1 justify-center items-center py-8 rounded-xl"
+            >
+              <Icon as={IconMessageChatbot} className="text-muted-foreground size-8" />
+              <Text className="text-muted-foreground text-sm mt-3">
+                Ask me anything to get started
+              </Text>
+            </Surface>
+          ) : (
+            <View className="gap-3">
+              {messages.map((message) => (
+                <Surface
+                  key={message.id}
+                  variant={message.role === "user" ? "tertiary" : "secondary"}
+                  className={`p-3 rounded-xl ${
+                    message.role === "user" ? "ml-8" : "mr-8"
+                  }`}
+                >
+                  <Text className="text-xs font-medium mb-1 text-muted-foreground">
+                    {message.role === "user" ? "You" : "AI"}
+                  </Text>
+                  <View className="gap-1">
+                    {message.parts.map((part, i) =>
+                      part.type === "text" ? (
+                        <Text
+                          key={`${message.id}-${i}`}
+                          className="text-foreground text-sm leading-relaxed"
+                        >
+                          {part.text}
+                        </Text>
+                      ) : (
+                        <Text
+                          key={`${message.id}-${i}`}
+                          className="text-foreground text-sm leading-relaxed"
+                        >
+                          {JSON.stringify(part)}
+                        </Text>
+                      ),
+                    )}
+                  </View>
+                </Surface>
+              ))}
+              {isBusy && (
+                <Surface variant="secondary" className="p-3 mr-8 rounded-xl">
+                  <Text className="text-xs font-medium mb-1 text-muted-foreground">
+                    AI
+                  </Text>
+                  <View className="flex-row items-center gap-2">
+                    <Spinner size="sm" />
+                    <Text className="text-muted-foreground text-sm">Thinking...</Text>
+                  </View>
+                </Surface>
+              )}
+            </View>
+          )}
+        </KeyboardChatScrollView>
+      </View>
 
-          <ScrollView
-            ref={scrollViewRef}
-            className="flex-1 mb-4"
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flexGrow: 1, paddingBottom: 8 }}
-            keyboardShouldPersistTaps="handled"
-          >
-            {messages.length === 0 ? (
-              <Surface
-                variant="secondary"
-                className="flex-1 justify-center items-center py-8 rounded-xl"
-              >
-                <StyledIonicons
-                  name="chatbubble-ellipses-outline"
-                  size={32}
-                  className="text-muted-foreground"
-                />
-                <Text className="text-muted-foreground text-sm mt-3">
-                  Ask me anything to get started
-                </Text>
-              </Surface>
-            ) : (
-              <View className="gap-3">
-                {messages.map((message) => (
-                  <Surface
-                    key={message.id}
-                    variant={message.role === "user" ? "tertiary" : "secondary"}
-                    className={`p-3 rounded-xl ${
-                      message.role === "user" ? "ml-8" : "mr-8"
-                    }`}
-                  >
-                    <Text className="text-xs font-medium mb-1 text-muted-foreground">
-                      {message.role === "user" ? "You" : "AI"}
-                    </Text>
-                    <View className="gap-1">
-                      {message.parts.map((part, i) =>
-                        part.type === "text" ? (
-                          <Text
-                            key={`${message.id}-${i}`}
-                            className="text-foreground text-sm leading-relaxed"
-                          >
-                            {part.text}
-                          </Text>
-                        ) : (
-                          <Text
-                            key={`${message.id}-${i}`}
-                            className="text-foreground text-sm leading-relaxed"
-                          >
-                            {JSON.stringify(part)}
-                          </Text>
-                        ),
-                      )}
-                    </View>
-                  </Surface>
-                ))}
-                {isBusy && (
-                  <Surface variant="secondary" className="p-3 mr-8 rounded-xl">
-                    <Text className="text-xs font-medium mb-1 text-muted-foreground">
-                      AI
-                    </Text>
-                    <View className="flex-row items-center gap-2">
-                      <Spinner size="sm" />
-                      <Text className="text-muted-foreground text-sm">Thinking...</Text>
-                    </View>
-                  </Surface>
-                )}
-              </View>
-            )}
-          </ScrollView>
-
+      <KeyboardStickyView offset={{ closed: 0, opened: 8 }}>
+        <View className="bg-background px-4 pt-3 pb-4">
           <Separator className="mb-3" />
 
           <View className="flex-row items-center gap-2">
@@ -182,19 +168,18 @@ export function AiScreen() {
               onPress={onSubmit}
               disabled={!input.trim() || isBusy}
             >
-              <StyledIonicons
-                name="arrow-up"
-                size={18}
+              <Icon
+                as={IconArrowUp}
                 className={
                   input.trim() && !isBusy
-                    ? "text-primary-foreground"
-                    : "text-muted-foreground"
+                    ? "text-primary-foreground size-5"
+                    : "text-muted-foreground size-5"
                 }
               />
             </Button>
           </View>
         </View>
-      </KeyboardAvoidingView>
-    </Container>
+      </KeyboardStickyView>
+    </ScreenView>
   );
 }

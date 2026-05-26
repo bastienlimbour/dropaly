@@ -20,13 +20,12 @@ export function registerAuthRoutes(app: FastifyInstance) {
         const response = await auth.handler(req);
 
         reply.status(response.status);
+
         response.headers.forEach((value, key) => {
           reply.header(key, value);
         });
 
-        const body = response.body ? await response.text() : null;
-
-        return reply.send(body);
+        return reply.send(response.body ? await response.text() : null);
       } catch (err) {
         request.log.error({ err }, "Authentication error");
 

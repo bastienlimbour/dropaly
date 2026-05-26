@@ -1,14 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
+import { IconCheck } from "@tabler/icons-react-native";
 import { router } from "expo-router";
 import { View } from "react-native";
-import { withUniwind } from "uniwind";
 
-import { Container } from "@/components/container";
+import { ScreenView } from "@/components/container";
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { Surface } from "@/components/ui/surface";
 import { Text } from "@/components/ui/text";
-
-const StyledIonicons = withUniwind(Ionicons);
 
 function Modal() {
   function handleClose() {
@@ -16,16 +14,12 @@ function Modal() {
   }
 
   return (
-    <Container>
+    <ScreenView>
       <View className="flex-1 justify-center items-center p-4">
         <Surface variant="secondary" className="p-5 w-full max-w-sm rounded-lg">
           <View className="items-center">
             <View className="size-12 bg-accent rounded-lg items-center justify-center mb-3">
-              <StyledIonicons
-                name="checkmark"
-                size={24}
-                className="text-accent-foreground"
-              />
+              <Icon as={IconCheck} className="text-accent-foreground size-6" />
             </View>
             <Text className="text-foreground font-medium text-lg mb-1">
               Modal Screen
@@ -39,7 +33,7 @@ function Modal() {
           </Button>
         </Surface>
       </View>
-    </Container>
+    </ScreenView>
   );
 }
 

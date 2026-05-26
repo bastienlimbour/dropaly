@@ -1,9 +1,9 @@
-import { Ionicons } from "@expo/vector-icons";
+import { IconCircleCheck, IconCircleX, IconHourglass } from "@tabler/icons-react-native";
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
-import { withUniwind } from "uniwind";
 
-import { Container } from "@/components/container";
+import { ScreenScrollView } from "@/components/container";
+import { Icon } from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -11,8 +11,6 @@ import { Text } from "@/components/ui/text";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { queryClient, trpc } from "@/lib/trpc-client";
-
-const StyledIonicons = withUniwind(Ionicons);
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
@@ -25,10 +23,11 @@ export default function Home() {
   const isLoading = healthCheck?.isLoading;
 
   return (
-    <Container className="p-6">
+    <ScreenScrollView contentContainerClassName="p-6">
       <View className="py-4 mb-6">
-        <Text className="text-4xl font-bold text-foreground mb-2">
-          BETTER T STACK
+        <Text className="text-4xl font-bold text-foreground mb-2">Dropaly</Text>
+        <Text className="text-muted-foreground text-base">
+          Capture and structure thoughts into tasks, lists, and notes.
         </Text>
       </View>
 
@@ -70,9 +69,7 @@ export default function Home() {
               className={`size-3 rounded-full mr-3 ${isConnected ? "bg-success" : "bg-muted"}`}
             />
             <View className="flex-1">
-              <Text className="text-foreground font-medium mb-1">
-                TRPC Backend
-              </Text>
+              <Text className="text-foreground font-medium mb-1">TRPC Backend</Text>
               <CardDescription>
                 {isLoading
                   ? "Checking connection..."
@@ -82,25 +79,13 @@ export default function Home() {
               </CardDescription>
             </View>
             {isLoading && (
-              <StyledIonicons
-                name="hourglass-outline"
-                size={20}
-                className="text-muted-foreground"
-              />
+              <Icon as={IconHourglass} className="text-muted-foreground size-5" />
             )}
             {!isLoading && isConnected && (
-              <StyledIonicons
-                name="checkmark-circle"
-                size={20}
-                className="text-success"
-              />
+              <Icon as={IconCircleCheck} className="text-success size-5" />
             )}
             {!isLoading && !isConnected && (
-              <StyledIonicons
-                name="close-circle"
-                size={20}
-                className="text-destructive"
-              />
+              <Icon as={IconCircleX} className="text-destructive size-5" />
             )}
           </View>
         </Card>
@@ -108,17 +93,15 @@ export default function Home() {
 
       <Card className="mt-6 gap-0 p-4">
         <CardTitle className="mb-3">Private Data</CardTitle>
-        {privateData && (
-          <CardDescription>{privateData.data?.message}</CardDescription>
-        )}
+        {privateData && <CardDescription>{privateData.data?.message}</CardDescription>}
       </Card>
 
       {!session?.user && (
-        <>
+        <View className="gap-4 mt-6">
           <SignIn />
           <SignUp />
-        </>
+        </View>
       )}
-    </Container>
+    </ScreenScrollView>
   );
 }

@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@import "uniwind";
 @import "tw-animate-css";
+@import "uniwind";
 
 @source "./src/**/*.{ts,tsx}";
 
@@ -13,6 +13,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --font-sans: "NunitoSans_400Regular";
+  --font-heading: "Outfit_600SemiBold";
 
   --spacing-hairline: hairlineWidth();
 }

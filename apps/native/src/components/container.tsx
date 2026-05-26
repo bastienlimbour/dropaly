@@ -7,41 +7,61 @@ import { cn } from "@/lib/utils";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-type Props = AnimatedProps<ViewProps> & {
+type ScreenViewProps = AnimatedProps<ViewProps> & {
   className?: string;
-  isScrollable?: boolean;
-  scrollViewProps?: Omit<ScrollViewProps, "contentContainerStyle">;
+  withBottomInset?: boolean;
 };
 
-export function Container({
+type ScreenScrollViewProps = ScrollViewProps & {
+  className?: string;
+  contentContainerClassName?: string;
+  withBottomInset?: boolean;
+};
+
+export function ScreenView({
   children,
   className,
-  isScrollable = true,
-  scrollViewProps,
+  withBottomInset = true,
   ...props
-}: PropsWithChildren<Props>) {
+}: PropsWithChildren<ScreenViewProps>) {
   const insets = useSafeAreaInsets();
 
   return (
     <AnimatedView
       className={cn("flex-1 bg-background", className)}
       style={{
-        paddingBottom: insets.bottom,
+        paddingBottom: withBottomInset ? insets.bottom : 0,
       }}
       {...props}
     >
-      {isScrollable ? (
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-          contentInsetAdjustmentBehavior="automatic"
-          {...scrollViewProps}
-        >
-          {children}
-        </ScrollView>
-      ) : (
-        <View className="flex-1">{children}</View>
-      )}
+      <View className="flex-1">{children}</View>
     </AnimatedView>
+  );
+}
+
+export function ScreenScrollView({
+  children,
+  className,
+  contentContainerClassName,
+  contentContainerStyle,
+  withBottomInset = true,
+  ...props
+}: PropsWithChildren<ScreenScrollViewProps>) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <ScrollView
+      className={cn("flex-1 bg-background", className)}
+      contentContainerClassName={cn("flex-grow", contentContainerClassName)}
+      contentContainerStyle={[
+        { paddingBottom: withBottomInset ? insets.bottom : 0 },
+        contentContainerStyle,
+      ]}
+      keyboardShouldPersistTaps="handled"
+      contentInsetAdjustmentBehavior="automatic"
+      {...props}
+    >
+      {children}
+    </ScrollView>
   );
 }

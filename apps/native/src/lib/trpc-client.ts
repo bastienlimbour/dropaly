@@ -3,27 +3,35 @@ import { env } from "@dropaly/env/native";
 import { QueryClient } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
-import { Platform } from "react-native";
+import { fetch as expoFetch } from "expo/fetch";
 
 import { authClient } from "@/lib/auth-client";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30_000,
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
 
 const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${env.EXPO_PUBLIC_SERVER_URL}/trpc`,
       fetch: function (url, options) {
-        return fetch(url, {
+        return expoFetch(url, {
           ...options,
           // Better Auth Expo forwards the session cookie manually on native.
-          credentials: Platform.OS === "web" ? "include" : "omit",
-        });
+          credentials: "omit",
+        }) as ReturnType<typeof globalThis.fetch>;
       },
       headers() {
-        if (Platform.OS === "web") {
-          return {};
-        }
         const headers = new Map<string, string>();
         const cookies = authClient.getCookie();
         if (cookies) {

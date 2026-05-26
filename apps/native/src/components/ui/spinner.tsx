@@ -1,6 +1,6 @@
 import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
 
-import { useThemeColors } from "@/lib/theme-colors";
+import { useThemeColors } from "@/lib/theme";
 
 type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
   size?: "sm" | "lg" | ActivityIndicatorProps["size"];
@@ -9,7 +9,8 @@ type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
 
 function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
   const colors = useThemeColors();
-  const indicatorSize = size === "sm" ? "small" : size === "lg" ? "large" : size;
+  const indicatorSize =
+    size === "sm" ? "small" : size === "lg" ? "large" : size;
   const indicatorColor =
     color === "default"
       ? colors.foreground
@@ -19,7 +20,9 @@ function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
           ? colors.mutedForeground
           : color;
 
-  return <ActivityIndicator color={indicatorColor} size={indicatorSize} {...props} />;
+  return (
+    <ActivityIndicator color={indicatorColor} size={indicatorSize} {...props} />
+  );
 }
 
 export { Spinner };
