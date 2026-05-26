@@ -25,7 +25,8 @@
     "db:start": "turbo run db:start --filter=@dropaly/db",
     "db:watch": "turbo run db:watch --filter=@dropaly/db",
     "db:stop": "turbo run db:stop --filter=@dropaly/db",
-    "db:down": "turbo run db:down --filter=@dropaly/db"
+    "db:down": "turbo run db:down --filter=@dropaly/db",
+    "clean": "turbo run clean && git clean -xdf .cache .turbo dist node_modules"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
