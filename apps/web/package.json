@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "build": "vite build",
+    "dev": "vite dev",
+    "preview": "vite preview",
     "generate-pwa-assets": "pwa-assets-generator",
     "clean": "git clean -xdf .cache .turbo dev-dist dist node_modules"
   },

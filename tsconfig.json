@@ -1,3 +1,4 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json"
+  "extends": "@dropaly/config/tsconfig.base.json",
+  "files": []
 }

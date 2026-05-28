@@ -2,15 +2,10 @@
   "name": "@dropaly/auth",
   "type": "module",
   "exports": {
-    "./server": {
-      "types": "./dist/server.d.ts",
-      "default": "./src/server.ts"
-    }
+    "./server": "./src/server.ts"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "typecheck": "tsc --noEmit",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

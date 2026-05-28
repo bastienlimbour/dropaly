@@ -4,12 +4,12 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
+    "typecheck": "tsc --noEmit",
+    "prebuild": "expo prebuild",
     "dev": "expo start --clear",
+    "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "prebuild": "expo prebuild",
-    "typecheck": "tsc --noEmit",
     "clean": "git clean -xdf .cache .expo .turbo dist node_modules"
   },
   "dependencies": {

@@ -1,8 +1,7 @@
 {
-  "extends": "@dropaly/config/tsconfig.declaration-package.json",
+  "extends": "@dropaly/config/tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "rootDir": "src",
     "paths": {
       "@dropaly/ui/*": ["./src/*"]
     }
