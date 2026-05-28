@@ -1,4 +1,10 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json",
+  "extends": "@dropaly/config/tsconfig.declaration-package.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
   "include": ["src/**/*.ts"]
 }

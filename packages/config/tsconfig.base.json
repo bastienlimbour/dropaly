@@ -8,6 +8,8 @@
     "verbatimModuleSyntax": true,
     "strict": true,
     "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": "${configDir}/.cache/tsbuildinfo.json",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,

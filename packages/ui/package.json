@@ -5,10 +5,16 @@
   "type": "module",
   "exports": {
     "./tokens.css": "./src/styles/tokens.css",
-    "./lib/*": "./src/lib/*.ts"
+    "./lib/*": {
+      "source": "./src/lib/*.ts",
+      "types": "./src/lib/*.ts",
+      "default": "./src/lib/*.ts"
+    }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false --tsBuildInfoFile .cache/typecheck.tsbuildinfo",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

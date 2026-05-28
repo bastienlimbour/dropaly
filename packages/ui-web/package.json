@@ -5,12 +5,26 @@
   "type": "module",
   "exports": {
     "./globals.css": "./src/styles/globals.css",
-    "./components/*": "./src/components/*.tsx",
-    "./hooks/*": "./src/hooks/*.ts",
-    "./lib/*": "./src/lib/*.ts"
+    "./components/*": {
+      "source": "./src/components/*.tsx",
+      "types": "./src/components/*.tsx",
+      "default": "./src/components/*.tsx"
+    },
+    "./hooks/*": {
+      "source": "./src/hooks/*.ts",
+      "types": "./src/hooks/*.ts",
+      "default": "./src/hooks/*.ts"
+    },
+    "./lib/*": {
+      "source": "./src/lib/*.ts",
+      "types": "./src/lib/*.ts",
+      "default": "./src/lib/*.ts"
+    }
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false --tsBuildInfoFile .cache/typecheck.tsbuildinfo",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

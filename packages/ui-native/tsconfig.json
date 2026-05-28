@@ -1,8 +1,9 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json",
+  "extends": "@dropaly/config/tsconfig.declaration-package.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ESNext"],
+    "rootDir": "src",
     "types": ["node", "react"],
     "paths": {
       "@dropaly/ui-native/*": ["./src/*"]
