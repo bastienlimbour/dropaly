@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/nunito-sans";
+@import "@fontsource-variable/outfit";
+@import "@dropaly/ui/tokens.css";
+
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-heading: "Outfit Variable", sans-serif;
+  --font-sans: "Nunito Sans Variable", sans-serif;
+
+  --radius: var(--ui-radius);
+
+  --background: var(--ui-light-background);
+  --foreground: var(--ui-light-foreground);
+  --card: var(--ui-light-card);
+  --card-foreground: var(--ui-light-card-foreground);
+  --popover: var(--ui-light-popover);
+  --popover-foreground: var(--ui-light-popover-foreground);
+  --primary: var(--ui-light-primary);
+  --primary-foreground: var(--ui-light-primary-foreground);
+  --secondary: var(--ui-light-secondary);
+  --secondary-foreground: var(--ui-light-secondary-foreground);
+  --muted: var(--ui-light-muted);
+  --muted-foreground: var(--ui-light-muted-foreground);
+  --accent: var(--ui-light-accent);
+  --accent-foreground: var(--ui-light-accent-foreground);
+  --border: var(--ui-light-border);
+  --input: var(--ui-light-input);
+  --ring: var(--ui-light-ring);
+  --chart-1: var(--ui-light-chart-1);
+  --chart-2: var(--ui-light-chart-2);
+  --chart-3: var(--ui-light-chart-3);
+  --chart-4: var(--ui-light-chart-4);
+  --chart-5: var(--ui-light-chart-5);
+  --sidebar: var(--ui-light-sidebar);
+  --sidebar-foreground: var(--ui-light-sidebar-foreground);
+  --sidebar-primary: var(--ui-light-sidebar-primary);
+  --sidebar-primary-foreground: var(--ui-light-sidebar-primary-foreground);
+  --sidebar-accent: var(--ui-light-sidebar-accent);
+  --sidebar-accent-foreground: var(--ui-light-sidebar-accent-foreground);
+  --sidebar-border: var(--ui-light-sidebar-border);
+  --sidebar-ring: var(--ui-light-sidebar-ring);
+  --destructive: var(--ui-light-destructive);
+  --destructive-foreground: var(--ui-light-destructive-foreground);
+  --success: var(--ui-light-success);
+  --success-foreground: var(--ui-light-success-foreground);
+  --warning: var(--ui-light-warning);
+  --warning-foreground: var(--ui-light-warning-foreground);
+  --info: var(--ui-light-info);
+  --info-foreground: var(--ui-light-info-foreground);
+}
+
+.dark {
+  --background: var(--ui-dark-background);
+  --foreground: var(--ui-dark-foreground);
+  --card: var(--ui-dark-card);
+  --card-foreground: var(--ui-dark-card-foreground);
+  --popover: var(--ui-dark-popover);
+  --popover-foreground: var(--ui-dark-popover-foreground);
+  --primary: var(--ui-dark-primary);
+  --primary-foreground: var(--ui-dark-primary-foreground);
+  --secondary: var(--ui-dark-secondary);
+  --secondary-foreground: var(--ui-dark-secondary-foreground);
+  --muted: var(--ui-dark-muted);
+  --muted-foreground: var(--ui-dark-muted-foreground);
+  --accent: var(--ui-dark-accent);
+  --accent-foreground: var(--ui-dark-accent-foreground);
+  --border: var(--ui-dark-border);
+  --input: var(--ui-dark-input);
+  --ring: var(--ui-dark-ring);
+  --chart-1: var(--ui-dark-chart-1);
+  --chart-2: var(--ui-dark-chart-2);
+  --chart-3: var(--ui-dark-chart-3);
+  --chart-4: var(--ui-dark-chart-4);
+  --chart-5: var(--ui-dark-chart-5);
+  --sidebar: var(--ui-dark-sidebar);
+  --sidebar-foreground: var(--ui-dark-sidebar-foreground);
+  --sidebar-primary: var(--ui-dark-sidebar-primary);
+  --sidebar-primary-foreground: var(--ui-dark-sidebar-primary-foreground);
+  --sidebar-accent: var(--ui-dark-sidebar-accent);
+  --sidebar-accent-foreground: var(--ui-dark-sidebar-accent-foreground);
+  --sidebar-border: var(--ui-dark-sidebar-border);
+  --sidebar-ring: var(--ui-dark-sidebar-ring);
+  --destructive: var(--ui-dark-destructive);
+  --destructive-foreground: var(--ui-dark-destructive-foreground);
+  --success: var(--ui-dark-success);
+  --success-foreground: var(--ui-dark-success-foreground);
+  --warning: var(--ui-dark-warning);
+  --warning-foreground: var(--ui-dark-warning-foreground);
+  --info: var(--ui-dark-info);
+  --info-foreground: var(--ui-dark-info-foreground);
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

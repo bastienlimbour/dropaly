@@ -1,6 +1,6 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 
-import { useThemeColors } from "@/lib/theme";
+import { useThemeColors } from "@dropaly/ui-native/lib/theme";
 
 export default function TabLayout() {
   const colors = useThemeColors();
@@ -12,13 +12,21 @@ export default function TabLayout() {
       tintColor={colors.primary}
       labelStyle={{ color: colors.foreground }}
     >
-      <NativeTabs.Trigger name="index">
+      <NativeTabs.Trigger name="(home)">
         <NativeTabs.Trigger.Icon
           sf={{ default: "house", selected: "house.fill" }}
           md={{ default: "home", selected: "home_filled" }}
         />
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="test">
+        <NativeTabs.Trigger.Icon
+          sf={{ default: "testtube.2", selected: "testtube.2" }}
+          md={{ default: "experiment", selected: "experiment" }}
+        />
+        <NativeTabs.Trigger.Label>Test</NativeTabs.Trigger.Label>
+      </NativeTabs.Trigger>
+
       <NativeTabs.Trigger name="todos">
         <NativeTabs.Trigger.Icon
           sf={{ default: "checklist", selected: "checklist.checked" }}

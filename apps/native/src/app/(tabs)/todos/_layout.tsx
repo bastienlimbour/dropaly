@@ -1,19 +1,18 @@
 import { Stack } from "expo-router";
+import { useThemedHeaderOptions } from "@/lib/theme";
 
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useThemeColors } from "@/lib/theme";
+import { useThemeColors } from "@dropaly/ui-native/lib/theme";
 
 export default function TodosLayout() {
-  const colors = useThemeColors();
+  const headerOptions = useThemedHeaderOptions();
 
   return (
     <Stack
       screenOptions={{
         headerLargeTitle: true,
         headerRight: () => <ThemeToggle />,
-        headerStyle: { backgroundColor: colors.background },
-        headerTintColor: colors.foreground,
-        headerTitleStyle: { color: colors.foreground, fontWeight: "600" },
+        ...headerOptions,
       }}
     >
       <Stack.Screen name="index" options={{ title: "Tasks" }} />

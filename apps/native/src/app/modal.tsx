@@ -2,11 +2,11 @@ import { IconCheck } from "@tabler/icons-react-native";
 import { router } from "expo-router";
 import { View } from "react-native";
 
-import { ScreenView } from "@/components/container";
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
-import { Surface } from "@/components/ui/surface";
-import { Text } from "@/components/ui/text";
+import { ViewContainer } from "@/components/container";
+import { Button } from "@dropaly/ui-native/components/button";
+import { Icon } from "@dropaly/ui-native/components/icon";
+import { Surface } from "@dropaly/ui-native/components/surface";
+import { Text } from "@dropaly/ui-native/components/text";
 
 function Modal() {
   function handleClose() {
@@ -14,7 +14,7 @@ function Modal() {
   }
 
   return (
-    <ScreenView>
+    <ViewContainer>
       <View className="flex-1 justify-center items-center p-4">
         <Surface variant="secondary" className="p-5 w-full max-w-sm rounded-lg">
           <View className="items-center">
@@ -33,7 +33,7 @@ function Modal() {
           </Button>
         </Surface>
       </View>
-    </ScreenView>
+    </ViewContainer>
   );
 }
 

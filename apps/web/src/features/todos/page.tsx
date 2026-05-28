@@ -1,13 +1,13 @@
-import { Button } from "@dropaly/ui/components/button";
+import { Button } from "@dropaly/ui-web/components/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@dropaly/ui/components/card";
-import { Checkbox } from "@dropaly/ui/components/checkbox";
-import { Input } from "@dropaly/ui/components/input";
+} from "@dropaly/ui-web/components/card";
+import { Checkbox } from "@dropaly/ui-web/components/checkbox";
+import { Input } from "@dropaly/ui-web/components/input";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { IconLoader, IconTrash } from "@tabler/icons-react";
 import { useState, type FormEvent } from "react";

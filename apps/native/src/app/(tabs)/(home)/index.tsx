@@ -1,0 +1,117 @@
+import {
+  IconCircleCheck,
+  IconCircleX,
+  IconHourglass,
+} from "@tabler/icons-react-native";
+import { useQuery } from "@tanstack/react-query";
+import { View } from "react-native";
+
+import { ScrollViewContainer } from "@/components/container";
+import { Icon } from "@dropaly/ui-native/components/icon";
+import { Badge } from "@dropaly/ui-native/components/badge";
+import { Button } from "@dropaly/ui-native/components/button";
+import {
+  Card,
+  CardDescription,
+  CardTitle,
+} from "@dropaly/ui-native/components/card";
+import { Text } from "@dropaly/ui-native/components/text";
+import { SignIn, SignUp } from "@/features/auth";
+import { authClient } from "@/lib/auth-client";
+import { queryClient, trpc } from "@/lib/trpc-client";
+
+export default function Home() {
+  const healthCheck = useQuery(trpc.healthCheck.queryOptions());
+  const { data: session } = authClient.useSession();
+  const privateData = useQuery({
+    ...trpc.privateData.queryOptions(),
+    enabled: Boolean(session?.user),
+  });
+  const isConnected = healthCheck?.data === "OK";
+  const isLoading = healthCheck?.isLoading;
+
+  return (
+    <ScrollViewContainer
+      scrollViewProps={{ contentContainerClassName: "p-6" }}
+    >
+      {session?.user ? (
+        <Card className="mb-6 gap-0 p-4">
+          <Text className="text-foreground text-base mb-2">
+            Welcome, <Text className="font-medium">{session.user.name}</Text>
+          </Text>
+          <Text className="text-muted-foreground text-sm mb-4">
+            {session.user.email}
+          </Text>
+          <Button
+            variant="destructive"
+            className="self-start"
+            onPress={() => {
+              authClient.signOut();
+              void queryClient.invalidateQueries();
+            }}
+          >
+            <Text>Sign Out</Text>
+          </Button>
+        </Card>
+      ) : null}
+
+      <Card className="gap-4 p-6">
+        <View className="flex-row items-center justify-between mb-4">
+          <CardTitle>System Status</CardTitle>
+          <Badge
+            variant={isConnected ? "default" : "destructive"}
+            className={isConnected ? "bg-success" : undefined}
+          >
+            <Text>{isConnected ? "LIVE" : "OFFLINE"}</Text>
+          </Badge>
+        </View>
+
+        <Card className="gap-0 p-4">
+          <View className="flex-row items-center">
+            <View
+              className={`size-3 rounded-full mr-3 ${isConnected ? "bg-success" : "bg-muted"}`}
+            />
+            <View className="flex-1">
+              <Text className="text-foreground font-medium mb-1">
+                TRPC Backend
+              </Text>
+              <CardDescription>
+                {isLoading
+                  ? "Checking connection..."
+                  : isConnected
+                    ? "Connected to API"
+                    : "API Disconnected"}
+              </CardDescription>
+            </View>
+            {isLoading && (
+              <Icon
+                as={IconHourglass}
+                className="text-muted-foreground size-5"
+              />
+            )}
+            {!isLoading && isConnected && (
+              <Icon as={IconCircleCheck} className="text-success size-5" />
+            )}
+            {!isLoading && !isConnected && (
+              <Icon as={IconCircleX} className="text-destructive size-5" />
+            )}
+          </View>
+        </Card>
+      </Card>
+
+      <Card className="mt-6 gap-0 p-4">
+        <CardTitle className="mb-3">Private Data</CardTitle>
+        {privateData && (
+          <CardDescription>{privateData.data?.message}</CardDescription>
+        )}
+      </Card>
+
+      {!session?.user && (
+        <View className="gap-4 mt-6">
+          <SignIn />
+          <SignUp />
+        </View>
+      )}
+    </ScrollViewContainer>
+  );
+}

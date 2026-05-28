@@ -5,8 +5,8 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "../../packages/ui/src/styles/globals.css",
-    "baseColor": "neutral",
+    "css": "src/index.css",
+    "baseColor": "olive",
     "cssVariables": true
   },
   "iconLibrary": "tabler",
@@ -14,8 +14,8 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@dropaly/ui/lib/utils",
-    "ui": "@dropaly/ui/components"
+    "utils": "@dropaly/ui-web/lib/utils",
+    "ui": "@dropaly/ui-web/components"
   },
   "menuColor": "default-translucent",
   "menuAccent": "subtle"

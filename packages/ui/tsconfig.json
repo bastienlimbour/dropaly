@@ -1,12 +1,11 @@
 {
   "extends": "@dropaly/config/tsconfig.declaration-package.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "rootDir": ".",
+    "lib": ["ESNext"],
+    "rootDir": "src",
     "paths": {
       "@dropaly/ui/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts"]
 }

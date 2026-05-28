@@ -1,13 +1,19 @@
-import { IconMoon, IconSun } from "@tabler/icons-react-native";
+import { IconMoon, IconSun, IconDeviceDesktop } from "@tabler/icons-react-native";
+import { Icon } from "@dropaly/ui-native/components/icon";
+import { useUiTheme, type ThemePreference } from "@dropaly/ui-native/lib/theme";
 import * as Haptics from "expo-haptics";
 import { Platform, Pressable } from "react-native";
 import Animated, { FadeOut, ZoomIn } from "react-native-reanimated";
 
-import { Icon } from "@/components/ui/icon";
-import { useAppTheme } from "@/contexts/app-theme-context";
+const NEXT_THEME: Record<ThemePreference, ThemePreference> = {
+  light: "dark",
+  dark: "system",
+  system: "light",
+};
 
 export function ThemeToggle() {
-  const { toggleTheme, isLight } = useAppTheme();
+  const { themePreference, setTheme } = useUiTheme();
+  const nextTheme = NEXT_THEME[themePreference];
 
   return (
     <Pressable
@@ -15,17 +21,22 @@ export function ThemeToggle() {
         if (Platform.OS === "ios") {
           Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }
-        toggleTheme();
+        setTheme(nextTheme);
       }}
+      accessibilityLabel={`Switch theme to ${nextTheme}`}
       className="px-2.5"
     >
-      {isLight ? (
+      {nextTheme === "dark" ? (
         <Animated.View key="moon" entering={ZoomIn} exiting={FadeOut}>
           <Icon as={IconMoon} className="text-foreground size-5" />
         </Animated.View>
-      ) : (
+      ) : nextTheme === "light" ? (
         <Animated.View key="sun" entering={ZoomIn} exiting={FadeOut}>
           <Icon as={IconSun} className="text-foreground size-5" />
+        </Animated.View>
+      ) : (
+        <Animated.View key="system" entering={ZoomIn} exiting={FadeOut}>
+          <Icon as={IconDeviceDesktop} className="text-foreground size-5" />
         </Animated.View>
       )}
     </Pressable>

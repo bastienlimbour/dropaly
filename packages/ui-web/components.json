@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-vega",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "olive",
+    "cssVariables": true
+  },
+  "iconLibrary": "tabler",
+  "aliases": {
+    "components": "@dropaly/ui-web/components",
+    "hooks": "@dropaly/ui-web/hooks",
+    "lib": "@dropaly/ui-web/lib",
+    "utils": "@dropaly/ui-web/lib/utils",
+    "ui": "@dropaly/ui-web/components"
+  },
+  "menuColor": "default-translucent",
+  "menuAccent": "subtle"
+}

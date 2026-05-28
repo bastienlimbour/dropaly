@@ -1,0 +1,50 @@
+{
+  "name": "@dropaly/ui-native",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./globals.css": "./src/styles/globals.css",
+    "./components/*": {
+      "source": "./src/components/*.tsx",
+      "types": "./dist/components/*.d.ts",
+      "default": "./src/components/*.tsx"
+    },
+    "./hooks/*": {
+      "source": "./src/hooks/*.ts",
+      "types": "./dist/hooks/*.d.ts",
+      "default": "./src/hooks/*.ts"
+    },
+    "./lib/*": {
+      "source": "./src/lib/*.ts",
+      "types": "./dist/lib/*.d.ts",
+      "default": "./src/lib/*.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "clean": "git clean -xdf .cache .turbo dist node_modules"
+  },
+  "dependencies": {
+    "@dropaly/ui": "workspace:*",
+    "@rn-primitives/checkbox": "^1.4.0",
+    "@rn-primitives/label": "^1.4.0",
+    "@rn-primitives/separator": "^1.4.0",
+    "@rn-primitives/slot": "^1.4.0",
+    "@tabler/icons-react-native": "catalog:ui",
+    "class-variance-authority": "^0.7.1",
+    "react": "catalog:react",
+    "react-native": "0.85.3",
+    "react-native-reanimated": "4.3.1",
+    "react-native-svg": "15.15.4",
+    "uniwind": "^1.6.5"
+  },
+  "devDependencies": {
+    "@dropaly/config": "workspace:*",
+    "@types/react": "catalog:react",
+    "tailwindcss": "catalog:ui",
+    "typescript": "catalog:"
+  }
+}

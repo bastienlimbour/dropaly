@@ -8,13 +8,14 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "generate-pwa-assets": "pwa-assets-generator"
+    "generate-pwa-assets": "pwa-assets-generator",
+    "clean": "git clean -xdf .cache .turbo dev-dist dist node_modules"
   },
   "dependencies": {
     "@ai-sdk/react": "catalog:ai",
     "@dropaly/api": "workspace:*",
     "@dropaly/env": "workspace:*",
-    "@dropaly/ui": "workspace:*",
+    "@dropaly/ui-web": "workspace:*",
     "@polar-sh/better-auth": "catalog:auth",
     "@tabler/icons-react": "catalog:ui",
     "@tailwindcss/vite": "catalog:ui",

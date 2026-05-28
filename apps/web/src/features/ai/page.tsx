@@ -1,6 +1,6 @@
 import { useChat } from "@ai-sdk/react";
-import { Button } from "@dropaly/ui/components/button";
-import { Input } from "@dropaly/ui/components/input";
+import { Button } from "@dropaly/ui-web/components/button";
+import { Input } from "@dropaly/ui-web/components/input";
 import { IconSend } from "@tabler/icons-react";
 import { useRef, useEffect, useState, type SubmitEvent } from "react";
 import { Streamdown } from "streamdown";

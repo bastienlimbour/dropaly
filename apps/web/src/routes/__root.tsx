@@ -1,4 +1,4 @@
-import { Toaster } from "@dropaly/ui/components/sonner";
+import { Toaster } from "@dropaly/ui-web/components/sonner";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   HeadContent,

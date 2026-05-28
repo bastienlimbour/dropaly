@@ -1,67 +1,72 @@
-import { type PropsWithChildren } from "react";
-import { ScrollView, View, type ScrollViewProps, type ViewProps } from "react-native";
-import Animated, { type AnimatedProps } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { cn } from "@dropaly/ui-native/lib/utils";
+import { ReactNode } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  ViewStyle,
+  ScrollViewProps,
+} from "react-native";
+import {
+  SafeAreaView,
+  Edge,
+  type SafeAreaViewProps,
+} from "react-native-safe-area-context";
+import { withUniwind } from "uniwind";
 
-import { cn } from "@/lib/utils";
-
-const AnimatedView = Animated.createAnimatedComponent(View);
-
-type ScreenViewProps = AnimatedProps<ViewProps> & {
-  className?: string;
-  withBottomInset?: boolean;
-};
-
-type ScreenScrollViewProps = ScrollViewProps & {
-  className?: string;
-  contentContainerClassName?: string;
-  withBottomInset?: boolean;
-};
-
-export function ScreenView({
-  children,
-  className,
-  withBottomInset = true,
-  ...props
-}: PropsWithChildren<ScreenViewProps>) {
-  const insets = useSafeAreaInsets();
-
-  return (
-    <AnimatedView
-      className={cn("flex-1 bg-background", className)}
-      style={{
-        paddingBottom: withBottomInset ? insets.bottom : 0,
-      }}
-      {...props}
-    >
-      <View className="flex-1">{children}</View>
-    </AnimatedView>
-  );
+interface AppScreenProps extends Omit<SafeAreaViewProps, "edges"> {
+  edges?: Edge[] | null;
 }
 
-export function ScreenScrollView({
+const StyledSafeAreaView = withUniwind(SafeAreaView);
+
+export function ViewContainer({
   children,
   className,
-  contentContainerClassName,
-  contentContainerStyle,
-  withBottomInset = true,
+  edges,
   ...props
-}: PropsWithChildren<ScreenScrollViewProps>) {
-  const insets = useSafeAreaInsets();
-
+}: AppScreenProps) {
   return (
-    <ScrollView
+    <StyledSafeAreaView
       className={cn("flex-1 bg-background", className)}
-      contentContainerClassName={cn("flex-grow", contentContainerClassName)}
-      contentContainerStyle={[
-        { paddingBottom: withBottomInset ? insets.bottom : 0 },
-        contentContainerStyle,
-      ]}
-      keyboardShouldPersistTaps="handled"
-      contentInsetAdjustmentBehavior="automatic"
+      edges={edges ?? []}
       {...props}
     >
       {children}
-    </ScrollView>
+    </StyledSafeAreaView>
+  );
+}
+
+interface AppScrollScreenProps extends Omit<SafeAreaViewProps, "edges"> {
+  edges?: Edge[] | null;
+  scrollViewProps?: ScrollViewProps;
+}
+
+export function ScrollViewContainer({
+  children,
+  className,
+  edges,
+  scrollViewProps,
+  ...props
+}: AppScrollScreenProps) {
+  return (
+    <StyledSafeAreaView
+      className={cn("flex-1 bg-background", className)}
+      edges={edges ?? []}
+      {...props}
+    >
+      <ScrollView
+        className={cn("bg-background", scrollViewProps?.className)}
+        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerClassName={cn(
+          "bg-background",
+          scrollViewProps?.contentContainerClassName,
+        )}
+        keyboardShouldPersistTaps="handled"
+        contentInsetAdjustmentBehavior="automatic"
+        {...scrollViewProps}
+      >
+        {children}
+      </ScrollView>
+    </StyledSafeAreaView>
   );
 }

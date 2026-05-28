@@ -1,16 +1,17 @@
 import { Link, Stack } from "expo-router";
 import { View } from "react-native";
 
-import { ScreenView } from "@/components/container";
-import { Button } from "@/components/ui/button";
-import { Surface } from "@/components/ui/surface";
-import { Text } from "@/components/ui/text";
+import { ViewContainer } from "@/components/container";
+
+import { Surface } from "@dropaly/ui-native/components/surface";
+import { Text } from "@dropaly/ui-native/components/text";
+import { Button } from "@dropaly/ui-native/components/button";
 
 export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: "Not Found" }} />
-      <ScreenView>
+      <ViewContainer>
         <View className="flex-1 justify-center items-center p-4">
           <Surface
             variant="secondary"
@@ -30,7 +31,7 @@ export default function NotFoundScreen() {
             </Link>
           </Surface>
         </View>
-      </ScreenView>
+      </ViewContainer>
     </>
   );
 }

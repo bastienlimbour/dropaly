@@ -1,5 +1,5 @@
 import { env } from "@dropaly/env/web";
-import { Button } from "@dropaly/ui/components/button";
+import { Button } from "@dropaly/ui-web/components/button";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
