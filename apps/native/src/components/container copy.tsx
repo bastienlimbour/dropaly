@@ -1,14 +1,8 @@
 import { cn } from "@dropaly/ui-native/lib/utils";
-import { ReactNode } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  ViewStyle,
-  ScrollViewProps,
-} from "react-native";
+import { ScrollView, type ScrollViewProps } from "react-native";
 import {
   SafeAreaView,
-  Edge,
+  type Edge,
   type SafeAreaViewProps,
 } from "react-native-safe-area-context";
 

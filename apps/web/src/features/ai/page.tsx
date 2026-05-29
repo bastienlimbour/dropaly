@@ -19,11 +19,11 @@ export function AiPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSubmit = (e: SubmitEvent) => {
+  const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
-    sendMessage({ text });
+    await sendMessage({ text });
     setInput("");
   };
 
@@ -79,7 +79,7 @@ export function AiPage() {
           placeholder="Type your message..."
           className="flex-1"
           autoComplete="off"
-          autoFocus
+          // autoFocus
         />
         <Button type="submit" size="icon">
           <IconSend size={18} />

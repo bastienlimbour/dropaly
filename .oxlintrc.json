@@ -1,0 +1,4 @@
+{
+  "extends": ["packages/config/oxlint/base.json"],
+  "ignorePatterns": [".agents/**"]
+}

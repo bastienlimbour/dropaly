@@ -8,6 +8,6 @@ export const env = createEnv({
     VITE_SERVER_URL: z.url(),
     VITE_PAYMENTS_ENABLED: booleanEnv,
   },
-  runtimeEnv: (import.meta as any).env,
+  runtimeEnv: import.meta.env,
   emptyStringAsUndefined: true,
 });

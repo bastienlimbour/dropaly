@@ -1,31 +1,10 @@
 import { Icon } from "@dropaly/ui-native/components/icon";
 import { cn } from "@dropaly/ui-native/lib/utils";
 import * as CheckboxPrimitive from "@rn-primitives/checkbox";
-import Svg, { Path } from "react-native-svg";
+import { IconCheck } from "@tabler/icons-react-native";
+import { Platform } from "react-native";
 
 const DEFAULT_HIT_SLOP = 24;
-
-function CheckIcon({
-  color,
-  size = 12,
-  strokeWidth = 3.5,
-}: {
-  color?: string;
-  size?: number;
-  strokeWidth?: number;
-}) {
-  return (
-    <Svg fill="none" height={size} viewBox="0 0 24 24" width={size}>
-      <Path
-        d="M5 12l5 5l10 -10"
-        stroke={color}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={strokeWidth}
-      />
-    </Svg>
-  );
-}
 
 function Checkbox({
   className,
@@ -42,7 +21,10 @@ function Checkbox({
     <CheckboxPrimitive.Root
       className={cn(
         "border-input dark:bg-input/30 size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5",
-        "overflow-hidden",
+        Platform.select({
+          web: "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive peer cursor-default outline-none transition-shadow focus-visible:ring-[3px] disabled:cursor-not-allowed",
+          native: "overflow-hidden",
+        }),
         props.checked && cn("border-primary", checkedClassName),
         props.disabled && "opacity-50",
         className,
@@ -57,9 +39,9 @@ function Checkbox({
         )}
       >
         <Icon
-          as={CheckIcon}
+          as={IconCheck}
           size={12}
-          strokeWidth={3.5}
+          strokeWidth={Platform.OS === "web" ? 2.5 : 3.5}
           className={cn("text-primary-foreground", iconClassName)}
         />
       </CheckboxPrimitive.Indicator>

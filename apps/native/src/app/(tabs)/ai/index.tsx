@@ -27,7 +27,7 @@ export default function AiRoute() {
   const { data: session } = authClient.useSession();
   const { messages, error, sendMessage, status } = useChat({
     transport: createAiChatTransport(),
-    onError: (error) => console.error(error, "AI Chat Error"),
+    onError: (err) => console.error(err, "AI Chat Error"),
   });
   const scrollViewRef = useRef<ChatScrollViewRef>(null);
   const isBusy = status === "submitted" || status === "streaming";
@@ -36,10 +36,10 @@ export default function AiRoute() {
     scrollViewRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const value = input.trim();
     if (value && !isBusy && session?.user) {
-      sendMessage({ text: value });
+      await sendMessage({ text: value });
       setInput("");
     }
   };

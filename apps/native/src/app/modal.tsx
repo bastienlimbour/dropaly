@@ -8,11 +8,11 @@ import { Icon } from "@dropaly/ui-native/components/icon";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
 
-function Modal() {
-  function handleClose() {
-    router.back();
-  }
+function handleClose() {
+  router.back();
+}
 
+function Modal() {
   return (
     <ViewContainer>
       <View className="flex-1 justify-center items-center p-4">

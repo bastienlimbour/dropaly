@@ -91,7 +91,7 @@ export function SignUp() {
               variant: "success",
               label: "Account created successfully",
             });
-            queryClient.refetchQueries();
+            void queryClient.refetchQueries();
           },
         },
       );
@@ -177,14 +177,14 @@ export function SignUp() {
                         autoComplete="new-password"
                         textContentType="newPassword"
                         returnKeyType="go"
-                        onSubmitEditing={form.handleSubmit}
+                        onSubmitEditing={() => void form.handleSubmit()}
                       />
                     </View>
                   )}
                 </form.Field>
 
                 <Button
-                  onPress={form.handleSubmit}
+                  onPress={() => void form.handleSubmit()}
                   disabled={isSubmitting}
                   className="mt-1"
                 >

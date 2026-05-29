@@ -1,4 +1,8 @@
-import { IconMoon, IconSun, IconDeviceDesktop } from "@tabler/icons-react-native";
+import {
+  IconMoon,
+  IconSun,
+  IconDeviceDesktop,
+} from "@tabler/icons-react-native";
 import { Icon } from "@dropaly/ui-native/components/icon";
 import { useUiTheme, type ThemePreference } from "@dropaly/ui-native/lib/theme";
 import * as Haptics from "expo-haptics";
@@ -19,7 +23,7 @@ export function ThemeToggle() {
     <Pressable
       onPress={() => {
         if (Platform.OS === "ios") {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         }
         setTheme(nextTheme);
       }}

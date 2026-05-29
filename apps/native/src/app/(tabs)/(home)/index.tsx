@@ -19,6 +19,7 @@ import { Text } from "@dropaly/ui-native/components/text";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { queryClient, trpc } from "@/lib/trpc-client";
+import { cn } from "@dropaly/ui-native/lib/utils";
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
@@ -31,9 +32,7 @@ export default function Home() {
   const isLoading = healthCheck?.isLoading;
 
   return (
-    <ScrollViewContainer
-      scrollViewProps={{ contentContainerClassName: "p-6" }}
-    >
+    <ScrollViewContainer scrollViewProps={{ contentContainerClassName: "p-6" }}>
       {session?.user ? (
         <Card className="mb-6 gap-0 p-4">
           <Text className="text-foreground text-base mb-2">
@@ -45,8 +44,8 @@ export default function Home() {
           <Button
             variant="destructive"
             className="self-start"
-            onPress={() => {
-              authClient.signOut();
+            onPress={async () => {
+              await authClient.signOut();
               void queryClient.invalidateQueries();
             }}
           >
@@ -60,7 +59,7 @@ export default function Home() {
           <CardTitle>System Status</CardTitle>
           <Badge
             variant={isConnected ? "default" : "destructive"}
-            className={isConnected ? "bg-success" : undefined}
+            className={cn(isConnected ? "bg-success" : null)}
           >
             <Text>{isConnected ? "LIVE" : "OFFLINE"}</Text>
           </Badge>

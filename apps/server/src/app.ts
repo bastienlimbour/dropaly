@@ -1,5 +1,8 @@
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from "fastify-type-provider-zod";
 import { env } from "@dropaly/env/server";
-import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 import Fastify from "fastify";
 
 import { registerApiContext } from "./plugins/api-context";
@@ -39,7 +42,7 @@ export function createApp() {
   registerAuthRoutes(app);
   registerHealthRoutes(app);
 
-  app.register(async (apiApp) => {
+  app.register((apiApp) => {
     registerApiContext(apiApp);
     registerTRPCRoutes(apiApp);
     registerAiRoutes(apiApp);

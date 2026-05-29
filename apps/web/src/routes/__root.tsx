@@ -16,8 +16,8 @@ import "../index.css";
 const ReactQueryDevtools = import.meta.env.DEV
   ? lazy(() =>
       import("@tanstack/react-query-devtools").then(
-        ({ ReactQueryDevtools }) => ({
-          default: ReactQueryDevtools,
+        ({ ReactQueryDevtools: Devtools }) => ({
+          default: Devtools,
         }),
       ),
     )
@@ -26,8 +26,8 @@ const ReactQueryDevtools = import.meta.env.DEV
 const TanStackRouterDevtools = import.meta.env.DEV
   ? lazy(() =>
       import("@tanstack/react-router-devtools").then(
-        ({ TanStackRouterDevtools }) => ({
-          default: TanStackRouterDevtools,
+        ({ TanStackRouterDevtools: Devtools }) => ({
+          default: Devtools,
         }),
       ),
     )

@@ -2,9 +2,13 @@ import { createFileRoute, useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/success")({
   component: SuccessPage,
-  validateSearch: (search) => ({
-    checkout_id: search.checkout_id as string,
-  }),
+  validateSearch: (search) => {
+    const checkoutId = search["checkout_id"];
+
+    return {
+      checkout_id: typeof checkoutId === "string" ? checkoutId : undefined,
+    };
+  },
 });
 
 function SuccessPage() {

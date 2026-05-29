@@ -1,8 +1,9 @@
+import { cn } from "@dropaly/ui/lib/utils";
 import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
 
 type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
   size?: "sm" | "lg" | ActivityIndicatorProps["size"];
-  color?: "default" | "primary" | "muted" | ActivityIndicatorProps["color"];
+  color?: "default" | "primary" | "muted";
 };
 
 function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
@@ -15,12 +16,12 @@ function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
         ? "accent-primary"
         : color === "muted"
           ? "accent-muted-foreground"
-          : undefined;
+          : null;
 
   return (
     <ActivityIndicator
       color={indicatorColorClassName ? undefined : color}
-      colorClassName={indicatorColorClassName}
+      colorClassName={cn(indicatorColorClassName)}
       size={indicatorSize}
       {...props}
     />

@@ -3,16 +3,16 @@ import { Uniwind, useCSSVariable, useUniwind } from "uniwind";
 export type ResolvedTheme = "light" | "dark";
 export type ThemePreference = ResolvedTheme | "system";
 
+function setTheme(newTheme: ThemePreference) {
+  Uniwind.setTheme(newTheme);
+}
+
 export function useUiTheme() {
   const { hasAdaptiveThemes, theme } = useUniwind();
   const resolvedTheme: ResolvedTheme = theme === "dark" ? "dark" : "light";
   const themePreference: ThemePreference = hasAdaptiveThemes
     ? "system"
     : resolvedTheme;
-
-  const setTheme = (newTheme: ThemePreference) => {
-    Uniwind.setTheme(newTheme);
-  };
 
   return {
     resolvedTheme,

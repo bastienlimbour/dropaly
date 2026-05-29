@@ -10,7 +10,7 @@ export interface BillingState {
 }
 
 export class EntitlementRequiredError extends Error {
-  constructor(readonly capability: Capability) {
+  constructor(capability: Capability) {
     super(`Missing entitlement: ${capability}`);
     this.name = "EntitlementRequiredError";
   }
@@ -23,10 +23,7 @@ export async function getBillingState(_actor: Actor): Promise<BillingState> {
   };
 }
 
-export async function requireEntitlement(
-  actor: Actor,
-  capability: Capability,
-) {
+export async function requireEntitlement(actor: Actor, capability: Capability) {
   const billingState = await getBillingState(actor);
 
   if (!billingState.entitlements.includes(capability)) {

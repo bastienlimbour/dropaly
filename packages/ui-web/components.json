@@ -17,6 +17,7 @@
     "utils": "@dropaly/ui-web/lib/utils",
     "ui": "@dropaly/ui-web/components"
   },
+
   "menuColor": "default-translucent",
   "menuAccent": "subtle"
 }

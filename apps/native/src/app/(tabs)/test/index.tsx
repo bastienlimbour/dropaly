@@ -3,8 +3,6 @@ import { Button } from "@dropaly/ui-native/components/button";
 
 import { Text } from "@dropaly/ui-native/components/text";
 import { Link } from "expo-router";
-import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TestRoute() {
   return (

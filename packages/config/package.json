@@ -1,5 +1,11 @@
 {
   "name": "@dropaly/config",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "lint": "oxlint . --no-error-on-unmatched-pattern",
+    "lint:fix": "oxlint . --fix --no-error-on-unmatched-pattern",
+    "format": "oxfmt .",
+    "format:check": "oxfmt . --check"
+  }
 }

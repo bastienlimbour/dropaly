@@ -5,7 +5,7 @@ import { wrapLanguageModel } from "ai";
 export async function createAiModel(): Promise<LanguageModel> {
   const model = google("gemini-2.5-flash");
 
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env["NODE_ENV"] !== "development") {
     return model;
   }
 

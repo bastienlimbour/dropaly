@@ -2,7 +2,6 @@ import { Stack } from "expo-router";
 import { useThemedHeaderOptions } from "@/lib/theme";
 
 import { ThemeToggle } from "@/components/theme-toggle";
-import { useThemeColors } from "@dropaly/ui-native/lib/theme";
 
 export default function TodosLayout() {
   const headerOptions = useThemedHeaderOptions();

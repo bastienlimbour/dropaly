@@ -4,10 +4,7 @@
     "description": "Dropaly is an app for capturing and structuring thoughts into tasks, lists, and notes.",
     "slug": "dropaly",
     "scheme": "dropaly",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "experiments": {

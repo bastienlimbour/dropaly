@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/.turbo/**",
+    "**/.cache/**",
+    "**/.expo/**",
+    "**/dev-dist/**",
+    "**/android/**",
+    "**/ios/**",
+    "apps/web/src/routeTree.gen.ts",
+    "**/expo-env.d.ts",
+    "**/uniwind-types.d.ts"
+  ]
+}

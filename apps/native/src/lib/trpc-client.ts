@@ -24,9 +24,10 @@ const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchLink({
       url: `${env.EXPO_PUBLIC_SERVER_URL}/trpc`,
-      fetch: function (url, options) {
+      fetch(url, options) {
         return expoFetch(url, {
           ...options,
+          signal: options?.signal ?? null,
           // Better Auth Expo forwards the session cookie manually on native.
           credentials: "omit",
         }) as ReturnType<typeof globalThis.fetch>;

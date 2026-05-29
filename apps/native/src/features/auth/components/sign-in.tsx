@@ -83,7 +83,7 @@ function SignIn() {
               variant: "success",
               label: "Signed in successfully",
             });
-            queryClient.refetchQueries();
+            void queryClient.refetchQueries();
           },
         },
       );
@@ -147,14 +147,14 @@ function SignIn() {
                         autoComplete="password"
                         textContentType="password"
                         returnKeyType="go"
-                        onSubmitEditing={form.handleSubmit}
+                        onSubmitEditing={() => void form.handleSubmit()}
                       />
                     </View>
                   )}
                 </form.Field>
 
                 <Button
-                  onPress={form.handleSubmit}
+                  onPress={() => void form.handleSubmit()}
                   disabled={isSubmitting}
                   className="mt-1"
                 >

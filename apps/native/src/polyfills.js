@@ -3,6 +3,7 @@ import {
   TextDecoderStream,
   TextEncoderStream,
 } from "@stardazed/streams-text-encoding";
+// @ts-ignore
 import { polyfillGlobal } from "react-native/Libraries/Utilities/PolyfillFunctions";
 import { Platform } from "react-native";
 
@@ -19,5 +20,3 @@ if (Platform.OS !== "web") {
     polyfillGlobal("TextDecoderStream", () => TextDecoderStream);
   }
 }
-
-export {};

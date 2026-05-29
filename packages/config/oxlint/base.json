@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "warn"
+  },
+  "categories": {
+    "correctness": "error"
+    // "suspicious": "warn"
+    // "pedantic": "warn",
+    // "perf": "warn",
+    // "style": "warn",
+    // "restriction": "warn",
+    // "nursery": "warn"
+  },
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "promise"],
+  "rules": {
+    "import/no-cycle": ["warn", { "maxDepth": 3 }]
+  }
+}

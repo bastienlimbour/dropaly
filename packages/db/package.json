@@ -15,6 +15,10 @@
     "db:watch": "docker compose up",
     "db:studio": "drizzle-kit studio",
     "typecheck": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt . --check",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

@@ -61,7 +61,7 @@ export default function SettingsRoute() {
           <Button
             variant="destructive"
             onPress={() => {
-              authClient.signOut();
+              void authClient.signOut();
               void queryClient.invalidateQueries();
             }}
           >

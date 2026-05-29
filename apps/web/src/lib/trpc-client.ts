@@ -11,7 +11,7 @@ export const queryClient = new QueryClient({
       toast.error(error.message, {
         action: {
           label: "retry",
-          onClick: query.invalidate,
+          onClick: () => query.invalidate(),
         },
       });
     },
@@ -25,6 +25,7 @@ const trpcClient = createTRPCClient<AppRouter>({
       fetch(url, options) {
         return fetch(url, {
           ...options,
+          signal: options?.signal ?? null,
           credentials: "include",
         });
       },
