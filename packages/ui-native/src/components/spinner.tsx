@@ -1,5 +1,6 @@
-import { cn } from "@dropaly/ui/lib/utils";
 import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
+
+import { cn } from "@dropaly/ui/lib/utils";
 
 type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
   size?: "sm" | "lg" | ActivityIndicatorProps["size"];
@@ -7,8 +8,7 @@ type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
 };
 
 function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
-  const indicatorSize =
-    size === "sm" ? "small" : size === "lg" ? "large" : size;
+  const indicatorSize = size === "sm" ? "small" : size === "lg" ? "large" : size;
   const indicatorColorClassName =
     color === "default"
       ? "accent-foreground"

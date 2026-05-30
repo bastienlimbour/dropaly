@@ -10,6 +10,7 @@ import { Label } from "@dropaly/ui-native/components/label";
 import { Spinner } from "@dropaly/ui-native/components/spinner";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
+
 import { authClient } from "@/lib/auth-client";
 import { showToast } from "@/lib/toast";
 import { queryClient } from "@/lib/trpc-client";
@@ -63,14 +64,8 @@ export function SignUp() {
   const passwordInputRef = useRef<TextInput>(null);
 
   const form = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-    validators: {
-      onSubmit: signUpSchema,
-    },
+    defaultValues: { name: "", email: "", password: "" },
+    validators: { onSubmit: signUpSchema },
     onSubmit: async ({ value, formApi }) => {
       await authClient.signUp.email(
         {
@@ -87,10 +82,7 @@ export function SignUp() {
           },
           onSuccess() {
             formApi.reset();
-            showToast({
-              variant: "success",
-              label: "Account created successfully",
-            });
+            showToast({ variant: "success", label: "Account created successfully" });
             void queryClient.refetchQueries();
           },
         },
@@ -99,8 +91,8 @@ export function SignUp() {
   });
 
   return (
-    <Surface variant="secondary" className="p-4 rounded-lg">
-      <Text className="text-foreground font-medium mb-4">Create Account</Text>
+    <Surface variant="secondary" className="rounded-lg p-4">
+      <Text className="text-foreground mb-4 font-medium">Create Account</Text>
 
       <form.Subscribe
         selector={(state) => ({

@@ -1,8 +1,9 @@
 import { expoClient } from "@better-auth/expo/client";
-import { env } from "@dropaly/env/native";
 import { createAuthClient } from "better-auth/react";
 import Constants from "expo-constants";
 import * as SecureStore from "expo-secure-store";
+
+import { env } from "@dropaly/env/native";
 
 function getAppScheme() {
   const scheme = Constants.expoConfig?.scheme;

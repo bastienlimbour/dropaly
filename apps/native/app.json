@@ -7,10 +7,7 @@
     "platforms": ["ios", "android"],
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    },
+    "experiments": { "typedRoutes": true, "reactCompiler": true },
     "icon": "./assets/images/icon.png",
     "ios": {
       "icon": {

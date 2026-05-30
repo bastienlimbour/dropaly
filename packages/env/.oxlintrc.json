@@ -4,10 +4,7 @@
   "overrides": [
     {
       "files": ["src/index.server.ts", "src/index.native.ts"],
-      "env": {
-        "builtin": true,
-        "node": true
-      },
+      "env": { "builtin": true, "node": true },
       "plugins": [
         "eslint",
         "typescript",
@@ -18,12 +15,6 @@
         "node"
       ]
     },
-    {
-      "files": ["src/index.web.ts"],
-      "env": {
-        "builtin": true,
-        "browser": true
-      }
-    }
+    { "files": ["src/index.web.ts"], "env": { "builtin": true, "browser": true } }
   ]
 }

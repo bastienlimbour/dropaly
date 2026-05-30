@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <div>
-      <div className="flex flex-row items-center justify-between px-2 py-1">
+      <div className="3xl:p-8 flex flex-row items-center justify-between px-2 py-1 sm:p-4 xl:p-6">
         <nav className="flex gap-4 text-lg">
           {links.map(({ to, label }) => {
             return (

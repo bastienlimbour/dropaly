@@ -1,12 +1,10 @@
 {
-  "extends": "@dropaly/config/tsconfig.base.json",
+  "extends": "@dropaly/config/typescript/tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ESNext"],
     "types": ["node", "react"],
-    "paths": {
-      "@dropaly/ui-native/*": ["./src/*"]
-    }
+    "paths": { "@dropaly/ui-native/*": ["./src/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "uniwind-types.d.ts"]
 }

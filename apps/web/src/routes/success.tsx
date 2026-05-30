@@ -5,9 +5,7 @@ export const Route = createFileRoute("/success")({
   validateSearch: (search) => {
     const checkoutId = search["checkout_id"];
 
-    return {
-      checkout_id: typeof checkoutId === "string" ? checkoutId : undefined,
-    };
+    return { checkout_id: typeof checkoutId === "string" ? checkoutId : undefined };
   },
 });
 

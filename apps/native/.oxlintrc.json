@@ -4,9 +4,5 @@
     "../../packages/config/oxlint/base.json",
     "../../packages/config/oxlint/react-native.json"
   ],
-  "settings": {
-    "react": {
-      "version": "19.2.0"
-    }
-  }
+  "settings": { "react": { "version": "19.2.0" } }
 }

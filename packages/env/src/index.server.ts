@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
+
 import { booleanEnv, commaSeparatedListEnv } from "./utils";
 
 const commaSeparatedUrlOriginsEnv = commaSeparatedListEnv
@@ -19,9 +20,7 @@ export const env = createEnv({
     PAYMENTS_ENABLED: booleanEnv,
     POLAR_SUCCESS_URL: z.url().optional(),
     POLAR_ACCESS_TOKEN: z.string().min(1).optional(),
-    NODE_ENV: z
-      .enum(["development", "production", "test"])
-      .default("development"),
+    NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

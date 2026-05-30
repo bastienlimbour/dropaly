@@ -3,9 +3,7 @@ import { useState } from "react";
 
 import { SignInForm, SignUpForm } from "@/features/auth";
 
-export const Route = createFileRoute("/login")({
-  component: RouteComponent,
-});
+export const Route = createFileRoute("/login")({ component: RouteComponent });
 
 function RouteComponent() {
   const [showSignIn, setShowSignIn] = useState(false);

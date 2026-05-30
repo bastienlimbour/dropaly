@@ -1,16 +1,12 @@
-import { cn } from "@dropaly/ui-native/lib/utils";
 import { Slot } from "@rn-primitives/slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Platform, Text as RNText, type Role } from "react-native";
 
+import { cn } from "@dropaly/ui-native/lib/utils";
+
 const textVariants = cva(
-  cn(
-    "text-foreground text-base",
-    Platform.select({
-      web: "select-text",
-    }),
-  ),
+  cn("text-foreground text-base", Platform.select({ web: "select-text" })),
   {
     variants: {
       variant: {
@@ -38,13 +34,11 @@ const textVariants = cva(
         ),
         lead: "text-muted-foreground text-xl",
         large: "text-lg font-semibold",
-        small: "text-sm font-medium leading-none",
+        small: "text-sm leading-none font-medium",
         muted: "text-muted-foreground text-sm",
       },
     },
-    defaultVariants: {
-      variant: "default",
-    },
+    defaultVariants: { variant: "default" },
   },
 );
 
@@ -75,9 +69,7 @@ function Text({
   ...props
 }: React.ComponentProps<typeof RNText> &
   React.RefAttributes<typeof RNText> &
-  TextVariantProps & {
-    asChild?: boolean;
-  }) {
+  TextVariantProps & { asChild?: boolean }) {
   const textClass = React.useContext(TextClassContext);
   const Component = asChild ? Slot : RNText;
   return (

@@ -1,10 +1,11 @@
-import { cn } from "@dropaly/ui-native/lib/utils";
 import { ScrollView, type ScrollViewProps } from "react-native";
 import {
   SafeAreaView,
   type Edge,
   type SafeAreaViewProps,
 } from "react-native-safe-area-context";
+
+import { cn } from "@dropaly/ui-native/lib/utils";
 
 interface AppScreenProps extends Omit<SafeAreaViewProps, "edges"> {
   edges?: Edge[] | null;
@@ -17,11 +18,7 @@ export function ViewContainer({
   ...props
 }: AppScreenProps) {
   return (
-    <SafeAreaView
-      className={cn("flex-1", className)}
-      edges={edges ?? []}
-      {...props}
-    >
+    <SafeAreaView className={cn("flex-1", className)} edges={edges ?? []} {...props}>
       {children}
     </SafeAreaView>
   );
@@ -40,11 +37,7 @@ export function ScrollViewContainer({
   ...props
 }: AppScrollScreenProps) {
   return (
-    <SafeAreaView
-      edges={edges ?? []}
-      className={cn("flex-1", className)}
-      {...props}
-    >
+    <SafeAreaView edges={edges ?? []} className={cn("flex-1", className)} {...props}>
       <ScrollView
         className={cn("flex-1", scrollViewProps?.className)}
         contentContainerClassName={cn(

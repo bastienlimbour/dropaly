@@ -1,4 +1,4 @@
-import { cn } from "@dropaly/ui-native/lib/utils";
+import * as React from "react";
 import { View } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -6,7 +6,8 @@ import Animated, {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import * as React from "react";
+
+import { cn } from "@dropaly/ui-native/lib/utils";
 
 const DURATION = 1000;
 
@@ -21,12 +22,7 @@ function Skeleton({
     sv.value = withRepeat(withTiming(0.5, { duration: DURATION }), -1, true);
   }, [sv]);
 
-  const style = useAnimatedStyle(
-    () => ({
-      opacity: sv.value,
-    }),
-    [sv],
-  );
+  const style = useAnimatedStyle(() => ({ opacity: sv.value }), [sv]);
   return (
     <Animated.View
       ref={ref ?? null}

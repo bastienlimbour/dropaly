@@ -6,8 +6,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
 
-import { ScrollViewContainer } from "@/components/container";
-import { Icon } from "@dropaly/ui-native/components/icon";
 import { Badge } from "@dropaly/ui-native/components/badge";
 import { Button } from "@dropaly/ui-native/components/button";
 import {
@@ -15,11 +13,14 @@ import {
   CardDescription,
   CardTitle,
 } from "@dropaly/ui-native/components/card";
+import { Icon } from "@dropaly/ui-native/components/icon";
 import { Text } from "@dropaly/ui-native/components/text";
+import { cn } from "@dropaly/ui-native/lib/utils";
+
+import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 import { queryClient, trpc } from "@/lib/trpc-client";
-import { cn } from "@dropaly/ui-native/lib/utils";
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
@@ -35,10 +36,10 @@ export default function Home() {
     <ScrollViewContainer scrollViewProps={{ contentContainerClassName: "p-6" }}>
       {session?.user ? (
         <Card className="mb-6 gap-0 p-4">
-          <Text className="text-foreground text-base mb-2">
+          <Text className="text-foreground mb-2 text-base">
             Welcome, <Text className="font-medium">{session.user.name}</Text>
           </Text>
-          <Text className="text-muted-foreground text-sm mb-4">
+          <Text className="text-muted-foreground mb-4 text-sm">
             {session.user.email}
           </Text>
           <Button
@@ -55,7 +56,7 @@ export default function Home() {
       ) : null}
 
       <Card className="gap-4 p-6">
-        <View className="flex-row items-center justify-between mb-4">
+        <View className="mb-4 flex-row items-center justify-between">
           <CardTitle>System Status</CardTitle>
           <Badge
             variant={isConnected ? "default" : "destructive"}
@@ -68,12 +69,10 @@ export default function Home() {
         <Card className="gap-0 p-4">
           <View className="flex-row items-center">
             <View
-              className={`size-3 rounded-full mr-3 ${isConnected ? "bg-success" : "bg-muted"}`}
+              className={`mr-3 size-3 rounded-full ${isConnected ? "bg-success" : "bg-muted"}`}
             />
             <View className="flex-1">
-              <Text className="text-foreground font-medium mb-1">
-                TRPC Backend
-              </Text>
+              <Text className="text-foreground mb-1 font-medium">TRPC Backend</Text>
               <CardDescription>
                 {isLoading
                   ? "Checking connection..."
@@ -83,10 +82,7 @@ export default function Home() {
               </CardDescription>
             </View>
             {isLoading && (
-              <Icon
-                as={IconHourglass}
-                className="text-muted-foreground size-5"
-              />
+              <Icon as={IconHourglass} className="text-muted-foreground size-5" />
             )}
             {!isLoading && isConnected && (
               <Icon as={IconCircleCheck} className="text-success size-5" />
@@ -106,7 +102,7 @@ export default function Home() {
       </Card>
 
       {!session?.user && (
-        <View className="gap-4 mt-6">
+        <View className="mt-6 gap-4">
           <SignIn />
           <SignUp />
         </View>

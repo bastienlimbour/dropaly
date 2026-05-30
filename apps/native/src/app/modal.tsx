@@ -2,11 +2,12 @@ import { IconCheck } from "@tabler/icons-react-native";
 import { router } from "expo-router";
 import { View } from "react-native";
 
-import { ViewContainer } from "@/components/container";
 import { Button } from "@dropaly/ui-native/components/button";
 import { Icon } from "@dropaly/ui-native/components/icon";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
+
+import { ViewContainer } from "@/components/container";
 
 function handleClose() {
   router.back();
@@ -15,16 +16,16 @@ function handleClose() {
 function Modal() {
   return (
     <ViewContainer>
-      <View className="flex-1 justify-center items-center p-4">
-        <Surface variant="secondary" className="p-5 w-full max-w-sm rounded-lg">
+      <View className="text-avocado-100 flex-1 items-center justify-center p-4">
+        <Surface variant="secondary" className="w-full max-w-sm rounded-lg p-5">
           <View className="items-center">
-            <View className="size-12 bg-accent rounded-lg items-center justify-center mb-3">
+            <View className="bg-accent mb-3 size-12 items-center justify-center rounded-lg">
               <Icon as={IconCheck} className="text-accent-foreground size-6" />
             </View>
-            <Text className="text-foreground font-medium text-lg mb-1">
+            <Text className="text-foreground mb-1 text-lg font-medium">
               Modal Screen
             </Text>
-            <Text className="text-muted-foreground text-sm text-center mb-4">
+            <Text className="text-muted-foreground mb-4 text-center text-sm">
               This is an example modal screen for dialogs and confirmations.
             </Text>
           </View>

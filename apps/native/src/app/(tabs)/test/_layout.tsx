@@ -6,9 +6,7 @@ export default function TestLayout() {
   const colors = useThemeColors();
 
   return (
-    <Stack
-      screenOptions={{ headerStyle: { backgroundColor: colors.background } }}
-    >
+    <Stack screenOptions={{ headerStyle: { backgroundColor: colors.background } }}>
       <Stack.Screen name="index" options={{ title: "Test" }} />
     </Stack>
   );

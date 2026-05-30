@@ -7,7 +7,6 @@ import {
   KeyboardStickyView,
 } from "react-native-keyboard-controller";
 
-import { ScrollViewContainer, ViewContainer } from "@/components/container";
 import { Button } from "@dropaly/ui-native/components/button";
 import { FieldError } from "@dropaly/ui-native/components/field-error";
 import { Icon } from "@dropaly/ui-native/components/icon";
@@ -16,9 +15,12 @@ import { Separator } from "@dropaly/ui-native/components/separator";
 import { Spinner } from "@dropaly/ui-native/components/spinner";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
+
+import { ScrollViewContainer, ViewContainer } from "@/components/container";
+import { createAiChatTransport } from "@/features/ai/api";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
-import { createAiChatTransport } from "@/features/ai/api";
+import "../_layout";
 
 type ChatScrollViewRef = ElementRef<typeof KeyboardChatScrollView>;
 
@@ -50,7 +52,7 @@ export default function AiRoute() {
         edges={["bottom"]}
         scrollViewProps={{ contentContainerClassName: "p-6 gap-4" }}
       >
-        <Text className="text-2xl font-semibold text-foreground">
+        <Text className="text-foreground text-2xl font-semibold">
           Sign in to chat with AI
         </Text>
         <SignIn />
@@ -62,10 +64,10 @@ export default function AiRoute() {
   if (error) {
     return (
       <ViewContainer edges={["bottom"]}>
-        <View className="flex-1 justify-center items-center px-4">
-          <Surface variant="secondary" className="p-4 rounded-lg">
+        <View className="flex-1 items-center justify-center px-4">
+          <Surface variant="secondary" className="rounded-lg p-4">
             <FieldError isInvalid>
-              <Text className="text-destructive text-center font-medium mb-1">
+              <Text className="text-destructive mb-1 text-center font-medium">
                 {error.message}
               </Text>
               <Text className="text-muted-foreground text-center text-xs">
@@ -93,13 +95,10 @@ export default function AiRoute() {
         {messages.length === 0 ? (
           <Surface
             variant="default"
-            className="flex-1 justify-center items-center py-8 rounded-xl"
+            className="flex-1 items-center justify-center rounded-xl py-8"
           >
-            <Icon
-              as={IconMessageChatbot}
-              className="text-muted-foreground size-8"
-            />
-            <Text className="text-muted-foreground text-sm mt-3">
+            <Icon as={IconMessageChatbot} className="text-muted-foreground size-8" />
+            <Text className="text-muted-foreground mt-3 text-sm">
               Ask me anything to get started
             </Text>
           </Surface>
@@ -109,11 +108,9 @@ export default function AiRoute() {
               <Surface
                 key={message.id}
                 variant={message.role === "user" ? "tertiary" : "secondary"}
-                className={`p-3 rounded-xl ${
-                  message.role === "user" ? "ml-8" : "mr-8"
-                }`}
+                className={`rounded-xl p-3 ${message.role === "user" ? "ml-8" : "mr-8"}`}
               >
-                <Text className="text-xs font-medium mb-1 text-muted-foreground">
+                <Text className="text-muted-foreground mb-1 text-xs font-medium">
                   {message.role === "user" ? "You" : "AI"}
                 </Text>
                 <View className="gap-1">
@@ -138,15 +135,13 @@ export default function AiRoute() {
               </Surface>
             ))}
             {isBusy && (
-              <Surface variant="secondary" className="p-3 mr-8 rounded-xl">
-                <Text className="text-xs font-medium mb-1 text-muted-foreground">
+              <Surface variant="secondary" className="mr-8 rounded-xl p-3">
+                <Text className="text-muted-foreground mb-1 text-xs font-medium">
                   AI
                 </Text>
                 <View className="flex-row items-center gap-2">
                   <Spinner size="sm" />
-                  <Text className="text-muted-foreground text-sm">
-                    Thinking...
-                  </Text>
+                  <Text className="text-muted-foreground text-sm">Thinking...</Text>
                 </View>
               </Surface>
             )}

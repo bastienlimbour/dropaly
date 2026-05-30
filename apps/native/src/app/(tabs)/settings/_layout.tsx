@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
-import { useThemedHeaderOptions } from "@/lib/theme";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useThemedHeaderOptions } from "@/lib/theme";
 
 export default function SettingsLayout() {
   const headerOptions = useThemedHeaderOptions();

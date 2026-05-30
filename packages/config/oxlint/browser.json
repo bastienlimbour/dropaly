@@ -1,7 +1,4 @@
 {
   "$schema": "../../../node_modules/oxlint/configuration_schema.json",
-  "env": {
-    "builtin": true,
-    "browser": true
-  }
+  "env": { "builtin": true, "browser": true }
 }

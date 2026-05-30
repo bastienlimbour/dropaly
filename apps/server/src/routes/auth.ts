@@ -1,6 +1,7 @@
-import { auth } from "@dropaly/auth/server";
 import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyInstance } from "fastify";
+
+import { auth } from "@dropaly/auth/server";
 
 export function registerAuthRoutes(app: FastifyInstance) {
   app.route({
@@ -29,10 +30,9 @@ export function registerAuthRoutes(app: FastifyInstance) {
       } catch (err) {
         request.log.error({ err }, "Authentication error");
 
-        return reply.status(500).send({
-          error: "Internal authentication error",
-          code: "AUTH_FAILURE",
-        });
+        return reply
+          .status(500)
+          .send({ error: "Internal authentication error", code: "AUTH_FAILURE" });
       }
     },
   });

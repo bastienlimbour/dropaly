@@ -5,10 +5,6 @@ export default defineConfig({
   format: "esm",
   outDir: "./dist",
   clean: true,
-  env: {
-    NODE_ENV: "production",
-  },
-  deps: {
-    alwaysBundle: [/@dropaly\/.*/],
-  },
+  env: { NODE_ENV: "production" },
+  deps: { alwaysBundle: [/@dropaly\/.*/] },
 });

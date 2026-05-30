@@ -2,11 +2,7 @@ import * as React from "react";
 
 import { cn } from "@dropaly/ui-web/lib/utils";
 
-function Label({
-  className,
-  htmlFor,
-  ...props
-}: React.ComponentProps<"label">) {
+function Label({ className, htmlFor, ...props }: React.ComponentProps<"label">) {
   return (
     <label
       data-slot="label"

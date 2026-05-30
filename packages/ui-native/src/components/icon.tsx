@@ -1,7 +1,8 @@
-import { TextClassContext } from "@dropaly/ui-native/components/text";
-import { cn } from "@dropaly/ui-native/lib/utils";
 import * as React from "react";
 import { withUniwind } from "uniwind";
+
+import { TextClassContext } from "@dropaly/ui-native/components/text";
+import { cn } from "@dropaly/ui-native/lib/utils";
 
 type IconBaseProps = {
   className?: string;
@@ -12,23 +13,15 @@ type IconBaseProps = {
 
 type IconComponent = React.ComponentType<IconBaseProps>;
 
-type IconProps = IconBaseProps & {
-  as: IconComponent;
-};
+type IconProps = IconBaseProps & { as: IconComponent };
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {
   return <IconComponent {...props} />;
 }
 
 const StyledIcon = withUniwind(IconImpl, {
-  size: {
-    fromClassName: "className",
-    styleProperty: "width",
-  },
-  color: {
-    fromClassName: "className",
-    styleProperty: "color",
-  },
+  size: { fromClassName: "className", styleProperty: "width" },
+  color: { fromClassName: "className", styleProperty: "color" },
 });
 
 /**

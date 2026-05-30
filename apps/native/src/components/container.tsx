@@ -1,4 +1,3 @@
-import { cn } from "@dropaly/ui-native/lib/utils";
 import { ScrollView, type ScrollViewProps } from "react-native";
 import {
   SafeAreaView,
@@ -6,6 +5,8 @@ import {
   type SafeAreaViewProps,
 } from "react-native-safe-area-context";
 import { withUniwind } from "uniwind";
+
+import { cn } from "@dropaly/ui-native/lib/utils";
 
 interface AppScreenProps extends Omit<SafeAreaViewProps, "edges"> {
   edges?: Edge[] | null;
@@ -21,7 +22,7 @@ export function ViewContainer({
 }: AppScreenProps) {
   return (
     <StyledSafeAreaView
-      className={cn("flex-1 bg-background", className)}
+      className={cn("bg-background flex-1", className)}
       edges={edges ?? []}
       {...props}
     >
@@ -44,7 +45,7 @@ export function ScrollViewContainer({
 }: AppScrollScreenProps) {
   return (
     <StyledSafeAreaView
-      className={cn("flex-1 bg-background", className)}
+      className={cn("bg-background flex-1", className)}
       edges={edges ?? []}
       {...props}
     >

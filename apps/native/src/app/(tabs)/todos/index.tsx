@@ -1,11 +1,8 @@
-import { todoMutations, todoQueries } from "@/features/todos/api";
-
 import { IconCheckbox, IconPlus, IconTrash } from "@tabler/icons-react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Alert, FlatList, View } from "react-native";
 
-import { ScrollViewContainer } from "@/components/container";
 import { Badge } from "@dropaly/ui-native/components/badge";
 import { Button } from "@dropaly/ui-native/components/button";
 import { Checkbox } from "@dropaly/ui-native/components/checkbox";
@@ -14,14 +11,13 @@ import { Input } from "@dropaly/ui-native/components/input";
 import { Spinner } from "@dropaly/ui-native/components/spinner";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
+
+import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
+import { todoMutations, todoQueries } from "@/features/todos/api";
 import { authClient } from "@/lib/auth-client";
 
-type Todo = {
-  id: number;
-  text: string;
-  completed: boolean;
-};
+type Todo = { id: number; text: string; completed: boolean };
 
 export default function TodosRoute() {
   const [newTodoText, setNewTodoText] = useState("");
@@ -29,10 +25,7 @@ export default function TodosRoute() {
   const { data: session } = authClient.useSession();
   const isAuthenticated = Boolean(session?.user);
 
-  const todos = useQuery({
-    ...todoQueries.list(),
-    enabled: isAuthenticated,
-  });
+  const todos = useQuery({ ...todoQueries.list(), enabled: isAuthenticated });
   const createMutation = useMutation(
     todoMutations.create(queryClient, {
       onSuccess: () => {
@@ -69,7 +62,7 @@ export default function TodosRoute() {
       <ScrollViewContainer
         scrollViewProps={{ contentContainerClassName: "p-6 gap-4" }}
       >
-        <Text className="text-2xl font-semibold text-foreground">
+        <Text className="text-foreground text-2xl font-semibold">
           Sign in to manage your tasks
         </Text>
         <SignIn />
@@ -85,14 +78,14 @@ export default function TodosRoute() {
 
   return (
     <FlatList
-      className="flex-1 bg-background"
+      className="bg-background flex-1"
       contentContainerStyle={{ padding: 16, gap: 8 }}
       contentInsetAdjustmentBehavior="automatic"
       data={data}
       keyExtractor={(todo) => String(todo.id)}
       keyboardShouldPersistTaps="handled"
       ListHeaderComponent={
-        <View className="gap-4 mb-2">
+        <View className="mb-2 gap-4">
           {totalCount > 0 && (
             <View className="items-end">
               <Badge variant="secondary">
@@ -103,7 +96,7 @@ export default function TodosRoute() {
             </View>
           )}
 
-          <Surface variant="default" className="p-3 rounded-lg">
+          <Surface variant="default" className="rounded-lg p-3">
             <View className="flex-row items-center gap-2">
               <View className="flex-1">
                 <Input
@@ -145,7 +138,7 @@ export default function TodosRoute() {
           {isLoading && (
             <View className="items-center justify-center py-12">
               <Spinner size="lg" />
-              <Text className="text-muted-foreground text-sm mt-3">
+              <Text className="text-muted-foreground mt-3 text-sm">
                 Loading tasks...
               </Text>
             </View>
@@ -156,20 +149,18 @@ export default function TodosRoute() {
         !isLoading ? (
           <Surface
             variant="secondary"
-            className="items-center justify-center py-10 rounded-lg"
+            className="items-center justify-center rounded-lg py-10"
           >
             <Icon as={IconCheckbox} className="text-muted-foreground size-10" />
-            <Text className="text-foreground font-medium mt-3">
-              No tasks yet
-            </Text>
-            <Text className="text-muted-foreground text-xs mt-1">
+            <Text className="text-foreground mt-3 font-medium">No tasks yet</Text>
+            <Text className="text-muted-foreground mt-1 text-xs">
               Add your first task to get started
             </Text>
           </Surface>
         ) : null
       }
       renderItem={({ item }) => (
-        <Surface variant="default" className="p-3 rounded-lg">
+        <Surface variant="default" className="rounded-lg p-3">
           <View className="flex-row items-center gap-3">
             <Checkbox
               checked={item.completed}

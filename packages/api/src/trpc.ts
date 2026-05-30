@@ -17,12 +17,7 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
     });
   }
 
-  return next({
-    ctx: {
-      ...ctx,
-      actor: ctx.actor,
-    },
-  });
+  return next({ ctx: { ...ctx, actor: ctx.actor } });
 });
 
 export const guestProcedure = t.procedure.use(({ ctx, next }) => {
@@ -34,10 +29,5 @@ export const guestProcedure = t.procedure.use(({ ctx, next }) => {
     });
   }
 
-  return next({
-    ctx: {
-      ...ctx,
-      actor: null,
-    },
-  });
+  return next({ ctx: { ...ctx, actor: null } });
 });

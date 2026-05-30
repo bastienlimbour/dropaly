@@ -1,6 +1,5 @@
 import "@/index.css";
 import "@/polyfills";
-import { useThemeColors, useUiTheme } from "@dropaly/ui-native/lib/theme";
 import { PortalHost } from "@rn-primitives/portal";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack, ThemeProvider } from "expo-router";
@@ -10,12 +9,12 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
 
-import { queryClient } from "@/lib/trpc-client";
-import { useNavigationTheme } from "@/lib/theme";
+import { useThemeColors, useUiTheme } from "@dropaly/ui-native/lib/theme";
 
-export const unstable_settings = {
-  initialRouteName: "(tabs)",
-};
+import { useNavigationTheme } from "@/lib/theme";
+import { queryClient } from "@/lib/trpc-client";
+
+export const unstable_settings = { initialRouteName: "(tabs)" };
 
 function App() {
   const { resolvedTheme } = useUiTheme();
@@ -23,9 +22,7 @@ function App() {
   const navigationTheme = useNavigationTheme({ resolvedTheme, colors });
 
   return (
-    <GestureHandlerRootView
-      style={{ flex: 1, backgroundColor: colors.background }}
-    >
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.background }}>
       <KeyboardProvider>
         <ThemeProvider value={navigationTheme}>
           <StatusBar style={resolvedTheme === "dark" ? "light" : "dark"} />
@@ -41,10 +38,7 @@ function App() {
             />
           </Stack>
           <PortalHost />
-          <Toaster
-            richColors
-            theme={resolvedTheme === "dark" ? "dark" : "light"}
-          />
+          <Toaster richColors theme={resolvedTheme === "dark" ? "dark" : "light"} />
         </ThemeProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>

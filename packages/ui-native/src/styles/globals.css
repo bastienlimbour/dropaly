@@ -55,13 +55,9 @@
       --color-sidebar: var(--ui-light-sidebar);
       --color-sidebar-foreground: var(--ui-light-sidebar-foreground);
       --color-sidebar-primary: var(--ui-light-sidebar-primary);
-      --color-sidebar-primary-foreground: var(
-        --ui-light-sidebar-primary-foreground
-      );
+      --color-sidebar-primary-foreground: var(--ui-light-sidebar-primary-foreground);
       --color-sidebar-accent: var(--ui-light-sidebar-accent);
-      --color-sidebar-accent-foreground: var(
-        --ui-light-sidebar-accent-foreground
-      );
+      --color-sidebar-accent-foreground: var(--ui-light-sidebar-accent-foreground);
       --color-sidebar-border: var(--ui-light-sidebar-border);
       --color-sidebar-ring: var(--ui-light-sidebar-ring);
       --color-destructive: var(--ui-light-destructive);
@@ -100,13 +96,9 @@
       --color-sidebar: var(--ui-dark-sidebar);
       --color-sidebar-foreground: var(--ui-dark-sidebar-foreground);
       --color-sidebar-primary: var(--ui-dark-sidebar-primary);
-      --color-sidebar-primary-foreground: var(
-        --ui-dark-sidebar-primary-foreground
-      );
+      --color-sidebar-primary-foreground: var(--ui-dark-sidebar-primary-foreground);
       --color-sidebar-accent: var(--ui-dark-sidebar-accent);
-      --color-sidebar-accent-foreground: var(
-        --ui-dark-sidebar-accent-foreground
-      );
+      --color-sidebar-accent-foreground: var(--ui-dark-sidebar-accent-foreground);
       --color-sidebar-border: var(--ui-dark-sidebar-border);
       --color-sidebar-ring: var(--ui-dark-sidebar-ring);
       --color-destructive: var(--ui-dark-destructive);

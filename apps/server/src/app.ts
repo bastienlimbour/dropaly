@@ -1,9 +1,7 @@
-import {
-  serializerCompiler,
-  validatorCompiler,
-} from "fastify-type-provider-zod";
-import { env } from "@dropaly/env/server";
 import Fastify from "fastify";
+import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
+
+import { env } from "@dropaly/env/server";
 
 import { registerApiContext } from "./plugins/api-context";
 import { registerCors } from "./plugins/cors";
@@ -28,9 +26,7 @@ const loggerOptions = {
 };
 
 export function createApp() {
-  const app = Fastify({
-    logger: loggerOptions[env.NODE_ENV] ?? true,
-  });
+  const app = Fastify({ logger: loggerOptions[env.NODE_ENV] ?? true });
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);

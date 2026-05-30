@@ -11,8 +11,5 @@ export async function createAiModel(): Promise<LanguageModel> {
 
   const { devToolsMiddleware } = await import("@ai-sdk/devtools");
 
-  return wrapLanguageModel({
-    model,
-    middleware: devToolsMiddleware(),
-  });
+  return wrapLanguageModel({ model, middleware: devToolsMiddleware() });
 }

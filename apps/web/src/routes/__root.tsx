@@ -1,4 +1,3 @@
-import { Toaster } from "@dropaly/ui-web/components/sonner";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   HeadContent,
@@ -6,6 +5,8 @@ import {
   createRootRouteWithContext,
 } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
+
+import { Toaster } from "@dropaly/ui-web/components/sonner";
 
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -16,9 +17,7 @@ import "../index.css";
 const ReactQueryDevtools = import.meta.env.DEV
   ? lazy(() =>
       import("@tanstack/react-query-devtools").then(
-        ({ ReactQueryDevtools: Devtools }) => ({
-          default: Devtools,
-        }),
+        ({ ReactQueryDevtools: Devtools }) => ({ default: Devtools }),
       ),
     )
   : null;
@@ -26,9 +25,7 @@ const ReactQueryDevtools = import.meta.env.DEV
 const TanStackRouterDevtools = import.meta.env.DEV
   ? lazy(() =>
       import("@tanstack/react-router-devtools").then(
-        ({ TanStackRouterDevtools: Devtools }) => ({
-          default: Devtools,
-        }),
+        ({ TanStackRouterDevtools: Devtools }) => ({ default: Devtools }),
       ),
     )
   : null;
@@ -42,21 +39,14 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
   head: () => ({
     meta: [
-      {
-        title: "Dropaly",
-      },
+      { title: "Dropaly" },
       {
         name: "description",
         content:
           "Dropaly is an app for capturing and structuring thoughts into tasks, lists, and notes.",
       },
     ],
-    links: [
-      {
-        rel: "icon",
-        href: "/favicon.ico",
-      },
-    ],
+    links: [{ rel: "icon", href: "/favicon.ico" }],
   }),
 });
 
@@ -70,7 +60,7 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey="vite-ui-theme"
       >
-        <div className="grid grid-rows-[auto_1fr] h-svh">
+        <div className="grid h-svh grid-rows-[auto_1fr]">
           <Header />
           <Outlet />
         </div>

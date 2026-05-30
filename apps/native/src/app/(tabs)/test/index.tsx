@@ -1,8 +1,9 @@
-import { ViewContainer } from "@/components/container";
-import { Button } from "@dropaly/ui-native/components/button";
-
-import { Text } from "@dropaly/ui-native/components/text";
 import { Link } from "expo-router";
+
+import { Button } from "@dropaly/ui-native/components/button";
+import { Text } from "@dropaly/ui-native/components/text";
+
+import { ViewContainer } from "@/components/container";
 
 export default function TestRoute() {
   return (

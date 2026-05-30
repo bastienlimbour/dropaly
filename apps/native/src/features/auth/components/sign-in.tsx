@@ -10,6 +10,7 @@ import { Label } from "@dropaly/ui-native/components/label";
 import { Spinner } from "@dropaly/ui-native/components/spinner";
 import { Surface } from "@dropaly/ui-native/components/surface";
 import { Text } from "@dropaly/ui-native/components/text";
+
 import { authClient } from "@/lib/auth-client";
 import { showToast } from "@/lib/toast";
 import { queryClient } from "@/lib/trpc-client";
@@ -57,19 +58,11 @@ function SignIn() {
   const passwordInputRef = useRef<TextInput>(null);
 
   const form = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-    validators: {
-      onSubmit: signInSchema,
-    },
+    defaultValues: { email: "", password: "" },
+    validators: { onSubmit: signInSchema },
     onSubmit: async ({ value, formApi }) => {
       await authClient.signIn.email(
-        {
-          email: value.email.trim(),
-          password: value.password,
-        },
+        { email: value.email.trim(), password: value.password },
         {
           onError(error) {
             showToast({
@@ -79,10 +72,7 @@ function SignIn() {
           },
           onSuccess() {
             formApi.reset();
-            showToast({
-              variant: "success",
-              label: "Signed in successfully",
-            });
+            showToast({ variant: "success", label: "Signed in successfully" });
             void queryClient.refetchQueries();
           },
         },
@@ -91,8 +81,8 @@ function SignIn() {
   });
 
   return (
-    <Surface variant="secondary" className="p-4 rounded-lg">
-      <Text className="text-foreground font-medium mb-4">Sign In</Text>
+    <Surface variant="secondary" className="rounded-lg p-4">
+      <Text className="text-foreground mb-4 font-medium">Sign In</Text>
 
       <form.Subscribe
         selector={(state) => ({

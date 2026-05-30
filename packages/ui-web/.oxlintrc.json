@@ -4,13 +4,6 @@
     "../../packages/config/oxlint/base.json",
     "../../packages/config/oxlint/react-web.json"
   ],
-  "env": {
-    "builtin": true,
-    "browser": true
-  },
-  "settings": {
-    "react": {
-      "version": "19.2.0"
-    }
-  }
+  "env": { "builtin": true, "browser": true },
+  "settings": { "react": { "version": "19.2.0" } }
 }

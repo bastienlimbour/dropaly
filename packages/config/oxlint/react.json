@@ -9,12 +9,6 @@
     "promise",
     "react"
   ],
-  "settings": {
-    "react": {
-      "version": "19.2.0"
-    }
-  },
-  "rules": {
-    "react/react-in-jsx-scope": "off"
-  }
+  "settings": { "react": { "version": "19.2.0" } },
+  "rules": { "react/react-in-jsx-scope": "off" }
 }

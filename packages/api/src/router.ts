@@ -1,5 +1,5 @@
-import { protectedProcedure, publicProcedure, router } from "./trpc";
 import { todosRouter } from "./modules/todos";
+import { protectedProcedure, publicProcedure, router } from "./trpc";
 
 export const appRouter = router({
   healthCheck: publicProcedure.query(() => {
@@ -8,11 +8,7 @@ export const appRouter = router({
   privateData: protectedProcedure.query(({ ctx }) => {
     return {
       message: "This is private",
-      user: {
-        id: ctx.actor.userId,
-        email: ctx.actor.email,
-        name: ctx.actor.name,
-      },
+      user: { id: ctx.actor.userId, email: ctx.actor.email, name: ctx.actor.name },
     };
   }),
   todos: todosRouter,

@@ -14,12 +14,12 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {
-    "@dropaly/db": "workspace:*",
     "@ai-sdk/google": "catalog:ai",
+    "@dropaly/db": "workspace:*",
     "@trpc/server": "catalog:trpc",
+    "ai": "catalog:ai",
     "drizzle-orm": "catalog:db",
     "drizzle-zod": "catalog:db",
-    "ai": "catalog:ai",
     "zod": "catalog:"
   },
   "devDependencies": {

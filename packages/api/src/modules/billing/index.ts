@@ -17,10 +17,7 @@ export class EntitlementRequiredError extends Error {
 }
 
 export async function getBillingState(_actor: Actor): Promise<BillingState> {
-  return {
-    plan: "free",
-    entitlements: ["ai.chat"],
-  };
+  return { plan: "free", entitlements: ["ai.chat"] };
 }
 
 export async function requireEntitlement(actor: Actor, capability: Capability) {

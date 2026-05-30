@@ -5,23 +5,12 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-  server: {
-    port: 3001,
-    strictPort: true,
-  },
-  preview: {
-    port: 3001,
-    strictPort: true,
-  },
-  resolve: {
-    tsconfigPaths: true,
-  },
+  server: { port: 3001, strictPort: true },
+  preview: { port: 3001, strictPort: true },
+  resolve: { tsconfigPaths: true },
   plugins: [
     tailwindcss(),
-    tanstackRouter({
-      target: "react",
-      autoCodeSplitting: true,
-    }),
+    tanstackRouter({ target: "react", autoCodeSplitting: true }),
     react(),
     VitePWA({
       registerType: "autoUpdate",

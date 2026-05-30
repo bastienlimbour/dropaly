@@ -1,10 +1,11 @@
-import { appRouter, type AppRouter } from "@dropaly/api/server";
 import {
   type CreateFastifyContextOptions,
   fastifyTRPCPlugin,
   type FastifyTRPCPluginOptions,
 } from "@trpc/server/adapters/fastify";
 import type { FastifyInstance } from "fastify";
+
+import { appRouter, type AppRouter } from "@dropaly/api/server";
 
 import { getApiContext } from "../plugins/api-context";
 

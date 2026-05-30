@@ -1,12 +1,11 @@
-import { env } from "@dropaly/env/server";
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 
+import { env } from "@dropaly/env/server";
+
 export function paymentsPlugin(): ReturnType<typeof polar> {
   if (!env.POLAR_ACCESS_TOKEN) {
-    throw new Error(
-      "POLAR_ACCESS_TOKEN is required when PAYMENTS_ENABLED=true",
-    );
+    throw new Error("POLAR_ACCESS_TOKEN is required when PAYMENTS_ENABLED=true");
   }
 
   if (!env.POLAR_SUCCESS_URL) {
@@ -24,12 +23,7 @@ export function paymentsPlugin(): ReturnType<typeof polar> {
     enableCustomerPortal: true,
     use: [
       checkout({
-        products: [
-          {
-            productId: "your-product-id",
-            slug: "pro",
-          },
-        ],
+        products: [{ productId: "your-product-id", slug: "pro" }],
         successUrl: env.POLAR_SUCCESS_URL,
         authenticatedUsersOnly: true,
       }),

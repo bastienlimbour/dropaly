@@ -1,11 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": ["@dropaly/config/tsconfig.base.json", "expo/tsconfig.base"],
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
+  "extends": ["@dropaly/config/typescript/tsconfig.base.json", "expo/tsconfig.base"],
+  "compilerOptions": { "paths": { "@/*": ["./src/*"] } },
   "include": [
     "**/*.ts",
     "**/*.tsx",

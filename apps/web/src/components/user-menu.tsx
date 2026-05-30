@@ -1,3 +1,5 @@
+import { Link, useNavigate } from "@tanstack/react-router";
+
 import { Button } from "@dropaly/ui-web/components/button";
 import {
   DropdownMenu,
@@ -9,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@dropaly/ui-web/components/dropdown-menu";
 import { Skeleton } from "@dropaly/ui-web/components/skeleton";
-import { Link, useNavigate } from "@tanstack/react-router";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -45,9 +46,7 @@ export default function UserMenu() {
               void authClient.signOut({
                 fetchOptions: {
                   onSuccess: () => {
-                    void navigate({
-                      to: "/",
-                    });
+                    void navigate({ to: "/" });
                   },
                 },
               });

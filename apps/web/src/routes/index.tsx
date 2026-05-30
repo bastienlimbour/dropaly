@@ -3,9 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { trpc } from "@/lib/trpc-client";
 
-export const Route = createFileRoute("/")({
-  component: HomeComponent,
-});
+export const Route = createFileRoute("/")({ component: HomeComponent });
 
 const TITLE_TEXT = `
  ██████╗ ███████╗████████╗████████╗███████╗██████╗

@@ -1,41 +1,31 @@
-import { Button } from "@dropaly/ui-web/components/button";
-import { Input } from "@dropaly/ui-web/components/input";
-import { Label } from "@dropaly/ui-web/components/label";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import z from "zod";
 
-import { authClient } from "@/lib/auth-client";
+import { Button } from "@dropaly/ui-web/components/button";
+import { Input } from "@dropaly/ui-web/components/input";
+import { Label } from "@dropaly/ui-web/components/label";
 
 import Loader from "@/components/loader";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignInForm({
   onSwitchToSignUp,
 }: {
   onSwitchToSignUp: () => void;
 }) {
-  const navigate = useNavigate({
-    from: "/",
-  });
+  const navigate = useNavigate({ from: "/" });
   const { isPending } = authClient.useSession();
 
   const form = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
     onSubmit: async ({ value }) => {
       await authClient.signIn.email(
-        {
-          email: value.email,
-          password: value.password,
-        },
+        { email: value.email, password: value.password },
         {
           onSuccess: () => {
-            void navigate({
-              to: "/dashboard",
-            });
+            void navigate({ to: "/dashboard" });
             toast.success("Sign in successful");
           },
           onError: (error) => {
@@ -57,7 +47,7 @@ export default function SignInForm({
   }
 
   return (
-    <div className="mx-auto w-full mt-10 max-w-md p-6">
+    <div className="mx-auto mt-10 w-full max-w-md p-6">
       <h1 className="mb-6 text-center text-3xl font-bold">Welcome Back</h1>
 
       <form

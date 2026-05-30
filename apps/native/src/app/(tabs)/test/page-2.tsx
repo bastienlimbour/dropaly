@@ -1,6 +1,6 @@
-import { ViewContainer } from "@/components/container";
-
 import { Text } from "@dropaly/ui-native/components/text";
+
+import { ViewContainer } from "@/components/container";
 
 export default function Test2Route() {
   return (

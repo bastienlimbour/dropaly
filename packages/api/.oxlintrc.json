@@ -4,8 +4,5 @@
     "../../packages/config/oxlint/base.json",
     "../../packages/config/oxlint/node.json"
   ],
-  "env": {
-    "builtin": true,
-    "node": true
-  }
+  "env": { "builtin": true, "node": true }
 }

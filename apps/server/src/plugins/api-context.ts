@@ -1,11 +1,12 @@
-import { auth } from "@dropaly/auth/server";
-import type { Actor, RequestContext } from "@dropaly/api/server";
 import { fromNodeHeaders } from "better-auth/node";
 import type {
   FastifyInstance,
   FastifyRequest,
   preHandlerHookHandler,
 } from "fastify";
+
+import type { Actor, RequestContext } from "@dropaly/api/server";
+import { auth } from "@dropaly/auth/server";
 
 type Session = Awaited<ReturnType<typeof auth.api.getSession>>;
 
@@ -27,16 +28,12 @@ function createActorFromSession(session: NonNullable<Session>): Actor {
   };
 }
 
-async function createApiContext(
-  request: FastifyRequest,
-): Promise<RequestContext> {
+async function createApiContext(request: FastifyRequest): Promise<RequestContext> {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(request.headers),
   });
 
-  return {
-    actor: session ? createActorFromSession(session) : null,
-  };
+  return { actor: session ? createActorFromSession(session) : null };
 }
 
 export function getApiContext(request: FastifyRequest): RequestContext {
@@ -58,10 +55,9 @@ export function registerApiContext(app: FastifyInstance) {
     const context = getApiContext(request);
 
     if (!context.actor) {
-      return reply.status(401).send({
-        error: "Authentication required",
-        code: "UNAUTHORIZED",
-      });
+      return reply
+        .status(401)
+        .send({ error: "Authentication required", code: "UNAUTHORIZED" });
     }
   });
 }

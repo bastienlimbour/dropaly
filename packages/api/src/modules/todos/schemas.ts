@@ -1,6 +1,7 @@
-import { todo } from "@dropaly/db/schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
+
+import { todo } from "@dropaly/db/schema";
 
 const todoSelectBaseSchema = createSelectSchema(todo);
 const todoInsertBaseSchema = createInsertSchema(todo, {
@@ -13,18 +14,14 @@ export const todoDtoSchema = todoSelectBaseSchema.pick({
   completed: true,
 });
 
-export const createTodoInputSchema = todoInsertBaseSchema.pick({
-  text: true,
-});
+export const createTodoInputSchema = todoInsertBaseSchema.pick({ text: true });
 
 export const toggleTodoInputSchema = todoSelectBaseSchema.pick({
   id: true,
   completed: true,
 });
 
-export const deleteTodoInputSchema = todoSelectBaseSchema.pick({
-  id: true,
-});
+export const deleteTodoInputSchema = todoSelectBaseSchema.pick({ id: true });
 
 export type TodoDto = z.infer<typeof todoDtoSchema>;
 export type CreateTodoInput = z.infer<typeof createTodoInputSchema>;

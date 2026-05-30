@@ -10,9 +10,5 @@
     "promise",
     "react"
   ],
-  "settings": {
-    "react": {
-      "version": "19.2.0"
-    }
-  }
+  "settings": { "react": { "version": "19.2.0" } }
 }

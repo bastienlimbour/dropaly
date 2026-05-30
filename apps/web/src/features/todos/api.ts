@@ -6,9 +6,7 @@ interface MutationCallbacks {
   onSuccess?: () => void;
 }
 
-export const todoQueries = {
-  list: () => trpc.todos.list.queryOptions(),
-};
+export const todoQueries = { list: () => trpc.todos.list.queryOptions() };
 
 export const todoMutations = {
   create: (queryClient: QueryClient, callbacks?: MutationCallbacks) =>

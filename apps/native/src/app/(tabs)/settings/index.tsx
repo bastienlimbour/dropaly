@@ -1,6 +1,5 @@
 import { View } from "react-native";
 
-import { ScrollViewContainer } from "@/components/container";
 import { Button } from "@dropaly/ui-native/components/button";
 import {
   Card,
@@ -9,6 +8,8 @@ import {
 } from "@dropaly/ui-native/components/card";
 import { Text } from "@dropaly/ui-native/components/text";
 import { useUiTheme, type ThemePreference } from "@dropaly/ui-native/lib/theme";
+
+import { ScrollViewContainer } from "@/components/container";
 import { authClient } from "@/lib/auth-client";
 import { queryClient } from "@/lib/trpc-client";
 
@@ -26,15 +27,13 @@ export default function SettingsRoute() {
     <ScrollViewContainer
       scrollViewProps={{ contentContainerClassName: "p-6 gap-4" }}
     >
-      <Card className="p-4 gap-3">
+      <Card className="gap-3 p-4">
         <View className="flex-row items-center justify-between gap-3">
           <View className="flex-1">
             <CardTitle>Appearance</CardTitle>
             <CardDescription>
               Current preference: {themePreference}
-              {themePreference === "system"
-                ? ` (resolved: ${resolvedTheme})`
-                : ""}
+              {themePreference === "system" ? ` (resolved: ${resolvedTheme})` : ""}
             </CardDescription>
           </View>
         </View>
@@ -53,7 +52,7 @@ export default function SettingsRoute() {
       </Card>
 
       {session?.user ? (
-        <Card className="p-4 gap-3">
+        <Card className="gap-3 p-4">
           <View>
             <CardTitle>Account</CardTitle>
             <CardDescription>{session.user.email}</CardDescription>

@@ -11,13 +11,6 @@
     "react",
     "jsx-a11y"
   ],
-  "env": {
-    "builtin": true,
-    "browser": true
-  },
-  "settings": {
-    "react": {
-      "version": "19.2.0"
-    }
-  }
+  "env": { "builtin": true, "browser": true },
+  "settings": { "react": { "version": "19.2.0" } }
 }

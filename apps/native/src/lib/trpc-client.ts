@@ -1,22 +1,17 @@
-import type { AppRouter } from "@dropaly/api";
-import { env } from "@dropaly/env/native";
 import { QueryClient } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { fetch as expoFetch } from "expo/fetch";
 
+import type { AppRouter } from "@dropaly/api";
+import { env } from "@dropaly/env/native";
+
 import { authClient } from "@/lib/auth-client";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      staleTime: 30_000,
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-    mutations: {
-      retry: 1,
-    },
+    queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: false },
+    mutations: { retry: 1 },
   },
 });
 
