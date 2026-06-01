@@ -1,5 +1,6 @@
 import { Slot } from "@rn-primitives/slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import { useMemo } from "react";
 import { Platform, View } from "react-native";
 
 import { TextClassContext } from "@dropaly/ui-native/components/text";
@@ -55,8 +56,9 @@ type BadgeProps = React.ComponentProps<typeof View> &
 
 function Badge({ className, variant, asChild, ...props }: BadgeProps) {
   const Component = asChild ? Slot : View;
+  const contextValue = useMemo(() => badgeTextVariants({ variant }), [variant]);
   return (
-    <TextClassContext.Provider value={badgeTextVariants({ variant })}>
+    <TextClassContext.Provider value={contextValue}>
       <Component className={cn(badgeVariants({ variant }), className)} {...props} />
     </TextClassContext.Provider>
   );

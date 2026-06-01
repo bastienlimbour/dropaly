@@ -12,6 +12,8 @@ minimumReleaseAgeStrict: true
 catalog:
   dotenv: ^17.4.2
   "@types/node": ^22.19.19
+  oxfmt: ^0.52.0
+  oxlint: ^1.67.0
   typescript: ^6.0.3
   zod: ^4.4.3
 catalogs:

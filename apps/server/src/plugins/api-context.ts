@@ -59,6 +59,8 @@ export function registerApiContext(app: FastifyInstance) {
         .status(401)
         .send({ error: "Authentication required", code: "UNAUTHORIZED" });
     }
+
+    return context.actor;
   });
 }
 

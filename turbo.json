@@ -12,8 +12,9 @@
       "dependsOn": ["transit"],
       "inputs": [
         "$TURBO_DEFAULT$",
-        ".oxlintrc.json",
-        "$TURBO_ROOT$/packages/config/oxlint/*.json"
+        "oxlint.config.ts",
+        "$TURBO_ROOT$/oxlint.config.ts",
+        "$TURBO_ROOT$/packages/config/oxlint/*.ts"
       ]
     },
     "lint:fix": {
@@ -23,7 +24,12 @@
       "cache": false
     },
     "format:check": {
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/.oxfmtrc.json"]
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "oxfmt.config.ts",
+        "$TURBO_ROOT$/oxfmt.config.ts",
+        "$TURBO_ROOT$/packages/config/oxfmt/*.ts"
+      ]
     },
     "build": {
       "dependsOn": ["transit"],

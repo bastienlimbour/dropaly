@@ -20,7 +20,6 @@ import { ScrollViewContainer, ViewContainer } from "@/components/container";
 import { createAiChatTransport } from "@/features/ai/api";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
-import "../_layout";
 
 type ChatScrollViewRef = ElementRef<typeof KeyboardChatScrollView>;
 
@@ -114,17 +113,17 @@ export default function AiRoute() {
                   {message.role === "user" ? "You" : "AI"}
                 </Text>
                 <View className="gap-1">
-                  {message.parts.map((part, i) =>
+                  {message.parts.map((part, index) =>
                     part.type === "text" ? (
                       <Text
-                        key={`${message.id}-${i}`}
+                        key={`${message.id}-${index}`}
                         className="text-foreground text-sm leading-relaxed"
                       >
                         {part.text}
                       </Text>
                     ) : (
                       <Text
-                        key={`${message.id}-${i}`}
+                        key={`${message.id}-${index}`}
                         className="text-foreground text-sm leading-relaxed"
                       >
                         {JSON.stringify(part)}

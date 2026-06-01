@@ -7,9 +7,15 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
     "moduleDetection": "force",
     "isolatedModules": true,
     "allowJs": true,
+
+    // Transpile using bundler (not tsc)
+    "noEmit": true,
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
 
     // Types
     "types": ["node"],
@@ -29,11 +35,6 @@
     "noFallthroughCasesInSwitch": true,
     "erasableSyntaxOnly": true,
     "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-
-    // Transpile using bundler (not tsc)
-    "noEmit": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler"
+    "allowUnusedLabels": false
   }
 }

@@ -52,7 +52,7 @@ export function AiPage() {
                 if (part.type === "text") {
                   return (
                     <Streamdown
-                      key={index}
+                      key={`${message.id}-${index}`}
                       isAnimating={
                         status === "streaming" && message.role === "assistant"
                       }

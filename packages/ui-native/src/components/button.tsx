@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { useMemo } from "react";
 import { Platform, Pressable } from "react-native";
 
 import { TextClassContext } from "@dropaly/ui-native/components/text";
@@ -92,8 +93,13 @@ type ButtonProps = React.ComponentProps<typeof Pressable> &
   VariantProps<typeof buttonVariants>;
 
 function Button({ className, variant, size, ...props }: ButtonProps) {
+  const contextValue = useMemo(
+    () => buttonTextVariants({ variant, size }),
+    [variant, size],
+  );
+
   return (
-    <TextClassContext.Provider value={buttonTextVariants({ variant, size })}>
+    <TextClassContext.Provider value={contextValue}>
       <Pressable
         className={cn(
           props.disabled && "opacity-50",

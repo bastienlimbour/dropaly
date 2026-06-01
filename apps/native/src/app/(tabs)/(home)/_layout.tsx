@@ -3,6 +3,10 @@ import { Stack } from "expo-router";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useThemedHeaderOptions } from "@/lib/theme";
 
+function renderHeaderRight() {
+  return <ThemeToggle />;
+}
+
 export default function HomeLayout() {
   const headerOptions = useThemedHeaderOptions();
 
@@ -10,7 +14,7 @@ export default function HomeLayout() {
     <Stack
       screenOptions={{
         headerLargeTitle: true,
-        headerRight: () => <ThemeToggle />,
+        headerRight: renderHeaderRight,
         ...headerOptions,
       }}
     >

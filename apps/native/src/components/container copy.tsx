@@ -29,10 +29,12 @@ interface AppScrollScreenProps extends Omit<SafeAreaViewProps, "edges"> {
   scrollViewProps?: ScrollViewProps;
 }
 
+const DEFAULT_EDGES: Edge[] = ["top", "bottom"];
+
 export function ScrollViewContainer({
   children,
   className,
-  edges = ["top", "bottom"],
+  edges = DEFAULT_EDGES,
   scrollViewProps,
   ...props
 }: AppScrollScreenProps) {

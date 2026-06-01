@@ -1,5 +1,3 @@
-import "@/index.css";
-import "@/polyfills";
 import { PortalHost } from "@rn-primitives/portal";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack, ThemeProvider } from "expo-router";
@@ -13,6 +11,11 @@ import { useThemeColors, useUiTheme } from "@dropaly/ui-native/lib/theme";
 
 import { useNavigationTheme } from "@/lib/theme";
 import { queryClient } from "@/lib/trpc-client";
+import { installPolyfills } from "@/polyfills";
+
+import "@/index.css";
+
+installPolyfills();
 
 export const unstable_settings = { initialRouteName: "(tabs)" };
 

@@ -5,13 +5,19 @@
   "type": "module",
   "exports": {
     "./oxfmt/*": "./oxfmt/*.ts",
-    "./oxlint/*": "./oxlint/*",
+    "./oxlint/*": "./oxlint/*.ts",
     "./typescript/*": "./typescript/*"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "lint": "oxlint . --no-error-on-unmatched-pattern",
     "lint:fix": "oxlint . --fix --no-error-on-unmatched-pattern",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check"
+  },
+  "devDependencies": {
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "typescript": "catalog:"
   }
 }
