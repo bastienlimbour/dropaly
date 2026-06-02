@@ -92,7 +92,7 @@ export function SignUp() {
 
   return (
     <Surface variant="secondary" className="rounded-lg p-4">
-      <Text className="text-foreground mb-4 font-medium">Create Account</Text>
+      <Text className="mb-4 font-medium text-foreground">Create Account</Text>
 
       <form.Subscribe
         selector={(state) => ({

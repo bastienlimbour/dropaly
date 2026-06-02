@@ -36,10 +36,10 @@ export default function Home() {
     <ScrollViewContainer scrollViewProps={{ contentContainerClassName: "p-6" }}>
       {session?.user ? (
         <Card className="mb-6 gap-0 p-4">
-          <Text className="text-foreground mb-2 text-base">
+          <Text className="mb-2 text-base text-foreground">
             Welcome, <Text className="font-medium">{session.user.name}</Text>
           </Text>
-          <Text className="text-muted-foreground mb-4 text-sm">
+          <Text className="mb-4 text-sm text-muted-foreground">
             {session.user.email}
           </Text>
           <Button
@@ -72,7 +72,7 @@ export default function Home() {
               className={`mr-3 size-3 rounded-full ${isConnected ? "bg-success" : "bg-muted"}`}
             />
             <View className="flex-1">
-              <Text className="text-foreground mb-1 font-medium">TRPC Backend</Text>
+              <Text className="mb-1 font-medium text-foreground">TRPC Backend</Text>
               <CardDescription>
                 {isLoading
                   ? "Checking connection..."
@@ -82,13 +82,13 @@ export default function Home() {
               </CardDescription>
             </View>
             {isLoading && (
-              <Icon as={IconHourglass} className="text-muted-foreground size-5" />
+              <Icon as={IconHourglass} className="size-5 text-muted-foreground" />
             )}
             {!isLoading && isConnected && (
-              <Icon as={IconCircleCheck} className="text-success size-5" />
+              <Icon as={IconCircleCheck} className="size-5 text-success" />
             )}
             {!isLoading && !isConnected && (
-              <Icon as={IconCircleX} className="text-destructive size-5" />
+              <Icon as={IconCircleX} className="size-5 text-destructive" />
             )}
           </View>
         </Card>

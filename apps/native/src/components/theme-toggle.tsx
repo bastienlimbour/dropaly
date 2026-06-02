@@ -29,15 +29,15 @@ export function ThemeToggle() {
     >
       {nextTheme === "dark" ? (
         <Animated.View key="moon" entering={ZoomIn} exiting={FadeOut}>
-          <Icon as={IconMoon} className="text-foreground size-5" />
+          <Icon as={IconMoon} className="size-5 text-foreground" />
         </Animated.View>
       ) : nextTheme === "light" ? (
         <Animated.View key="sun" entering={ZoomIn} exiting={FadeOut}>
-          <Icon as={IconSun} className="text-foreground size-5" />
+          <Icon as={IconSun} className="size-5 text-foreground" />
         </Animated.View>
       ) : (
         <Animated.View key="system" entering={ZoomIn} exiting={FadeOut}>
-          <Icon as={IconDeviceDesktop} className="text-foreground size-5" />
+          <Icon as={IconDeviceDesktop} className="size-5 text-foreground" />
         </Animated.View>
       )}
     </Pressable>

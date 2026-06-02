@@ -19,13 +19,13 @@ function Modal() {
       <View className="text-avocado-100 flex-1 items-center justify-center p-4">
         <Surface variant="secondary" className="w-full max-w-sm rounded-lg p-5">
           <View className="items-center">
-            <View className="bg-accent mb-3 size-12 items-center justify-center rounded-lg">
-              <Icon as={IconCheck} className="text-accent-foreground size-6" />
+            <View className="mb-3 size-12 items-center justify-center rounded-lg bg-accent">
+              <Icon as={IconCheck} className="size-6 text-accent-foreground" />
             </View>
-            <Text className="text-foreground mb-1 text-lg font-medium">
+            <Text className="mb-1 text-lg font-medium text-foreground">
               Modal Screen
             </Text>
-            <Text className="text-muted-foreground mb-4 text-center text-sm">
+            <Text className="mb-4 text-center text-sm text-muted-foreground">
               This is an example modal screen for dialogs and confirmations.
             </Text>
           </View>

@@ -82,7 +82,7 @@ function SignIn() {
 
   return (
     <Surface variant="secondary" className="rounded-lg p-4">
-      <Text className="text-foreground mb-4 font-medium">Sign In</Text>
+      <Text className="mb-4 font-medium text-foreground">Sign In</Text>
 
       <form.Subscribe
         selector={(state) => ({

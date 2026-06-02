@@ -9,7 +9,7 @@ function FieldError({ children, className, isInvalid, ...props }: FieldErrorProp
   }
 
   return (
-    <Text className={cn("text-destructive text-sm", className)} {...props}>
+    <Text className={cn("text-sm text-destructive", className)} {...props}>
       {children}
     </Text>
   );

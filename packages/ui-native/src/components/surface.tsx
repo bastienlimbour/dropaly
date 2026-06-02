@@ -10,7 +10,7 @@ function Surface({ className, variant = "default", ...props }: SurfaceProps) {
   return (
     <View
       className={cn(
-        "border-border rounded-xl border shadow-sm shadow-black/5",
+        "rounded-xl border border-border shadow-sm shadow-black/5",
         variant === "default" && "bg-card",
         variant === "secondary" && "bg-secondary",
         variant === "tertiary" && "bg-accent",

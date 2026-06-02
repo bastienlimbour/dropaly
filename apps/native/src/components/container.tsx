@@ -22,7 +22,7 @@ export function ViewContainer({
 }: AppScreenProps) {
   return (
     <StyledSafeAreaView
-      className={cn("bg-background flex-1", className)}
+      className={cn("flex-1 bg-background", className)}
       edges={edges ?? []}
       {...props}
     >
@@ -45,7 +45,7 @@ export function ScrollViewContainer({
 }: AppScrollScreenProps) {
   return (
     <StyledSafeAreaView
-      className={cn("bg-background flex-1", className)}
+      className={cn("flex-1 bg-background", className)}
       edges={edges ?? []}
       {...props}
     >
