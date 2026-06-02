@@ -12,7 +12,8 @@ export const oxlintBaseConfig = {
   },
   rules: {
     "import/namespace": "off",
-    "import/no-cycle": ["warn", { maxDepth: 3 }],
+    // "import/no-cycle": ["warn", { maxDepth: 3 }],
+    "import/no-cycle": "warn",
     "import/no-unassigned-import": ["warn", { allow: ["**/*.css"] }],
   },
 } satisfies OxlintConfig;
