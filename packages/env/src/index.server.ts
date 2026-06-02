@@ -1,8 +1,10 @@
-import "dotenv/config";
 import { createEnv } from "@t3-oss/env-core";
+import dotenv from "dotenv";
 import { z } from "zod";
 
 import { booleanEnv, commaSeparatedListEnv } from "./utils";
+
+dotenv.config();
 
 const commaSeparatedUrlOriginsEnv = commaSeparatedListEnv
   .pipe(z.array(z.url()).min(1))
