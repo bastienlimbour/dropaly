@@ -16,7 +16,9 @@ export function registerAuthRoutes(app: FastifyInstance) {
         const req = new Request(url.toString(), {
           method: request.method,
           headers: fromNodeHeaders(request.headers),
-          body: request.body ? JSON.stringify(request.body) : null,
+          ...(request.method !== "GET" && request.body
+            ? { body: JSON.stringify(request.body) }
+            : {}),
         });
         const response = await auth.handler(req);
 

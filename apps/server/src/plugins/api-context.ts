@@ -36,14 +36,6 @@ async function createApiContext(request: FastifyRequest): Promise<RequestContext
   return { actor: session ? createActorFromSession(session) : null };
 }
 
-export function getApiContext(request: FastifyRequest): RequestContext {
-  if (!request.apiContext) {
-    throw new Error("API context was not initialized");
-  }
-
-  return request.apiContext;
-}
-
 export function registerApiContext(app: FastifyInstance) {
   app.decorateRequest("apiContext", null);
 
@@ -62,6 +54,14 @@ export function registerApiContext(app: FastifyInstance) {
 
     return context.actor;
   });
+}
+
+export function getApiContext(request: FastifyRequest): RequestContext {
+  if (!request.apiContext) {
+    throw new Error("API context was not initialized");
+  }
+
+  return request.apiContext;
 }
 
 export function getAuthenticatedActor(request: FastifyRequest): Actor {
