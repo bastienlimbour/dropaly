@@ -6,6 +6,7 @@ export default defineConfig({
   ...oxfmtBaseConfig,
   ignorePatterns: [
     ".agents/**",
+    ".references/**",
     ".turbo/**",
     ".node_modules/**",
     "pnpm-lock.yaml",

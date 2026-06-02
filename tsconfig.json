@@ -1,3 +1,4 @@
 {
-  "extends": "@dropaly/config/typescript/tsconfig.base.json"
+  "extends": "@dropaly/config/typescript/tsconfig.base.json",
+  "exclude": [".references"]
 }
