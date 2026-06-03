@@ -5,10 +5,19 @@ import type {
   preHandlerHookHandler,
 } from "fastify";
 
-import type { Actor, RequestContext } from "@dropaly/api/server";
-import { auth } from "@dropaly/auth/server";
+import {
+  createRequestContext,
+  requireActor,
+  type AuthenticatedContext,
+  type RequestContext,
+} from "@dropaly/api/server";
+import type { Auth } from "@dropaly/auth/server";
+import type { Db } from "@dropaly/db";
 
-type Session = Awaited<ReturnType<typeof auth.api.getSession>>;
+type RegisterApiContextOptions = {
+  auth: Auth;
+  db: Db;
+};
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -20,27 +29,29 @@ declare module "fastify" {
   }
 }
 
-function createActorFromSession(session: NonNullable<Session>): Actor {
-  return {
-    userId: session.user.id,
-    email: session.user.email,
-    name: session.user.name,
-  };
-}
-
-async function createApiContext(request: FastifyRequest): Promise<RequestContext> {
-  const session = await auth.api.getSession({
+async function createApiContext(
+  request: FastifyRequest,
+  options: RegisterApiContextOptions,
+): Promise<RequestContext> {
+  const session = await options.auth.api.getSession({
     headers: fromNodeHeaders(request.headers),
   });
 
-  return { actor: session ? createActorFromSession(session) : null };
+  return createRequestContext({
+    db: options.db,
+    session,
+    requestId: request.id,
+  });
 }
 
-export function registerApiContext(app: FastifyInstance) {
+export function registerApiContext(
+  app: FastifyInstance,
+  options: RegisterApiContextOptions,
+) {
   app.decorateRequest("apiContext", null);
 
   app.addHook("onRequest", async (request) => {
-    request.apiContext = await createApiContext(request);
+    request.apiContext = await createApiContext(request, options);
   });
 
   app.decorate("requireAuth", async (request, reply) => {
@@ -64,12 +75,11 @@ export function getApiContext(request: FastifyRequest): RequestContext {
   return request.apiContext;
 }
 
-export function getAuthenticatedActor(request: FastifyRequest): Actor {
+export function getAuthenticatedContext(
+  request: FastifyRequest,
+): AuthenticatedContext {
   const context = getApiContext(request);
+  const actor = requireActor(context);
 
-  if (!context.actor) {
-    throw new Error("Authenticated actor was not initialized");
-  }
-
-  return context.actor;
+  return { ...context, actor };
 }

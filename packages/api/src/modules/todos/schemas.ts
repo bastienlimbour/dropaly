@@ -8,7 +8,7 @@ const todoInsertBaseSchema = createInsertSchema(todo, {
   text: z.string().trim().min(1).max(500),
 });
 
-export const todoDtoSchema = todoSelectBaseSchema.pick({
+export const todoSchema = todoSelectBaseSchema.pick({
   id: true,
   text: true,
   completed: true,
@@ -23,7 +23,9 @@ export const toggleTodoInputSchema = todoSelectBaseSchema.pick({
 
 export const deleteTodoInputSchema = todoSelectBaseSchema.pick({ id: true });
 
-export type TodoDto = z.infer<typeof todoDtoSchema>;
+export const deleteTodoOutputSchema = z.object({ deleted: z.boolean() });
+
+export type Todo = z.infer<typeof todoSchema>;
 export type CreateTodoInput = z.infer<typeof createTodoInputSchema>;
 export type ToggleTodoInput = z.infer<typeof toggleTodoInputSchema>;
 export type DeleteTodoInput = z.infer<typeof deleteTodoInputSchema>;

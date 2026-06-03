@@ -1,7 +1,9 @@
-import Fastify from "fastify";
+import Fastify, { type FastifyServerOptions } from "fastify";
 import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 
-import { env } from "@dropaly/env/server";
+import type { Auth } from "@dropaly/auth/server";
+import type { Db } from "@dropaly/db";
+import type { Env } from "@dropaly/env/server";
 
 import { registerApiContext } from "./plugins/api-context";
 import { registerCors } from "./plugins/cors";
@@ -10,36 +12,28 @@ import { registerAuthRoutes } from "./routes/auth";
 import { registerHealthRoutes } from "./routes/health";
 import { registerTRPCRoutes } from "./routes/trpc";
 
-const loggerOptions = {
-  development: {
-    transport: {
-      target: "pino-pretty",
-      options: {
-        colorize: true,
-        translateTime: "HH:MM:ss Z",
-        ignore: "pid,hostname",
-      },
-    },
-  },
-  production: true,
-  test: false,
+type CreateAppOptions = {
+  auth: Auth;
+  corsOrigins: Env["CORS_ORIGINS"];
+  db: Db;
+  logger?: FastifyServerOptions["logger"];
 };
 
-export function createApp() {
-  const app = Fastify({ logger: loggerOptions[env.NODE_ENV] ?? true });
+export function createApp(options: CreateAppOptions) {
+  const app = Fastify({ logger: options.logger ?? true });
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
   // Plugins
-  registerCors(app);
+  registerCors(app, { corsOrigins: options.corsOrigins });
 
   // Routes
-  registerAuthRoutes(app);
+  registerAuthRoutes(app, { auth: options.auth });
   registerHealthRoutes(app);
 
   app.register((apiApp) => {
-    registerApiContext(apiApp);
+    registerApiContext(apiApp, { auth: options.auth, db: options.db });
     registerTRPCRoutes(apiApp);
     registerAiRoutes(apiApp);
   });

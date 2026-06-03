@@ -31,6 +31,9 @@
         "$TURBO_ROOT$/packages/config/oxfmt/*.ts"
       ]
     },
+    "test": {
+      "dependsOn": ["transit"]
+    },
     "build": {
       "dependsOn": ["transit"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],

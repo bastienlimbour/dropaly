@@ -7,3 +7,5 @@ export const env = createEnv({
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
+
+export type Env = typeof env;

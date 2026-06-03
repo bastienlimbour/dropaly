@@ -1,55 +1,49 @@
-import type { Actor } from "../../context";
-import {
-  createTodoForUser,
-  deleteTodoForUser,
-  listTodosByUserId,
-  type TodoRow,
-  updateTodoCompletionForUser,
-} from "./repository";
+import type { AuthenticatedContext } from "../../context";
+import { todoRepository as defaultTodoRepository } from "./repository";
 import type {
   CreateTodoInput,
   DeleteTodoInput,
-  TodoDto,
+  Todo,
   ToggleTodoInput,
 } from "./schemas";
 
-function toTodoDto(row: TodoRow): TodoDto {
-  return { id: row.id, text: row.text, completed: row.completed };
-}
+type TodoServiceDeps = {
+  todoRepository?: typeof defaultTodoRepository;
+};
 
-export async function listTodos(actor: Actor): Promise<TodoDto[]> {
-  const rows = await listTodosByUserId(actor.userId);
+export const todoService = (
+  ctx: AuthenticatedContext,
+  deps: TodoServiceDeps = {},
+) => {
+  const repo = (deps.todoRepository ?? defaultTodoRepository)(ctx.db);
 
-  return rows.map(toTodoDto);
-}
+  return {
+    list(): Promise<Todo[]> {
+      return repo.listByUserId(ctx.actor.userId);
+    },
 
-export async function createTodo(
-  actor: Actor,
-  input: CreateTodoInput,
-): Promise<TodoDto> {
-  const row = await createTodoForUser({ userId: actor.userId, text: input.text });
+    create(input: CreateTodoInput): Promise<Todo> {
+      return repo.createForUser({
+        userId: ctx.actor.userId,
+        text: input.text,
+      });
+    },
 
-  return toTodoDto(row);
-}
+    toggle(input: ToggleTodoInput): Promise<Todo | null> {
+      return repo.updateCompletionForUser({
+        userId: ctx.actor.userId,
+        id: input.id,
+        completed: input.completed,
+      });
+    },
 
-export async function toggleTodo(
-  actor: Actor,
-  input: ToggleTodoInput,
-): Promise<TodoDto | null> {
-  const row = await updateTodoCompletionForUser({
-    userId: actor.userId,
-    id: input.id,
-    completed: input.completed,
-  });
+    async delete(input: DeleteTodoInput): Promise<{ deleted: boolean }> {
+      const deleted = await repo.deleteForUser({
+        userId: ctx.actor.userId,
+        id: input.id,
+      });
 
-  return row ? toTodoDto(row) : null;
-}
-
-export async function deleteTodo(
-  actor: Actor,
-  input: DeleteTodoInput,
-): Promise<{ deleted: boolean }> {
-  const deleted = await deleteTodoForUser({ userId: actor.userId, id: input.id });
-
-  return { deleted };
-}
+      return { deleted };
+    },
+  };
+};

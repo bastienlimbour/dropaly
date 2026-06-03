@@ -1,9 +1,9 @@
 import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyInstance } from "fastify";
 
-import { auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth/server";
 
-export function registerAuthRoutes(app: FastifyInstance) {
+export function registerAuthRoutes(app: FastifyInstance, options: { auth: Auth }) {
   app.route({
     method: ["GET", "POST"],
     url: "/api/auth/*",
@@ -20,7 +20,7 @@ export function registerAuthRoutes(app: FastifyInstance) {
             ? { body: JSON.stringify(request.body) }
             : {}),
         });
-        const response = await auth.handler(req);
+        const response = await options.auth.handler(req);
 
         reply.status(response.status);
 

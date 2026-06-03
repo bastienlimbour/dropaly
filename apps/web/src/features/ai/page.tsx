@@ -48,11 +48,11 @@ export function AiPage() {
               <p className="mb-1 text-sm font-semibold">
                 {message.role === "user" ? "You" : "AI Assistant"}
               </p>
-              {message.parts?.map((part, index) => {
+              {message.parts?.map((part) => {
                 if (part.type === "text") {
                   return (
                     <Streamdown
-                      key={`${message.id}-${index}`}
+                      key={`${message.id}-${part.type}-${part.text}`}
                       isAnimating={
                         status === "streaming" && message.role === "assistant"
                       }

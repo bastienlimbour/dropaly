@@ -1,11 +1,29 @@
 import { drizzle } from "drizzle-orm/node-postgres";
-
-import { env } from "@dropaly/env/server";
+import { Pool } from "pg";
 
 import * as schema from "./schema";
 
-export function createDb() {
-  return drizzle(env.DATABASE_URL, { schema });
+export type CreateDbOptions = {
+  databaseUrl: string;
+};
+
+export function createDb(options: CreateDbOptions) {
+  const pool = new Pool({
+    connectionString: options.databaseUrl,
+  });
+
+  const db = drizzle({
+    client: pool,
+    schema,
+  });
+
+  return {
+    db,
+    pool,
+    async close() {
+      await pool.end();
+    },
+  };
 }
 
-export const db = createDb();
+export type Db = ReturnType<typeof createDb>["db"];

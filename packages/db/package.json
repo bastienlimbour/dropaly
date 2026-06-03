@@ -22,7 +22,6 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {
-    "@dropaly/env": "workspace:*",
     "dotenv": "catalog:",
     "drizzle-orm": "catalog:db",
     "pg": "catalog:db"
