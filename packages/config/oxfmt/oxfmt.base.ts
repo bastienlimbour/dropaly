@@ -1,6 +1,17 @@
 import type { OxfmtConfig } from "oxfmt";
 
 export const oxfmtBaseConfig = {
+  ignorePatterns: [
+    ".agents/**",
+    ".references/**",
+    ".turbo/**",
+    ".node_modules/**",
+    "pnpm-lock.yaml",
+    "skills-lock.json",
+    "expo-env.d.ts",
+    "uniwind-types.d.ts",
+    "*.gen.ts",
+  ],
   printWidth: 85,
   sortImports: {
     newlinesBetween: true,
