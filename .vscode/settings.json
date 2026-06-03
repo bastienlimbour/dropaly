@@ -1,0 +1,49 @@
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.configFile": {
+    "apps/web/src/styles/index.css": "apps/web/src/**",
+    "apps/native/src/styles/index.css": "apps/native/src/**",
+    "packages/ui-web/src/styles/globals.css": "packages/ui-web/src/**",
+    "packages/ui-native/src/styles/globals.css": "packages/ui-native/src/**"
+  },
+  "tailwindCSS.classFunctions": [
+    "cva",
+    "cn",
+    "cs",
+    "clsx",
+    "twMerge",
+    "useResolveClassNames"
+  ],
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "headerClassName",
+    "contentContainerClassName",
+    "columnWrapperClassName",
+    "endFillColorClassName",
+    "imageClassName",
+    "tintColorClassName",
+    "ios_backgroundColorClassName",
+    "thumbColorClassName",
+    "trackColorOnClassName",
+    "trackColorOffClassName",
+    "selectionColorClassName",
+    "cursorColorClassName",
+    "underlineColorAndroidClassName",
+    "placeholderTextColorClassName",
+    "selectionHandleColorClassName",
+    "colorsClassName",
+    "progressBackgroundColorClassName",
+    "titleColorClassName",
+    "underlayColorClassName",
+    "colorClassName",
+    "drawerBackgroundColorClassName",
+    "statusBarBackgroundColorClassName",
+    "backdropColorClassName",
+    "backgroundColorClassName",
+    "ListFooterComponentClassName",
+    "ListHeaderComponentClassName"
+  ]
+}

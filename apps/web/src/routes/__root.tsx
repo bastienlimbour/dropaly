@@ -12,7 +12,7 @@ import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import type { trpc } from "@/lib/trpc-client";
 
-import "../index.css";
+import "../styles/index.css";
 
 const ReactQueryDevtools = import.meta.env.DEV
   ? lazy(() =>

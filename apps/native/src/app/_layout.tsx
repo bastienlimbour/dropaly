@@ -13,7 +13,7 @@ import { useNavigationTheme } from "@/lib/theme";
 import { queryClient } from "@/lib/trpc-client";
 import { installPolyfills } from "@/polyfills";
 
-import "@/index.css";
+import "@/styles/index.css";
 
 installPolyfills();
 

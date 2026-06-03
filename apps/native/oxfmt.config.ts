@@ -6,7 +6,7 @@ export default defineConfig({
   ...oxfmtBaseConfig,
   sortTailwindcss: {
     ...oxfmtBaseConfig.sortTailwindcss,
-    stylesheet: "src/index.css",
+    stylesheet: "src/styles/index.css",
     attributes: [
       "class",
       "className",

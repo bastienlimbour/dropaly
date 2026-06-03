@@ -1,0 +1,3 @@
+@import "@dropaly/ui-web/globals.css";
+@source "../**/*.{ts,tsx}";
+@source "../../node_modules/streamdown/dist/*.js";
