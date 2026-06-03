@@ -4,5 +4,5 @@
     "lib": ["ESNext"],
     "paths": { "@dropaly/ui/*": ["./src/*"] }
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*", "*.config.*", "*.d.ts"]
 }

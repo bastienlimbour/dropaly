@@ -6,5 +6,5 @@
     "types": ["node", "react"],
     "paths": { "@dropaly/ui-native/*": ["./src/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "uniwind-types.d.ts"]
+  "include": ["src/**/*", "*.config.*", "*.d.ts"]
 }

@@ -1,4 +1,4 @@
 {
   "extends": "@dropaly/config/typescript/tsconfig.base.json",
-  "include": ["src/**/*.ts", "drizzle.config.ts", "oxlint.config.ts"]
+  "include": ["src/**/*", "*.config.*", "*.d.ts"]
 }

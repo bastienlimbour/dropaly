@@ -6,5 +6,5 @@
     "types": ["node", "react", "react-dom"],
     "paths": { "@dropaly/ui-web/*": ["./src/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*", "*.config.*", "*.d.ts"]
 }
