@@ -7,7 +7,7 @@ import type { FastifyInstance } from "fastify";
 
 import { appRouter, type AppRouter } from "@dropaly/api/server";
 
-import { getApiContext } from "../plugins/api-context";
+import { getApiContext } from "@/plugins/api-context";
 
 function createTRPCContext({ req }: CreateFastifyContextOptions) {
   return getApiContext(req);

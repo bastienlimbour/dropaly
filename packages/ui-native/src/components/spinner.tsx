@@ -1,6 +1,6 @@
 import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
 
-import { cn } from "@dropaly/ui/lib/utils";
+import { cn } from "../lib/utils";
 
 type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
   size?: "sm" | "lg" | ActivityIndicatorProps["size"];

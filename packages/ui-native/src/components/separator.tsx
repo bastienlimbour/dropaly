@@ -1,6 +1,6 @@
 import * as SeparatorPrimitive from "@rn-primitives/separator";
 
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
 
 function Separator({
   className,

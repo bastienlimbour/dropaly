@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-import { Text, TextClassContext } from "@dropaly/ui-native/components/text";
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
+import { Text, TextClassContext } from "./text";
 
 function Card({
   className,

@@ -1,6 +1,6 @@
 import { Platform, TextInput } from "react-native";
 
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
 
 function Input({
   className,

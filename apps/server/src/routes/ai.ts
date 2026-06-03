@@ -3,7 +3,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { aiChatRequestBodySchema, aiService } from "@dropaly/api/server";
 
-import { getAuthenticatedContext } from "../plugins/api-context";
+import { getAuthenticatedContext } from "@/plugins/api-context";
 
 export function registerAiRoutes(app: FastifyInstance) {
   app

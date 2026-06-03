@@ -1,8 +1,8 @@
 import * as React from "react";
 import { withUniwind } from "uniwind";
 
-import { TextClassContext } from "@dropaly/ui-native/components/text";
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
+import { TextClassContext } from "./text";
 
 type IconBaseProps = {
   className?: string;

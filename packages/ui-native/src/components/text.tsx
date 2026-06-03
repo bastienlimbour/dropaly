@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 import { Platform, Text as RNText, type Role } from "react-native";
 
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
 
 const textVariants = cva(
   cn("text-base text-foreground", Platform.select({ web: "select-text" })),

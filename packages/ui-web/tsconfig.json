@@ -3,8 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["node", "react", "react-dom"],
-    "paths": { "@dropaly/ui-web/*": ["./src/*"] }
+    "types": ["node", "react", "react-dom"]
   },
   "include": ["src/**/*", "*.config.*", "*.d.ts"]
 }

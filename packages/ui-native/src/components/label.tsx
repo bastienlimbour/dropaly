@@ -1,7 +1,7 @@
 import * as LabelPrimitive from "@rn-primitives/label";
 import { Platform } from "react-native";
 
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
 
 function Label({
   className,

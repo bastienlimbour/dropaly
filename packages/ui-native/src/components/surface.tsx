@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import { cn } from "@dropaly/ui-native/lib/utils";
+import { cn } from "../lib/utils";
 
 type SurfaceProps = React.ComponentProps<typeof View> & {
   variant?: "default" | "secondary" | "tertiary";

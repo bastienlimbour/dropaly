@@ -5,4 +5,7 @@ import { oxlintNodeConfig } from "@dropaly/config/oxlint/oxlint.node";
 export default defineConfig({
   extends: [oxlintNodeConfig],
   env: { builtin: true, node: true },
+  rules: {
+    "import/no-relative-parent-imports": "error",
+  },
 });

@@ -45,5 +45,10 @@
     "backgroundColorClassName",
     "ListFooterComponentClassName",
     "ListHeaderComponentClassName"
-  ]
+  ],
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "javascript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "javascript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

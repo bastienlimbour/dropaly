@@ -14,7 +14,7 @@
         "$TURBO_DEFAULT$",
         "oxlint.config.ts",
         "$TURBO_ROOT$/oxlint.config.ts",
-        "$TURBO_ROOT$/packages/config/oxlint/*.ts"
+        "$TURBO_ROOT$/packages/config/oxlint/**/*.ts"
       ]
     },
     "lint:fix": {
