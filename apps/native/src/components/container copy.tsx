@@ -1,9 +1,7 @@
-import { ScrollView, type ScrollViewProps } from "react-native";
-import {
-  SafeAreaView,
-  type Edge,
-  type SafeAreaViewProps,
-} from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
+import type { ScrollViewProps } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import type { Edge, SafeAreaViewProps } from "react-native-safe-area-context";
 
 import { cn } from "@dropaly/ui-native/lib/utils";
 

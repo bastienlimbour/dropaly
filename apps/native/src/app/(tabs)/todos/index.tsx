@@ -17,7 +17,11 @@ import { SignIn, SignUp } from "@/features/auth";
 import { todoMutations, todoQueries } from "@/features/todos/api";
 import { authClient } from "@/lib/auth-client";
 
-type Todo = { id: number; text: string; completed: boolean };
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
 export default function TodosRoute() {
   const [newTodoText, setNewTodoText] = useState("");
@@ -36,17 +40,17 @@ export default function TodosRoute() {
   const toggleMutation = useMutation(todoMutations.toggle(queryClient));
   const deleteMutation = useMutation(todoMutations.delete(queryClient));
 
-  const handleAddTodo = () => {
+  function handleAddTodo() {
     if (newTodoText.trim() && isAuthenticated) {
       createMutation.mutate({ text: newTodoText });
     }
-  };
+  }
 
-  const handleToggleTodo = (id: number, completed: boolean) => {
+  function handleToggleTodo(id: number, completed: boolean) {
     toggleMutation.mutate({ id, completed: !completed });
-  };
+  }
 
-  const handleDeleteTodo = (id: number) => {
+  function handleDeleteTodo(id: number) {
     Alert.alert("Delete Todo", "Are you sure you want to delete this todo?", [
       { text: "Cancel", style: "cancel" },
       {
@@ -55,7 +59,7 @@ export default function TodosRoute() {
         onPress: () => deleteMutation.mutate({ id }),
       },
     ]);
-  };
+  }
 
   if (!isAuthenticated) {
     return (

@@ -1,5 +1,6 @@
 import { expo } from "@better-auth/expo";
-import { betterAuth, type BetterAuthOptions } from "better-auth";
+import { betterAuth } from "better-auth";
+import type { BetterAuthOptions } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import type { Db } from "@dropaly/db";
@@ -8,7 +9,7 @@ import type { Env } from "@dropaly/env/server";
 
 import { paymentsPlugin } from "./lib/payments";
 
-type CreateAuthOptions = {
+interface CreateAuthOptions {
   db: Db;
   nodeEnv: Env["NODE_ENV"];
   allowedServerHosts: Env["BETTER_AUTH_ALLOWED_HOSTS"];
@@ -18,7 +19,7 @@ type CreateAuthOptions = {
   paymentsEnabled: Env["PAYMENTS_ENABLED"];
   paymentAccessToken: Env["POLAR_ACCESS_TOKEN"];
   paymentSuccessUrl: Env["POLAR_SUCCESS_URL"];
-};
+}
 
 export function createAuth(options: CreateAuthOptions) {
   const authOptions: BetterAuthOptions = {

@@ -1,5 +1,6 @@
 import { Slot } from "@rn-primitives/slot";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
 import { Platform, View } from "react-native";
 

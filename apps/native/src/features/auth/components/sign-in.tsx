@@ -1,6 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useRef } from "react";
-import { TextInput, View } from "react-native";
+import type { TextInput } from "react-native";
+import { View } from "react-native";
 import z from "zod";
 
 import { Button } from "@dropaly/ui-native/components/button";

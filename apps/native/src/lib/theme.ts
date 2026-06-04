@@ -1,10 +1,7 @@
 import { DarkTheme, DefaultTheme } from "expo-router";
 
-import {
-  useThemeColors,
-  type ThemeColors,
-  type ResolvedTheme,
-} from "@dropaly/ui-native/lib/theme";
+import { useThemeColors } from "@dropaly/ui-native/lib/theme";
+import type { ThemeColors, ResolvedTheme } from "@dropaly/ui-native/lib/theme";
 
 export function useNavigationTheme({
   resolvedTheme,

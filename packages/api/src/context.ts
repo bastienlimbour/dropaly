@@ -16,13 +16,13 @@ export type AuthenticatedContext = RequestContext & {
   actor: Actor;
 };
 
-export type SessionLike = {
+export interface SessionLike {
   user: {
     id: string;
     email: string;
     name: string;
   };
-};
+}
 
 export function createActorFromSession(session: SessionLike): Actor {
   return {

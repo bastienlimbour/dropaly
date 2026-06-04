@@ -3,10 +3,10 @@ import { Polar } from "@polar-sh/sdk";
 
 import type { Env } from "@dropaly/env/server";
 
-type PaymentsPluginOptions = {
+interface PaymentsPluginOptions {
   accessToken: Env["POLAR_ACCESS_TOKEN"];
   successUrl: Env["POLAR_SUCCESS_URL"];
-};
+}
 
 export function paymentsPlugin({ accessToken, successUrl }: PaymentsPluginOptions) {
   if (!accessToken) {

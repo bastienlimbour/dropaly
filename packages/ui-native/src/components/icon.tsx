@@ -4,12 +4,12 @@ import { withUniwind } from "uniwind";
 import { cn } from "../lib/utils";
 import { TextClassContext } from "./text";
 
-type IconBaseProps = {
+interface IconBaseProps {
   className?: string;
   color?: string;
   size?: number;
   strokeWidth?: number;
-};
+}
 
 type IconComponent = React.ComponentType<IconBaseProps>;
 

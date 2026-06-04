@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@dropaly/ui-native/components/card";
 import { Text } from "@dropaly/ui-native/components/text";
-import { useUiTheme, type ThemePreference } from "@dropaly/ui-native/lib/theme";
+import { useUiTheme } from "@dropaly/ui-native/lib/theme";
+import type { ThemePreference } from "@dropaly/ui-native/lib/theme";
 
 import { ScrollViewContainer } from "@/components/container";
 import { authClient } from "@/lib/auth-client";

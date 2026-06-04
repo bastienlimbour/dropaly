@@ -1,6 +1,7 @@
 import { useChat } from "@ai-sdk/react";
 import { IconArrowUp, IconMessageChatbot } from "@tabler/icons-react-native";
-import { useEffect, useRef, useState, type ElementRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ComponentRef } from "react";
 import { View } from "react-native";
 import {
   KeyboardChatScrollView,
@@ -21,7 +22,7 @@ import { createAiChatTransport } from "@/features/ai/api";
 import { SignIn, SignUp } from "@/features/auth";
 import { authClient } from "@/lib/auth-client";
 
-type ChatScrollViewRef = ElementRef<typeof KeyboardChatScrollView>;
+type ChatScrollViewRef = ComponentRef<typeof KeyboardChatScrollView>;
 
 export default function AiRoute() {
   const [input, setInput] = useState("");
@@ -37,13 +38,13 @@ export default function AiRoute() {
     scrollViewRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
 
-  const onSubmit = async () => {
+  async function onSubmit() {
     const value = input.trim();
     if (value && !isBusy && session?.user) {
       await sendMessage({ text: value });
       setInput("");
     }
-  };
+  }
 
   if (!session?.user) {
     return (

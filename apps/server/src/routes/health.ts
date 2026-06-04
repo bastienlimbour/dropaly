@@ -1,11 +1,11 @@
 import type { FastifyInstance } from "fastify";
 
 export function registerHealthRoutes(app: FastifyInstance) {
-  app.get("/", async () => {
+  app.get("/", () => {
     return "OK";
   });
 
-  app.get("/health", async () => {
+  app.get("/health", () => {
     return "OK";
   });
 }

@@ -1,20 +1,16 @@
-import {
-  convertToModelMessages,
-  streamText,
-  validateUIMessages,
-  type UIMessage,
-} from "ai";
+import { convertToModelMessages, streamText, validateUIMessages } from "ai";
+import type { UIMessage } from "ai";
 
 import type { AuthenticatedContext } from "../../context";
 import { requireEntitlement as defaultRequireEntitlement } from "../billing";
 import { createAiModel as defaultCreateAiModel } from "./adapters/google";
 
-type AiServiceDeps = {
+interface AiServiceDeps {
   createAiModel?: typeof defaultCreateAiModel;
   requireEntitlement?: typeof defaultRequireEntitlement;
-};
+}
 
-export const aiService = (ctx: AuthenticatedContext, deps: AiServiceDeps = {}) => {
+export function aiService(ctx: AuthenticatedContext, deps: AiServiceDeps = {}) {
   const createAiModel = deps.createAiModel ?? defaultCreateAiModel;
   const requireEntitlement = deps.requireEntitlement ?? defaultRequireEntitlement;
 
@@ -33,4 +29,4 @@ export const aiService = (ctx: AuthenticatedContext, deps: AiServiceDeps = {}) =
       return result.toUIMessageStreamResponse();
     },
   };
-};
+}

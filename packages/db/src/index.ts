@@ -3,9 +3,9 @@ import { Pool } from "pg";
 
 import * as schema from "./schema";
 
-export type CreateDbOptions = {
+export interface CreateDbOptions {
   databaseUrl: string;
-};
+}
 
 export function createDb(options: CreateDbOptions) {
   const pool = new Pool({

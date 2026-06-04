@@ -7,14 +7,11 @@ import type {
   ToggleTodoInput,
 } from "./schemas";
 
-type TodoServiceDeps = {
+interface TodoServiceDeps {
   todoRepository?: typeof defaultTodoRepository;
-};
+}
 
-export const todoService = (
-  ctx: AuthenticatedContext,
-  deps: TodoServiceDeps = {},
-) => {
+export function todoService(ctx: AuthenticatedContext, deps: TodoServiceDeps = {}) {
   const repo = (deps.todoRepository ?? defaultTodoRepository)(ctx.db);
 
   return {
@@ -46,4 +43,4 @@ export const todoService = (
       return { deleted };
     },
   };
-};
+}

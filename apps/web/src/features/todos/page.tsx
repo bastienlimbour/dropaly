@@ -1,6 +1,7 @@
 import { IconLoader, IconTrash } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import type { SubmitEvent } from "react";
 
 import { Button } from "@dropaly/ui-web/components/button";
 import {
@@ -30,20 +31,20 @@ export function TodosPage() {
   const toggleMutation = useMutation(todoMutations.toggle(queryClient));
   const deleteMutation = useMutation(todoMutations.delete(queryClient));
 
-  const handleAddTodo = (e: FormEvent<HTMLFormElement>) => {
+  function handleAddTodo(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (newTodoText.trim()) {
       createMutation.mutate({ text: newTodoText });
     }
-  };
+  }
 
-  const handleToggleTodo = (id: number, completed: boolean) => {
+  function handleToggleTodo(id: number, completed: boolean) {
     toggleMutation.mutate({ id, completed: !completed });
-  };
+  }
 
-  const handleDeleteTodo = (id: number) => {
+  function handleDeleteTodo(id: number) {
     deleteMutation.mutate({ id });
-  };
+  }
 
   return (
     <div className="mx-auto w-full max-w-md py-10">

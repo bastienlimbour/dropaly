@@ -1,6 +1,7 @@
 import { useChat } from "@ai-sdk/react";
 import { IconSend } from "@tabler/icons-react";
-import { useRef, useEffect, useState, type SubmitEvent } from "react";
+import { useRef, useEffect, useState } from "react";
+import type { SubmitEvent } from "react";
 import { Streamdown } from "streamdown";
 
 import { Button } from "@dropaly/ui-web/components/button";
@@ -20,13 +21,13 @@ export function AiPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSubmit = async (e: SubmitEvent) => {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
     await sendMessage({ text });
     setInput("");
-  };
+  }
 
   return (
     <div className="mx-auto grid w-full grid-rows-[1fr_auto] overflow-hidden p-4">

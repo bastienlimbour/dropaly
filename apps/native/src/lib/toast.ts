@@ -1,9 +1,9 @@
 import { toast } from "sonner-native";
 
-type ToastOptions = {
+interface ToastOptions {
   variant?: "success" | "danger" | "error" | "info" | "warning";
   label: string;
-};
+}
 
 export function showToast({ variant = "info", label }: ToastOptions) {
   if (variant === "success") {

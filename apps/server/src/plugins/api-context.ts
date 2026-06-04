@@ -5,19 +5,15 @@ import type {
   preHandlerHookHandler,
 } from "fastify";
 
-import {
-  createRequestContext,
-  requireActor,
-  type AuthenticatedContext,
-  type RequestContext,
-} from "@dropaly/api/server";
+import { createRequestContext, requireActor } from "@dropaly/api/server";
+import type { AuthenticatedContext, RequestContext } from "@dropaly/api/server";
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
 
-type RegisterApiContextOptions = {
+interface RegisterApiContextOptions {
   auth: Auth;
   db: Db;
-};
+}
 
 declare module "fastify" {
   interface FastifyRequest {

@@ -1,4 +1,5 @@
-import { ActivityIndicator, type ActivityIndicatorProps } from "react-native";
+import { ActivityIndicator } from "react-native";
+import type { ActivityIndicatorProps } from "react-native";
 
 import { cn } from "../lib/utils";
 

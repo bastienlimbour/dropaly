@@ -9,50 +9,54 @@ const publicTodoColumns = {
   completed: todo.completed,
 };
 
-export const todoRepository = (db: Db) => ({
-  async listByUserId(userId: string) {
-    return db
-      .select(publicTodoColumns)
-      .from(todo)
-      .where(eq(todo.userId, userId))
-      .orderBy(asc(todo.id));
-  },
+export function todoRepository(db: Db) {
+  return {
+    async listByUserId(userId: string) {
+      const rows = await db
+        .select(publicTodoColumns)
+        .from(todo)
+        .where(eq(todo.userId, userId))
+        .orderBy(asc(todo.id));
 
-  async createForUser(input: { userId: string; text: string }) {
-    const [row] = await db
-      .insert(todo)
-      .values({ userId: input.userId, text: input.text })
-      .returning(publicTodoColumns);
+      return rows;
+    },
 
-    if (!row) {
-      throw new Error("Failed to create todo");
-    }
+    async createForUser(input: { userId: string; text: string }) {
+      const [row] = await db
+        .insert(todo)
+        .values({ userId: input.userId, text: input.text })
+        .returning(publicTodoColumns);
 
-    return row;
-  },
+      if (!row) {
+        throw new Error("Failed to create todo");
+      }
 
-  async updateCompletionForUser(input: {
-    userId: string;
-    id: number;
-    completed: boolean;
-  }) {
-    const [row] = await db
-      .update(todo)
-      .set({ completed: input.completed })
-      .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
-      .returning(publicTodoColumns);
+      return row;
+    },
 
-    return row ?? null;
-  },
+    async updateCompletionForUser(input: {
+      userId: string;
+      id: number;
+      completed: boolean;
+    }) {
+      const [row] = await db
+        .update(todo)
+        .set({ completed: input.completed })
+        .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
+        .returning(publicTodoColumns);
 
-  async deleteForUser(input: { userId: string; id: number }) {
-    const rows = await db
-      .delete(todo)
-      .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
-      .returning({ id: todo.id });
+      return row ?? null;
+    },
 
-    return rows.length > 0;
-  },
-});
+    async deleteForUser(input: { userId: string; id: number }) {
+      const rows = await db
+        .delete(todo)
+        .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
+        .returning({ id: todo.id });
+
+      return rows.length > 0;
+    },
+  };
+}
 
 export type TodoRepository = ReturnType<typeof todoRepository>;

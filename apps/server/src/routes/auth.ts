@@ -28,7 +28,7 @@ export function registerAuthRoutes(app: FastifyInstance, options: { auth: Auth }
           reply.header(key, value);
         });
 
-        return reply.send(response.body ? await response.text() : null);
+        return await reply.send(response.body ? await response.text() : null);
       } catch (err) {
         request.log.error({ err }, "Authentication error");
 

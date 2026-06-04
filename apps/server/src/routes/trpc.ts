@@ -1,11 +1,12 @@
-import {
-  type CreateFastifyContextOptions,
-  fastifyTRPCPlugin,
-  type FastifyTRPCPluginOptions,
+import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
+import type {
+  CreateFastifyContextOptions,
+  FastifyTRPCPluginOptions,
 } from "@trpc/server/adapters/fastify";
 import type { FastifyInstance } from "fastify";
 
-import { appRouter, type AppRouter } from "@dropaly/api/server";
+import { appRouter } from "@dropaly/api/server";
+import type { AppRouter } from "@dropaly/api/server";
 
 import { getApiContext } from "@/plugins/api-context";
 

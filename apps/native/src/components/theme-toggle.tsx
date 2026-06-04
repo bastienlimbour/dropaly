@@ -4,7 +4,8 @@ import { Platform, Pressable } from "react-native";
 import Animated, { FadeOut, ZoomIn } from "react-native-reanimated";
 
 import { Icon } from "@dropaly/ui-native/components/icon";
-import { useUiTheme, type ThemePreference } from "@dropaly/ui-native/lib/theme";
+import { useUiTheme } from "@dropaly/ui-native/lib/theme";
+import type { ThemePreference } from "@dropaly/ui-native/lib/theme";
 
 const NEXT_THEME: Record<ThemePreference, ThemePreference> = {
   light: "dark",

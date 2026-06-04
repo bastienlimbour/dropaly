@@ -12,7 +12,7 @@ const router = createRouter({
   scrollRestoration: true,
   defaultPendingComponent: () => <Loader />,
   context: { trpc, queryClient },
-  Wrap: function WrapComponent({ children }: { children: React.ReactNode }) {
+  Wrap: function Wrap({ children }) {
     return (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     );

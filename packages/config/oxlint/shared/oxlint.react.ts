@@ -8,5 +8,7 @@ export const oxlintReactConfig = {
   rules: {
     "react/react-in-jsx-scope": "off",
     "react/button-has-type": "warn",
+    "react/prefer-function-component": "warn",
+    "react/rules-of-hooks": "warn",
   },
 } satisfies OxlintConfig;

@@ -17,24 +17,28 @@ const ctx: AuthenticatedContext = {
   },
 };
 
+function todoRepository() {
+  return {
+    listByUserId: () =>
+      Promise.resolve([{ id: 1, text: "Hello", completed: false }]),
+    createForUser: () =>
+      Promise.resolve({
+        id: 2,
+        text: "Created",
+        completed: false,
+      }),
+    updateCompletionForUser: () =>
+      Promise.resolve({
+        id: 1,
+        text: "Hello",
+        completed: true,
+      }),
+    deleteForUser: () => Promise.resolve(true),
+  };
+}
 describe("todoService", () => {
   it("returns the repository public todo shape directly", async () => {
-    const service = todoService(ctx, {
-      todoRepository: () => ({
-        listByUserId: async () => [{ id: 1, text: "Hello", completed: false }],
-        createForUser: async () => ({
-          id: 2,
-          text: "Created",
-          completed: false,
-        }),
-        updateCompletionForUser: async () => ({
-          id: 1,
-          text: "Hello",
-          completed: true,
-        }),
-        deleteForUser: async () => true,
-      }),
-    });
+    const service = todoService(ctx, { todoRepository });
 
     await expect(service.list()).resolves.toEqual([
       { id: 1, text: "Hello", completed: false },
@@ -56,29 +60,28 @@ describe("todoService", () => {
     const calls: unknown[] = [];
     const service = todoService(ctx, {
       todoRepository: () => ({
-        listByUserId: async (userId) => {
+        listByUserId: (userId) => {
           calls.push({ method: "list", userId });
 
-          return [];
+          return Promise.resolve([]);
         },
         createForUser: async (input) => {
           calls.push({ method: "create", input });
 
-          return {
+          return Promise.resolve({
             id: 1,
             text: input.text,
             completed: false,
-          };
+          });
         },
-        updateCompletionForUser: async (input) => {
+        updateCompletionForUser: (input) => {
           calls.push({ method: "toggle", input });
 
-          return null;
+          return Promise.resolve(null);
         },
-        deleteForUser: async (input) => {
+        deleteForUser: (input) => {
           calls.push({ method: "delete", input });
-
-          return false;
+          return Promise.resolve(false);
         },
       }),
     });

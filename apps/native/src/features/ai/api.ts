@@ -6,14 +6,14 @@ import { env } from "@dropaly/env/native";
 
 import { authClient } from "@/lib/auth-client";
 
-const generateAPIUrl = (relativePath: string) => {
+function generateAPIUrl(relativePath: string) {
   const serverUrl = env.EXPO_PUBLIC_SERVER_URL;
   if (!serverUrl) {
     throw new Error("EXPO_PUBLIC_SERVER_URL environment variable is not defined");
   }
   const path = relativePath.startsWith("/") ? relativePath : `/${relativePath}`;
   return serverUrl.concat(path);
-};
+}
 
 export function createAiChatTransport() {
   return new DefaultChatTransport({
