@@ -15,13 +15,10 @@ function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
       ? "accent-foreground"
       : color === "primary"
         ? "accent-primary"
-        : color === "muted"
-          ? "accent-muted-foreground"
-          : null;
+        : "accent-muted-foreground";
 
   return (
     <ActivityIndicator
-      color={indicatorColorClassName ? undefined : color}
       colorClassName={cn(indicatorColorClassName)}
       size={indicatorSize}
       {...props}

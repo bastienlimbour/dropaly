@@ -129,7 +129,7 @@ export default function TodosRoute() {
                   <Icon
                     as={IconPlus}
                     className={
-                      createMutation.isPending || !newTodoText.trim()
+                      !newTodoText.trim()
                         ? "size-5 text-muted-foreground"
                         : "size-5 text-primary-foreground"
                     }

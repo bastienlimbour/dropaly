@@ -10,4 +10,4 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 });
 
-export type Env = typeof env;
+export type WebEnv = typeof env;

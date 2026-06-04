@@ -49,7 +49,7 @@ export function AiPage() {
               <p className="mb-1 text-sm font-semibold">
                 {message.role === "user" ? "You" : "AI Assistant"}
               </p>
-              {message.parts?.map((part) => {
+              {message.parts.map((part) => {
                 if (part.type === "text") {
                   return (
                     <Streamdown

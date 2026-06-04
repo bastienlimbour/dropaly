@@ -5,7 +5,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
-import type { Env } from "@dropaly/env/server";
+import type { ServerEnv } from "@dropaly/env/server";
 
 import { registerApiContext } from "./plugins/api-context";
 import { registerCors } from "./plugins/cors";
@@ -16,7 +16,7 @@ import { registerTRPCRoutes } from "./routes/trpc";
 
 interface CreateAppOptions {
   auth: Auth;
-  corsOrigins: Env["CORS_ORIGINS"];
+  corsOrigins: ServerEnv["CORS_ORIGINS"];
   db: Db;
   logger?: FastifyServerOptions["logger"];
 }
@@ -36,10 +36,12 @@ export function createApp(options: CreateAppOptions) {
   registerAuthRoutes(app, { auth: options.auth });
   registerHealthRoutes(app);
 
-  app.register(() => {
-    registerApiContext(app, { auth: options.auth, db: options.db });
-    registerTRPCRoutes(app);
-    registerAiRoutes(app);
+  app.register((apiApp) => {
+    const zodApiApp = apiApp.withTypeProvider<ZodTypeProvider>();
+
+    registerApiContext(zodApiApp, { auth: options.auth, db: options.db });
+    registerTRPCRoutes(zodApiApp);
+    registerAiRoutes(zodApiApp);
   });
 
   return app;

@@ -36,7 +36,7 @@ const app = createApp({
   auth,
   corsOrigins: env.CORS_ORIGINS,
   db: database.db,
-  logger: loggerOptions[env.NODE_ENV] ?? true,
+  logger: loggerOptions[env.NODE_ENV],
 });
 
 app.addHook("onClose", async () => {

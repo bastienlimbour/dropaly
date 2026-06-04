@@ -45,7 +45,7 @@ function getErrorMessage(error: unknown): string | null {
     return null;
   }
 
-  if (typeof error === "object" && error !== null) {
+  if (typeof error === "object") {
     const maybeError = error as { message?: unknown };
     if (typeof maybeError.message === "string") {
       return maybeError.message;
@@ -68,7 +68,7 @@ function SignIn() {
           onError(error) {
             showToast({
               variant: "danger",
-              label: error.error?.message || "Failed to sign in",
+              label: error.error.message || "Failed to sign in",
             });
           },
           onSuccess() {

@@ -29,8 +29,8 @@ export default function Home() {
     ...trpc.privateData.queryOptions(),
     enabled: Boolean(session?.user),
   });
-  const isConnected = healthCheck?.data === "OK";
-  const isLoading = healthCheck?.isLoading;
+  const isConnected = healthCheck.data === "OK";
+  const isLoading = healthCheck.isLoading;
 
   return (
     <ScrollViewContainer scrollViewProps={{ contentContainerClassName: "p-6" }}>
@@ -96,9 +96,7 @@ export default function Home() {
 
       <Card className="mt-6 gap-0 p-4">
         <CardTitle className="mb-3">Private Data</CardTitle>
-        {privateData && (
-          <CardDescription>{privateData.data?.message}</CardDescription>
-        )}
+        <CardDescription>{privateData.data?.message}</CardDescription>
       </Card>
 
       {!session?.user && (

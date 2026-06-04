@@ -10,6 +10,7 @@
     "typecheck": "turbo run typecheck --continue",
     "lint": "turbo run lint --continue",
     "lint:fix": "turbo run lint:fix",
+    "lint:open": "pnpm exec oxlint -f unix | awk -F: 'NF>1{print $1}' | sort -u | xargs cursor",
     "format": "turbo run format",
     "format:check": "turbo run format:check",
     "test": "turbo run test",
