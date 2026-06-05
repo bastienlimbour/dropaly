@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
+import { privateDataQueries } from "@dropaly/api-query";
 import { env } from "@dropaly/env/web";
 import { Button } from "@dropaly/ui-web/components/button";
 
+import { api } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
-import { trpc } from "@/lib/trpc-client";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/dashboard")({
 function RouteComponent() {
   const { session, customerState } = Route.useRouteContext();
 
-  const privateData = useQuery(trpc.privateData.queryOptions());
+  const privateData = useQuery(privateDataQueries.get(api));
 
   const hasProSubscription = (customerState?.activeSubscriptions ?? []).length > 0;
 

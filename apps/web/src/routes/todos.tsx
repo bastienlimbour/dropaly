@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-import { TodosPage, todoQueries } from "@/features/todos";
+import { TodosPage, todoQueries } from "@/features/todo";
 import { authClient } from "@/lib/auth-client";
 
 export const Route = createFileRoute("/todos")({

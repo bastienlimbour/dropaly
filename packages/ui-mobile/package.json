@@ -1,0 +1,39 @@
+{
+  "name": "@dropaly/ui-mobile",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./globals.css": "./src/styles/globals.css",
+    "./components/*": "./src/components/*.tsx",
+    "./lib/*": "./src/lib/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt . --check",
+    "clean": "git clean -xdf .cache .turbo dist node_modules"
+  },
+  "dependencies": {
+    "@dropaly/ui": "workspace:*",
+    "@rn-primitives/checkbox": "^1.4.0",
+    "@rn-primitives/label": "^1.4.0",
+    "@rn-primitives/separator": "^1.4.0",
+    "@rn-primitives/slot": "^1.4.0",
+    "@tabler/icons-react-native": "catalog:ui",
+    "class-variance-authority": "^0.7.1",
+    "react": "catalog:react",
+    "react-native": "0.85.3",
+    "react-native-reanimated": "4.3.1",
+    "react-native-svg": "15.15.4",
+    "uniwind": "^1.6.5"
+  },
+  "devDependencies": {
+    "@dropaly/config": "workspace:*",
+    "@types/react": "catalog:react",
+    "tailwindcss": "catalog:ui",
+    "typescript": "catalog:"
+  }
+}

@@ -39,6 +39,19 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
+    "//#openapi:generate": {
+      "cache": false,
+      "inputs": [
+        "apps/api/src/**/*.ts",
+        "apps/api/scripts/**/*.ts",
+        "packages/api-client/scripts/**/*.ts",
+        "packages/api-contract/openapi.json"
+      ],
+      "outputs": [
+        "packages/api-contract/openapi.json",
+        "packages/api-client/src/schema.d.ts"
+      ]
+    },
     "dev": {
       "persistent": true,
       "cache": false

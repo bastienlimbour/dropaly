@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { trpc } from "@/lib/trpc-client";
+import { healthQueries } from "@dropaly/api-query";
+
+import { api } from "@/lib/api-client";
 
 export const Route = createFileRoute("/")({ component: HomeComponent });
 
@@ -22,7 +24,7 @@ const TITLE_TEXT = `
  `;
 
 function HomeComponent() {
-  const healthCheck = useQuery(trpc.healthCheck.queryOptions());
+  const healthCheck = useQuery(healthQueries.check(api));
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">

@@ -15,7 +15,10 @@ The goal is to prepare the monorepo for growth without over-engineering. The arc
 We keep the current high-level monorepo split:
 
 - `apps/server` remains the Fastify HTTP host.
-- `packages/api` becomes the backend application API layer for tRPC and backend modules.
+- `packages/api` is the server-only backend application API layer for Fastify routes and backend modules.
+- `packages/api-contract` owns the versioned generated OpenAPI artifact.
+- `packages/api-client` owns the generated schema and shared `openapi-fetch` client.
+- `packages/api-query` owns shared TanStack Query factories for web and native.
 - `packages/db` remains the Drizzle/Postgres infrastructure package.
 - `packages/auth` remains server-only Better Auth infrastructure.
 - `apps/web` and `apps/native` keep platform-specific UI and feature code.
@@ -26,8 +29,10 @@ Packages expose explicit public entrypoints. Wildcard exports should be removed 
 
 Target public entrypoints:
 
-- `@dropaly/api` exposes client-safe types only, especially `AppRouter`.
-- `@dropaly/api/server` exposes server runtime only: `appRouter`, request context helpers, tRPC context adapter, and backend procedures.
+- `@dropaly/api/server` exposes server runtime only: Fastify route registration, request context helpers, and backend services.
+- `@dropaly/api-contract/openapi.json` exposes the versioned OpenAPI contract artifact.
+- `@dropaly/api-client` exposes the shared HTTP client and generated OpenAPI schema.
+- `@dropaly/api-query` exposes shared TanStack Query factories.
 - `@dropaly/db` exposes the Drizzle server client: `db`, `createDb`, and related DB client types if needed.
 - `@dropaly/db/schema` exposes Drizzle tables and schema exports.
 - `@dropaly/auth/server` exposes server-only Better Auth configuration.
@@ -36,9 +41,11 @@ Target public entrypoints:
 Allowed dependency graph:
 
 - `apps/server` may import `@dropaly/api/server`, `@dropaly/auth/server`, and `@dropaly/env/server`.
-- `apps/web` may import `@dropaly/api` as type-only, `@dropaly/env/web`, and `@dropaly/ui`.
-- `apps/native` may import `@dropaly/api` as type-only and `@dropaly/env/native`.
+- `apps/web` may import `@dropaly/api-client`, `@dropaly/api-query`, `@dropaly/env/web`, and `@dropaly/ui`.
+- `apps/native` may import `@dropaly/api-client`, `@dropaly/api-query`, and `@dropaly/env/native`.
 - `packages/api` may import `@dropaly/auth/server`, `@dropaly/db`, and `@dropaly/db/schema`.
+- `packages/api-client` may import generated contract types only through its local generated schema.
+- `packages/api-query` may import `@dropaly/api-client` and TanStack Query.
 - `packages/auth` may import `@dropaly/db`, `@dropaly/db/schema`, and `@dropaly/env/server`.
 - `packages/db` may import `@dropaly/env/server`.
 - `packages/ui` must not import `@dropaly/api`, `@dropaly/auth`, or `@dropaly/db`.
@@ -54,7 +61,7 @@ Standard module structure:
 ```txt
 packages/api/src/modules/<feature>/
   index.ts
-  router.ts
+  routes.ts
   service.ts
   repository.ts
   schemas.ts
@@ -62,41 +69,44 @@ packages/api/src/modules/<feature>/
 
 Responsibilities:
 
-- `router.ts` handles tRPC transport, input validation, output validation when useful, and calls services.
+- `routes.ts` handles Fastify transport, input validation, OpenAPI schemas, HTTP status codes, and calls services.
 - `service.ts` owns use cases, business rules, authorization calls, and DTO mapping.
 - `repository.ts` owns DB queries and returns DB rows. It imports the singleton `db` for now.
 - `schemas.ts` owns server-side Zod schemas for inputs and use-case DTOs.
-- `index.ts` is the module's internal public interface. It exports the router and only the explicit business ports needed by other modules.
+- `index.ts` is the module's internal public interface. It exports route registration and only the explicit business ports needed by other modules.
 
 Repositories are private implementation details by default and should not be exported from module `index.ts`.
 
-Inter-module imports are allowed only through `modules/<feature>/index.ts`. Modules must not import another module's `repository.ts`, `schemas.ts`, or `router.ts` directly.
+Inter-module imports are allowed only through `modules/<feature>/index.ts`. Modules must not import another module's `repository.ts`, `schemas.ts`, or `routes.ts` directly.
 
-## tRPC Shape
+## HTTP API Shape
 
 Feature namespaces use plural names aligned with modules:
 
 - API/modules/features use plural names: `todos`, `billing`, `ai`.
 - DB tables and entity types use singular names: `todo`, `Todo`.
 
-Example target route names:
+Product routes live under `/api` and use standard HTTP semantics:
 
-- `trpc.todos.list`
-- `trpc.todos.create`
-- `trpc.todos.toggle`
-- `trpc.todos.delete`
+- `GET /api/health`
+- `GET /api/private-data`
+- `GET /api/todos`
+- `POST /api/todos`
+- `PATCH /api/todos/{id}`
+- `DELETE /api/todos/{id}`
+- `POST /api/ai/chat`
 
-Product features are protected by default. Public procedures are explicit exceptions.
+Product features are protected by default. Public routes are explicit exceptions.
 
 ## Request Context And Actor
 
-`packages/api` owns a canonical framework-agnostic request context.
+`packages/api` owns a canonical request context.
 
 Target structure:
 
 ```txt
 packages/api/src/context.ts
-packages/api/src/trpc.ts
+packages/api/src/fastify-context.ts
 packages/api/src/auth/actor.ts
 ```
 
@@ -104,13 +114,11 @@ Rules:
 
 - `createRequestContext` is the single canonical context builder.
 - `createRequestContext` reads the session and builds `actor: Actor | null`.
-- `createTRPCContext` is only an adapter from Fastify/tRPC options to `createRequestContext`.
-- `publicProcedure` can access `ctx.actor`, but it may be null.
-- `protectedProcedure` guarantees `ctx.actor` exists.
-- `guestProcedure` guarantees `ctx.actor` does not exist.
-- `requireActor(context)` is used by non-tRPC HTTP routes that need authenticated access.
+- `registerApiContext` is the Fastify adapter that initializes `request.apiContext`.
+- Protected routes use `app.requireAuth` and `getAuthenticatedContext(request)`.
+- `requireActor(context)` is used by HTTP routes that need authenticated access.
 
-Services receive an explicit `actor` when identity is required. Services must not receive tRPC `ctx` or Better Auth session objects directly.
+Services receive an explicit `actor` when identity is required. Services must not receive Fastify request objects or Better Auth session objects directly.
 
 ## Server App
 
@@ -122,13 +130,11 @@ Target structure:
 apps/server/src/app.ts
 apps/server/src/server.ts
 apps/server/src/routes/auth.ts
-apps/server/src/routes/trpc.ts
-apps/server/src/routes/ai.ts
 apps/server/src/routes/health.ts
 apps/server/src/plugins/cors.ts
 ```
 
-`apps/server` should remain an adapter layer for Fastify, CORS, Better Auth routing, tRPC mounting, AI streaming HTTP, and health routes. Product logic belongs in `packages/api/src/modules`.
+`apps/server` should remain an adapter layer for Fastify, CORS, Better Auth routing, Swagger/OpenAPI registration, and infra health routes. Product logic and product API routes belong in `packages/api/src/modules`.
 
 ## DB Package
 
@@ -155,9 +161,9 @@ If the number of tables grows substantially, `packages/db` may be reorganized in
 
 AI application logic lives in `packages/api/src/modules/ai`.
 
-`apps/server` keeps only a thin `/ai` Fastify streaming route. The route must authenticate through `createRequestContext` and `requireActor`, then call the AI module with the actor.
+`packages/api` owns the protected `POST /api/ai/chat` Fastify streaming route. The route authenticates through the shared API context, then calls the AI module with the actor.
 
-`/ai` is protected by default because AI usage is costly and likely to involve quotas, history, tools, billing, or personalization.
+`/api/ai/chat` is protected by default because AI usage is costly and likely to involve quotas, history, tools, billing, or personalization.
 
 Provider SDKs, model factories, prompts, and tools should be hidden behind private adapters inside the AI module.
 
@@ -191,18 +197,18 @@ Do not create a global `@dropaly/integrations` package until reuse across multip
 
 ## Schemas, DTOs, And Validation
 
-Server input validation with Zod is mandatory for product procedures.
+Server input validation with Zod is mandatory for product routes.
 
 `drizzle-zod` may be used in `packages/api/src/modules/<feature>/schemas.ts` to derive private base schemas from Drizzle tables.
 
 Rules:
 
-- Drizzle-derived schemas are private bases, not public API contracts.
+- Drizzle-derived schemas are private bases, not public API contracts by themselves.
 - Use-case schemas are explicitly adapted with `pick`, `omit`, `extend`, `refine`, or manual schemas.
-- Clients do not import runtime schemas from `@dropaly/api` for now.
-- If a schema becomes useful to web, native, and backend, extract it later into a strict pure `@dropaly/domain` package.
+- Clients consume generated OpenAPI types and shared query factories instead of importing server runtime schemas.
+- If a schema becomes useful to web, native, and backend beyond HTTP contracts, extract it later into a strict pure `@dropaly/domain` package.
 
-Repositories return DB rows. Services map DB rows into explicit DTOs. Routers expose DTOs through tRPC.
+Repositories return DB rows. Services map DB rows into explicit DTOs. Routes expose DTOs through Fastify/Zod/OpenAPI.
 
 Output validation is pragmatic:
 
@@ -236,7 +242,7 @@ apps/native/src/features/<feature>/
 
 Routes and Expo Router files should stay thin and mount feature screens.
 
-`api.ts` in a client feature exposes TanStack Query/tRPC factories:
+`api.ts` in a client feature exposes app-local wrappers around shared TanStack Query factories:
 
 - `featureQueries`
 - `featureMutations`
@@ -262,7 +268,7 @@ If created, `@dropaly/domain` must stay pure:
 - no DB;
 - no env;
 - no auth runtime;
-- no tRPC;
+- no server runtime imports;
 - no React;
 - no platform-specific code.
 
@@ -280,8 +286,9 @@ Positive consequences:
 - Routes, screens, and HTTP handlers stay thin.
 - Package boundaries become explicit and safer.
 - Future modules have a consistent shape.
-- Auth context and actor handling are shared across tRPC and non-tRPC HTTP routes.
+- Auth context and actor handling are shared across product HTTP routes.
 - Provider SDKs and env access stay at technical edges.
+- Web and native share a generated HTTP client and query factories without importing server code.
 
 Tradeoffs:
 
@@ -289,6 +296,7 @@ Tradeoffs:
 - Boundaries require discipline until lint tooling exists.
 - Some duplication between web and native validation remains intentional.
 - Repositories import the singleton `db` for now, which is simple but less flexible for transactions and isolated tests.
+- The generated API contract must be kept in sync with server routes.
 
 ## Revisit When
 

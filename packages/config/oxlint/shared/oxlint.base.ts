@@ -47,8 +47,8 @@ export const oxlintBaseConfig = {
   },
   rules: {
     "func-name-matching": "warn",
-    "func-names": ["warn", "as-needed"],
-    "func-style": ["warn", "declaration"],
+    // "func-names": ["warn", "as-needed"],
+    // "func-style": ["warn", "declaration"],
     "no-restricted-imports": ["error", { patterns: restrictedImportPatterns }],
     "oxc/no-async-endpoint-handlers": "off",
     "prefer-const": "warn",

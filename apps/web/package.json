@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@dropaly/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "@ai-sdk/react": "catalog:ai",
-    "@dropaly/api": "workspace:*",
+    "@dropaly/api-client": "workspace:*",
+    "@dropaly/api-query": "workspace:*",
     "@dropaly/env": "workspace:*",
     "@dropaly/ui-web": "workspace:*",
     "@polar-sh/better-auth": "catalog:auth",
@@ -27,8 +28,6 @@
     "@tanstack/react-query": "catalog:tanstack",
     "@tanstack/react-router": "catalog:tanstack",
     "@tanstack/router-plugin": "catalog:tanstack",
-    "@trpc/client": "catalog:trpc",
-    "@trpc/tanstack-react-query": "catalog:trpc",
     "ai": "catalog:ai",
     "better-auth": "catalog:auth",
     "next-themes": "catalog:ui",

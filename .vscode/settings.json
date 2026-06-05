@@ -4,9 +4,9 @@
   },
   "tailwindCSS.experimental.configFile": {
     "apps/web/src/styles/index.css": "apps/web/src/**",
-    "apps/native/src/styles/index.css": "apps/native/src/**",
+    "apps/mobile/src/styles/index.css": "apps/mobile/src/**",
     "packages/ui-web/src/styles/globals.css": "packages/ui-web/src/**",
-    "packages/ui-native/src/styles/globals.css": "packages/ui-native/src/**"
+    "packages/ui-mobile/src/styles/globals.css": "packages/ui-mobile/src/**"
   },
   "tailwindCSS.classFunctions": [
     "cva",

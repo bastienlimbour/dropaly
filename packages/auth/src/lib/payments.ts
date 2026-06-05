@@ -1,11 +1,11 @@
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 
-import type { Env } from "@dropaly/env/server";
+import type { ServerEnv } from "@dropaly/env/server";
 
 interface PaymentsPluginOptions {
-  accessToken: Env["POLAR_ACCESS_TOKEN"];
-  successUrl: Env["POLAR_SUCCESS_URL"];
+  accessToken: ServerEnv["POLAR_ACCESS_TOKEN"];
+  successUrl: ServerEnv["POLAR_SUCCESS_URL"];
 }
 
 export function paymentsPlugin({ accessToken, successUrl }: PaymentsPluginOptions) {

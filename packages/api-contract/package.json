@@ -1,0 +1,10 @@
+{
+  "name": "@dropaly/api-contract",
+  "type": "module",
+  "exports": {
+    "./openapi.json": "./openapi.json"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules"
+  }
+}

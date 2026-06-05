@@ -27,7 +27,9 @@ The product bet is simple: users should be able to empty their mind first, then 
 - **TailwindCSS** - Utility-first CSS for rapid UI development
 - **Shared UI package** - shadcn/ui primitives live in `packages/ui`
 - **Fastify** - Fast, low-overhead web framework
-- **tRPC** - End-to-end type-safe APIs
+- **OpenAPI** - Versioned API contract generated from Fastify/Zod routes
+- **openapi-fetch** - Shared typed HTTP client
+- **TanStack Query** - Shared server-state query factories
 - **Node.js** - Runtime environment
 - **Drizzle** - TypeScript-first ORM
 - **PostgreSQL** - Database engine
@@ -102,10 +104,13 @@ dropaly/
 ├── apps/
 │   ├── web/         # Frontend application (React + TanStack Router)
 │   ├── native/      # Mobile application (React Native, Expo)
-│   └── server/      # Backend API (Fastify, TRPC)
+│   └── server/      # Backend API host (Fastify)
 ├── packages/
 │   ├── ui/          # Shared shadcn/ui components and styles
-│   ├── api/         # API layer / business logic
+│   ├── api/         # Server-only API routes and business logic
+│   ├── api-client/  # Shared openapi-fetch client
+│   ├── api-contract/# Versioned OpenAPI artifact
+│   ├── api-query/   # Shared TanStack Query factories
 │   ├── auth/        # Authentication configuration & logic
 │   └── db/          # Database schema & queries
 ```

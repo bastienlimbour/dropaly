@@ -10,7 +10,6 @@ import { Toaster } from "@dropaly/ui-web/components/sonner";
 
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import type { trpc } from "@/lib/trpc-client";
 
 import "@/styles/index.css";
 
@@ -31,7 +30,6 @@ const TanStackRouterDevtools = import.meta.env.DEV
   : null;
 
 export interface RouterAppContext {
-  trpc: typeof trpc;
   queryClient: QueryClient;
 }
 

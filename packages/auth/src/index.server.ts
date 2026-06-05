@@ -5,26 +5,27 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import type { Db } from "@dropaly/db";
 import * as schema from "@dropaly/db/schema";
-import type { Env } from "@dropaly/env/server";
+import type { ServerEnv } from "@dropaly/env/server";
 
 import { paymentsPlugin } from "./lib/payments";
 
 interface CreateAuthOptions {
   db: Db;
-  nodeEnv: Env["NODE_ENV"];
-  allowedServerHosts: Env["BETTER_AUTH_ALLOWED_HOSTS"];
-  fallbackServerUrl: Env["BETTER_AUTH_URL"];
-  corsOrigins: Env["CORS_ORIGINS"];
-  secret: Env["BETTER_AUTH_SECRET"];
-  paymentsEnabled: Env["PAYMENTS_ENABLED"];
-  paymentAccessToken: Env["POLAR_ACCESS_TOKEN"];
-  paymentSuccessUrl: Env["POLAR_SUCCESS_URL"];
+  nodeEnv: ServerEnv["NODE_ENV"];
+  allowedServerHosts: ServerEnv["BETTER_AUTH_ALLOWED_HOSTS"];
+  fallbackServerUrl: ServerEnv["BETTER_AUTH_URL"];
+  corsOrigins: ServerEnv["CORS_ORIGINS"];
+  secret: ServerEnv["BETTER_AUTH_SECRET"];
+  paymentsEnabled: ServerEnv["PAYMENTS_ENABLED"];
+  paymentAccessToken: ServerEnv["POLAR_ACCESS_TOKEN"];
+  paymentSuccessUrl: ServerEnv["POLAR_SUCCESS_URL"];
 }
 
 export function createAuth(options: CreateAuthOptions) {
   const authOptions: BetterAuthOptions = {
     appName: "Dropaly",
     database: drizzleAdapter(options.db, { provider: "pg", schema }),
+    advanced: { database: { generateId: "uuid" } },
     baseURL: options.allowedServerHosts
       ? {
           allowedHosts: options.allowedServerHosts,

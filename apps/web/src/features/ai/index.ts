@@ -1,2 +1,1 @@
-export { AiPage } from "./page";
-export { createAiChatTransport } from "./api";
+export { AiPage } from "./ai.page";

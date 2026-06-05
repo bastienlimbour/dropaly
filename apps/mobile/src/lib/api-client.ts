@@ -1,0 +1,16 @@
+import { fetch as expoFetch } from "expo/fetch";
+
+import { createApiClient } from "@dropaly/api-client";
+import { env } from "@dropaly/env/native";
+
+import { authClient } from "@/lib/auth-client";
+
+export const api = createApiClient({
+  baseUrl: env.EXPO_PUBLIC_SERVER_URL,
+  fetch: expoFetch as typeof fetch,
+  credentials: "omit",
+  getHeaders() {
+    const cookies = authClient.getCookie();
+    return cookies ? { Cookie: cookies } : undefined;
+  },
+});
