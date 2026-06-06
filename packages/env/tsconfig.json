@@ -1,4 +1,0 @@
-{
-  "extends": "@dropaly/config/typescript/tsconfig.base.json",
-  "include": ["src/**/*", "*.config.*", "*.d.ts"]
-}

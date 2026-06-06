@@ -1,8 +1,8 @@
 import { createAuth } from "@dropaly/auth/server";
 import { createDb } from "@dropaly/db";
-import { env } from "@dropaly/env/server";
 
 import { createApp } from "./app";
+import { env } from "./env";
 
 const loggerOptions = {
   development: {

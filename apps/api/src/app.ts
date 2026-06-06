@@ -12,8 +12,8 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
-import type { ServerEnv } from "@dropaly/env/server";
 
+import type { ServerEnv } from "./env";
 import { registerApiContext } from "./fastify-context";
 import { registerAuthRoutes } from "./modules/auth/auth.routes";
 import { registerHealthRoutes } from "./modules/health/health.routes";

@@ -1,7 +1,7 @@
 import fastifyCors from "@fastify/cors";
 import type { FastifyInstance } from "fastify";
 
-import type { ServerEnv } from "@dropaly/env/server";
+import type { ServerEnv } from "@/env";
 
 export function registerCors(
   app: FastifyInstance,

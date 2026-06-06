@@ -2,8 +2,7 @@ import { DefaultChatTransport } from "ai";
 import { fetch as expoFetch } from "expo/fetch";
 import { Platform } from "react-native";
 
-import { env } from "@dropaly/env/native";
-
+import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 
 function generateAPIUrl(relativePath: string) {

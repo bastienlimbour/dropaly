@@ -2,9 +2,23 @@ import { createEnv } from "@t3-oss/env-core";
 import dotenv from "dotenv";
 import { z } from "zod";
 
-import { booleanEnv, commaSeparatedListEnv } from "./utils";
-
 dotenv.config();
+
+const booleanEnv = z
+  .enum(["true", "false"])
+  .default("false")
+  .transform((value) => value === "true");
+
+const commaSeparatedListEnv = z
+  .string()
+  .min(1)
+  .transform((value) =>
+    value
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean),
+  )
+  .pipe(z.array(z.string().min(1)).min(1));
 
 const commaSeparatedUrlOriginsEnv = commaSeparatedListEnv
   .pipe(z.array(z.url()).min(1))

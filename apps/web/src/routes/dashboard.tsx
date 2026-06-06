@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { privateDataQueries } from "@dropaly/api-query";
-import { env } from "@dropaly/env/web";
 import { Button } from "@dropaly/ui-web/components/button";
 
+import { env } from "@/env";
 import { api } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 

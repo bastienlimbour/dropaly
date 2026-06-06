@@ -15,6 +15,4 @@ export const auth = createAuth({
   corsOrigins: ["http://localhost:3001"],
   secret: "test-secret-test-secret-test-secret",
   paymentsEnabled: false,
-  paymentAccessToken: undefined,
-  paymentSuccessUrl: undefined,
 });

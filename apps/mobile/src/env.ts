@@ -8,4 +8,4 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 });
 
-export type NativeEnv = typeof env;
+export type MobileEnv = typeof env;

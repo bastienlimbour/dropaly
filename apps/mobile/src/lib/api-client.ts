@@ -1,8 +1,8 @@
 import { fetch as expoFetch } from "expo/fetch";
 
 import { createApiClient } from "@dropaly/api-client";
-import { env } from "@dropaly/env/native";
 
+import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 
 export const api = createApiClient({

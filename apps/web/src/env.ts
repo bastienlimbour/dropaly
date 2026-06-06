@@ -1,7 +1,10 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod";
 
-import { booleanEnv } from "./utils";
+const booleanEnv = z
+  .enum(["true", "false"])
+  .default("false")
+  .transform((value) => value === "true");
 
 export const env = createEnv({
   clientPrefix: "VITE_",

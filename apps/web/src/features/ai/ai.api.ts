@@ -1,6 +1,6 @@
 import { DefaultChatTransport } from "ai";
 
-import { env } from "@dropaly/env/web";
+import { env } from "@/env";
 
 export function createAiChatTransport() {
   return new DefaultChatTransport({

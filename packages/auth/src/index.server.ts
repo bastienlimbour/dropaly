@@ -1,28 +1,50 @@
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
-import type { BetterAuthOptions } from "better-auth";
+import type { BetterAuthPlugin } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import type { Db } from "@dropaly/db";
 import * as schema from "@dropaly/db/schema";
-import type { ServerEnv } from "@dropaly/env/server";
 
 import { paymentsPlugin } from "./lib/payments";
 
 interface CreateAuthOptions {
   db: Db;
-  nodeEnv: ServerEnv["NODE_ENV"];
-  allowedServerHosts: ServerEnv["BETTER_AUTH_ALLOWED_HOSTS"];
-  fallbackServerUrl: ServerEnv["BETTER_AUTH_URL"];
-  corsOrigins: ServerEnv["CORS_ORIGINS"];
-  secret: ServerEnv["BETTER_AUTH_SECRET"];
-  paymentsEnabled: ServerEnv["PAYMENTS_ENABLED"];
-  paymentAccessToken: ServerEnv["POLAR_ACCESS_TOKEN"];
-  paymentSuccessUrl: ServerEnv["POLAR_SUCCESS_URL"];
+  nodeEnv: "development" | "production" | "test";
+  allowedServerHosts?: string[] | undefined;
+  fallbackServerUrl: string;
+  corsOrigins: string[];
+  secret: string;
+  paymentsEnabled: boolean;
+  paymentAccessToken?: string | undefined;
+  paymentSuccessUrl?: string | undefined;
 }
 
 export function createAuth(options: CreateAuthOptions) {
-  const authOptions: BetterAuthOptions = {
+  const plugins: BetterAuthPlugin[] = [expo()];
+
+  if (options.paymentsEnabled) {
+    if (!options.paymentAccessToken) {
+      throw new Error(
+        "POLAR_ACCESS_TOKEN is required when payments are enabled (PAYMENTS_ENABLED environment variable)",
+      );
+    }
+
+    if (!options.paymentSuccessUrl) {
+      throw new Error(
+        "POLAR_SUCCESS_URL is required when payments are enabled (PAYMENTS_ENABLED environment variable)",
+      );
+    }
+
+    plugins.push(
+      paymentsPlugin({
+        accessToken: options.paymentAccessToken,
+        successUrl: options.paymentSuccessUrl,
+      }),
+    );
+  }
+
+  return betterAuth({
     appName: "Dropaly",
     database: drizzleAdapter(options.db, { provider: "pg", schema }),
     advanced: { database: { generateId: "uuid" } },
@@ -40,20 +62,8 @@ export function createAuth(options: CreateAuthOptions) {
     ],
     secret: options.secret,
     emailAndPassword: { enabled: true },
-    plugins: [
-      ...(options.paymentsEnabled
-        ? [
-            paymentsPlugin({
-              accessToken: options.paymentAccessToken,
-              successUrl: options.paymentSuccessUrl,
-            }),
-          ]
-        : []),
-      expo(),
-    ],
-  };
-
-  return betterAuth(authOptions);
+    plugins,
+  });
 }
 
 export type Auth = ReturnType<typeof createAuth>;
