@@ -20,6 +20,7 @@ const loggerOptions = {
 } as const;
 
 const database = createDb({ databaseUrl: env.DATABASE_URL });
+
 const auth = createAuth({
   db: database.db,
   nodeEnv: env.NODE_ENV,
@@ -27,7 +28,7 @@ const auth = createAuth({
   fallbackServerUrl: env.BETTER_AUTH_URL,
   corsOrigins: env.CORS_ORIGINS,
   secret: env.BETTER_AUTH_SECRET,
-  paymentsEnabled: env.PAYMENTS_ENABLED,
+  paymentEnabled: env.PAYMENT_ENABLED,
   paymentAccessToken: env.POLAR_ACCESS_TOKEN,
   paymentSuccessUrl: env.POLAR_SUCCESS_URL,
 });

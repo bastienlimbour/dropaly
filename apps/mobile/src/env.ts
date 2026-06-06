@@ -3,7 +3,10 @@ import { z } from "zod";
 
 export const env = createEnv({
   clientPrefix: "EXPO_PUBLIC_",
-  client: { EXPO_PUBLIC_SERVER_URL: z.url() },
+  client: {
+    EXPO_PUBLIC_API_URL: z.url(),
+    EXPO_PUBLIC_PAYMENT_ENABLED: z.stringbool(),
+  },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/dashboard")({
     if (!session.data) {
       redirect({ to: "/login", throw: true });
     }
-    const customerState = env.VITE_PAYMENTS_ENABLED
+    const customerState = env.VITE_PAYMENT_ENABLED
       ? (await authClient.customer.state()).data
       : null;
     return { session, customerState };
@@ -34,7 +34,7 @@ function RouteComponent() {
       <h1>Dashboard</h1>
       <p>Welcome {session.data?.user.name}</p>
       <p>API: {privateData.data?.message}</p>
-      {env.VITE_PAYMENTS_ENABLED && (
+      {env.VITE_PAYMENT_ENABLED && (
         <>
           <p>Plan: {hasProSubscription ? "Pro" : "Free"}</p>
           {hasProSubscription ? (

@@ -6,7 +6,7 @@ import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 
 export const api = createApiClient({
-  baseUrl: env.EXPO_PUBLIC_SERVER_URL,
+  baseUrl: env.EXPO_PUBLIC_API_URL,
   fetch: expoFetch as typeof fetch,
   credentials: "omit",
   getHeaders() {

@@ -69,7 +69,7 @@ pnpm run dev
 - The **Expo Go development server** is running at [http://localhost:8081](http://localhost:8081).
 - Use Expo Go to run the mobile application with the LAN URL of your machine, for example `exp://192.168.1.101:8081`.
 
-For Expo Go on a physical device, `EXPO_PUBLIC_SERVER_URL` must point to the LAN URL of your machine, for example `EXPO_PUBLIC_SERVER_URL=http://192.168.1.101:3000`. The Fastify server must listen on `SERVER_HOST=0.0.0.0` for that URL to be reachable from the device.
+For Expo Go on a physical device, `EXPO_PUBLIC_API_URL` must point to the LAN URL of your machine, for example `EXPO_PUBLIC_API_URL=http://192.168.1.101:3000`. The Fastify server must listen on `SERVER_HOST=0.0.0.0` for that URL to be reachable from the device.
 
 ## UI Customization
 

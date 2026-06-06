@@ -6,12 +6,12 @@ import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 
 function generateAPIUrl(relativePath: string) {
-  const serverUrl = env.EXPO_PUBLIC_SERVER_URL;
-  if (!serverUrl) {
-    throw new Error("EXPO_PUBLIC_SERVER_URL environment variable is not defined");
+  const apiUrl = env.EXPO_PUBLIC_API_URL;
+  if (!apiUrl) {
+    throw new Error("EXPO_PUBLIC_API_URL environment variable is not defined");
   }
   const path = relativePath.startsWith("/") ? relativePath : `/${relativePath}`;
-  return serverUrl.concat(path);
+  return apiUrl.concat(path);
 }
 
 export function createAiChatTransport() {

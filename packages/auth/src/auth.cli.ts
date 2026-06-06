@@ -14,5 +14,5 @@ export const auth = createAuth({
   fallbackServerUrl: "http://localhost:3000",
   corsOrigins: ["http://localhost:3001"],
   secret: "test-secret-test-secret-test-secret",
-  paymentsEnabled: false,
+  paymentEnabled: false,
 });
