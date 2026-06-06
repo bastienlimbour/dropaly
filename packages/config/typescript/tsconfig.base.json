@@ -4,13 +4,13 @@
     // Base
     "target": "ESNext",
     "lib": ["ESNext"],
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
     "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
 
     // Transpile using bundler (not tsc)
     "noEmit": true,
