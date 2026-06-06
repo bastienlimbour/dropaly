@@ -1,1 +1,1 @@
-export { cn } from "@dropaly/ui/lib/utils";
+export { cn } from "@dropaly/ui/utils";
