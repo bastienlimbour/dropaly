@@ -1,11 +1,8 @@
-import type { FastifyInstance } from "fastify";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
+// src/routes/index.ts
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
 
-import { getAuthenticatedContext } from "./fastify-context";
-import { registerAiRoutes } from "./modules/ai/ai.index";
-import { registerTodosRoutes } from "./modules/todo";
-import { errorResponseSchema } from "./schemas/error.schemas";
+import { errorResponseSchema } from "./schemas/error.schema";
 
 const privateDataSchema = z.object({
   message: z.string(),
@@ -16,35 +13,43 @@ const privateDataSchema = z.object({
   }),
 });
 
-export function registerApiRoutes(app: FastifyInstance) {
-  const api = app.withTypeProvider<ZodTypeProvider>();
+export const router: FastifyPluginAsyncZod = async (app) => {
+  // Public routes
+  // await app.register(publicRoutes);
 
-  api.get("/health", {
-    schema: {
-      tags: ["health"],
-      response: { 200: z.literal("OK") },
-    },
-    handler(): "OK" {
-      return "OK";
-    },
+  // Protected routes
+  await app.register(async (privateApp) => {
+    privateApp.addHook("onRequest", privateApp.requireAuth);
+    // await privateApp.register(protectedRoutes);
+
+    privateApp.route({
+      method: "GET",
+      url: "/private-data",
+      schema: {
+        tags: ["private-data"],
+        operationId: "getPrivateData",
+        response: { 200: privateDataSchema, 401: errorResponseSchema },
+      },
+      handler(request) {
+        const actor = request.getActor();
+        return {
+          message: "This is private",
+          user: {
+            id: actor.id,
+            email: actor.email,
+            name: actor.name,
+          },
+        };
+      },
+    });
   });
 
-  api.get("/private-data", {
-    preHandler: api.requireAuth,
-    schema: {
-      tags: ["private-data"],
-      response: { 200: privateDataSchema, 401: errorResponseSchema },
-    },
-    handler(request) {
-      const ctx = getAuthenticatedContext(request);
+  // Admin routes
+  // await app.register(async (adminApp) => {
+  //   adminApp.addHook("onRequest", adminApp.requireRole("admin"));
 
-      return {
-        message: "This is private",
-        user: { id: ctx.actor.userId, email: ctx.actor.email, name: ctx.actor.name },
-      };
-    },
-  });
-
-  registerTodosRoutes(api);
-  registerAiRoutes(api);
-}
+  //   await adminApp.register(adminRoutes, {
+  //     prefix: "/admin",
+  //   });
+  // });
+};

@@ -3,8 +3,8 @@ import { and, asc, eq } from "drizzle-orm";
 import type { Db } from "@dropaly/db";
 import { todo } from "@dropaly/db/schema";
 
-import type { Id } from "@/schemas/id.schemas";
-import type { CreateTodo, UpdateTodo } from "./todo.schemas";
+import type { Id } from "@/schemas/id.schema";
+import type { CreateTodo, UpdateTodo } from "./todo.schema";
 
 const publicTodoColumns = {
   id: todo.id,

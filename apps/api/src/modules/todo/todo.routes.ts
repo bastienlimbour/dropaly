@@ -1,32 +1,32 @@
-import type { FastifyInstance } from "fastify";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod";
 
-import { getAuthenticatedContext } from "@/fastify-context";
-import { errorResponseSchema } from "@/schemas/error.schemas";
-import { idParamsSchema } from "@/schemas/id.schemas";
-import { createTodoSchema, todoSchema, updateTodoSchema } from "./todo.schemas";
-import { todoService } from "./todo.service";
+import { errorResponseSchema } from "@/schemas/error.schema";
+import { idParamsSchema } from "@/schemas/id.schema";
+import { createTodoSchema, todoSchema, updateTodoSchema } from "./todo.schema";
+import { makeTodoService } from "./todo.service";
 
-export function registerTodosRoutes(app: FastifyInstance) {
-  const api = app.withTypeProvider<ZodTypeProvider>();
+export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
+  const todoService = makeTodoService({ db: app.db });
 
-  api.get("/todos", {
-    preHandler: api.requireAuth,
+  app.route({
+    method: "GET",
+    url: "/todos",
     schema: {
       tags: ["todos"],
       operationId: "listTodos",
       response: { 200: todoSchema.array(), 401: errorResponseSchema },
     },
+    preHandler: app.requireAuth,
     async handler(request, reply) {
-      const ctx = getAuthenticatedContext(request);
-      const todos = await todoService(ctx).list();
+      const actor = request.getActor();
+      const todos = await todoService.list({ actor });
       return reply.status(200).send(todos);
     },
   });
 
-  api.post("/todos", {
-    preHandler: api.requireAuth,
+  app.post("/todos", {
+    preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "createTodo",
@@ -37,15 +37,15 @@ export function registerTodosRoutes(app: FastifyInstance) {
       },
     },
     async handler(request, reply) {
-      const ctx = getAuthenticatedContext(request);
-      const todo = await todoService(ctx).create({ data: request.body });
+      const actor = request.getActor();
+      const todo = await todoService.create({ actor, data: request.body });
 
       return reply.status(201).send(todo);
     },
   });
 
-  api.patch("/todos/:id", {
-    preHandler: api.requireAuth,
+  app.patch("/todos/:id", {
+    preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "updateTodo",
@@ -58,9 +58,10 @@ export function registerTodosRoutes(app: FastifyInstance) {
       },
     },
     async handler(request, reply) {
-      const ctx = getAuthenticatedContext(request);
-      const todo = await todoService(ctx).update({
-        id: request.params.id,
+      const actor = request.getActor();
+      const todo = await todoService.update({
+        actor,
+        todoId: request.params.id,
         data: request.body,
       });
 
@@ -74,8 +75,8 @@ export function registerTodosRoutes(app: FastifyInstance) {
     },
   });
 
-  api.delete("/todos/:id", {
-    preHandler: api.requireAuth,
+  app.delete("/todos/:id", {
+    preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "deleteTodo",
@@ -87,9 +88,9 @@ export function registerTodosRoutes(app: FastifyInstance) {
       },
     },
     async handler(request, reply) {
-      const ctx = getAuthenticatedContext(request);
-      const result = await todoService(ctx).delete({ id: request.params.id });
-      console.log("result", result);
+      const actor = request.getActor();
+      const result = await todoService.delete({ actor, todoId: request.params.id });
+
       if (!result) {
         return reply
           .status(404)
@@ -99,4 +100,4 @@ export function registerTodosRoutes(app: FastifyInstance) {
       return reply.status(204).send(null);
     },
   });
-}
+};

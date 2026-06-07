@@ -1,8 +1,8 @@
 import { convertToModelMessages, streamText, validateUIMessages } from "ai";
 import type { UIMessage } from "ai";
 
-import type { AuthenticatedContext } from "@/context";
 import { requireEntitlement as defaultRequireEntitlement } from "@/modules/billing/billing.index";
+import type { Actor } from "@/plugins/auth-session";
 import { createAiModel as defaultCreateAiModel } from "./adapters/google";
 
 interface AiServiceDeps {
@@ -10,15 +10,15 @@ interface AiServiceDeps {
   requireEntitlement?: typeof defaultRequireEntitlement;
 }
 
-export function aiService(ctx: AuthenticatedContext, deps: AiServiceDeps = {}) {
+export function makeAiService(deps: AiServiceDeps = {}) {
   const createAiModel = deps.createAiModel ?? defaultCreateAiModel;
   const requireEntitlement = deps.requireEntitlement ?? defaultRequireEntitlement;
 
   return {
-    async streamChat(input: { messages: UIMessage[] }) {
-      await requireEntitlement(ctx.actor, "ai.chat");
+    async streamChat({ actor, messages }: { actor: Actor; messages: UIMessage[] }) {
+      await requireEntitlement(actor, "ai.chat");
       const validatedMessages = await validateUIMessages({
-        messages: input.messages,
+        messages,
       });
 
       const result = streamText({

@@ -1,12 +1,12 @@
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { Polar } from "@polar-sh/sdk";
 
-interface PaymentsPluginOptions {
+interface PaymentPluginOptions {
   accessToken: string;
   successUrl: string;
 }
 
-export function paymentsPlugin(options: PaymentsPluginOptions) {
+export function paymentPlugin(options: PaymentPluginOptions) {
   const polarClient = new Polar({
     accessToken: options.accessToken,
     server: "sandbox",

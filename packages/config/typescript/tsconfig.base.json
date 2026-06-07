@@ -32,6 +32,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitOverride": true,
+    // "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "erasableSyntaxOnly": true,
     "allowUnreachableCode": false,

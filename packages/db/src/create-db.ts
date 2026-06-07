@@ -8,21 +8,18 @@ export interface CreateDbOptions {
 }
 
 export function createDb(options: CreateDbOptions) {
-  const pool = new Pool({
+  const dbPool = new Pool({
     connectionString: options.databaseUrl,
   });
 
   const db = drizzle({
-    client: pool,
+    client: dbPool,
     schema,
   });
 
   return {
     db,
-    pool,
-    async close() {
-      await pool.end();
-    },
+    dbPool,
   };
 }
 

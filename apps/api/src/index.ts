@@ -5,6 +5,7 @@ import { createApp } from "./app";
 import { env } from "./env";
 
 const loggerOptions = {
+  // development: true,
   development: {
     transport: {
       target: "pino-pretty",
@@ -16,13 +17,13 @@ const loggerOptions = {
     },
   },
   production: true,
-  test: false,
+  test: true,
 } as const;
 
-const database = createDb({ databaseUrl: env.DATABASE_URL });
+const { db, dbPool } = createDb({ databaseUrl: env.DATABASE_URL });
 
 const auth = createAuth({
-  db: database.db,
+  db,
   nodeEnv: env.NODE_ENV,
   allowedServerHosts: env.BETTER_AUTH_ALLOWED_HOSTS,
   fallbackServerUrl: env.BETTER_AUTH_URL,
@@ -33,16 +34,16 @@ const auth = createAuth({
   paymentSuccessUrl: env.POLAR_SUCCESS_URL,
 });
 
-const app = createApp({
+const app = await createApp({
+  db,
   auth,
-  corsOrigins: env.CORS_ORIGINS,
-  db: database.db,
   logger: loggerOptions[env.NODE_ENV],
+  corsOrigins: env.CORS_ORIGINS,
   nodeEnv: env.NODE_ENV,
 });
 
 app.addHook("onClose", async () => {
-  await database.close();
+  await dbPool.end();
 });
 
 try {

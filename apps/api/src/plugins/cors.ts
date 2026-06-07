@@ -1,12 +1,14 @@
 import fastifyCors from "@fastify/cors";
-import type { FastifyInstance } from "fastify";
+import type { FastifyPluginAsync } from "fastify";
+import fastifyPlugin from "fastify-plugin";
 
 import type { ServerEnv } from "@/env";
 
-export function registerCors(
-  app: FastifyInstance,
-  options: { corsOrigins: ServerEnv["CORS_ORIGINS"] },
-) {
+interface CorsPluginOptions {
+  corsOrigins: ServerEnv["CORS_ORIGINS"];
+}
+
+const corsPlugin: FastifyPluginAsync<CorsPluginOptions> = async (app, options) => {
   app.register(fastifyCors, {
     origin: options.corsOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -14,4 +16,6 @@ export function registerCors(
     credentials: true,
     maxAge: 86400,
   });
-}
+};
+
+export const cors = fastifyPlugin(corsPlugin);

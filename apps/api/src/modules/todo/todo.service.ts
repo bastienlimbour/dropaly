@@ -1,39 +1,50 @@
-import type { AuthenticatedContext } from "@/context";
-import type { Id } from "@/schemas/id.schemas";
+import type { Db } from "@dropaly/db";
+
+import type { Actor } from "@/plugins/auth-session";
+import type { Id } from "@/schemas/id.schema";
 import { todoRepository as defaultTodoRepository } from "./todo.repository";
-import type { CreateTodo, UpdateTodo } from "./todo.schemas";
+import type { CreateTodo, UpdateTodo } from "./todo.schema";
 
 interface TodoServiceDeps {
+  db: Db;
   todoRepository?: typeof defaultTodoRepository;
 }
 
-export function todoService(ctx: AuthenticatedContext, deps: TodoServiceDeps = {}) {
-  const repo = (deps.todoRepository ?? defaultTodoRepository)(ctx.db);
+export function makeTodoService(deps: TodoServiceDeps) {
+  const repo = (deps.todoRepository ?? defaultTodoRepository)(deps.db);
 
   return {
-    async list() {
-      return repo.listByUserId({ userId: ctx.actor.userId });
+    async list({ actor }: { actor: Actor }) {
+      return repo.listByUserId({ userId: actor.id });
     },
 
-    async create(input: { data: CreateTodo }) {
+    async create({ actor, data }: { actor: Actor; data: CreateTodo }) {
       return repo.createForUser({
-        userId: ctx.actor.userId,
-        data: input.data,
+        userId: actor.id,
+        data,
       });
     },
 
-    async update(input: { id: Id; data: UpdateTodo }) {
+    async update({
+      actor,
+      todoId,
+      data,
+    }: {
+      actor: Actor;
+      todoId: Id;
+      data: UpdateTodo;
+    }) {
       return repo.updateForUser({
-        userId: ctx.actor.userId,
-        id: input.id,
-        data: input.data,
+        userId: actor.id,
+        id: todoId,
+        data,
       });
     },
 
-    async delete(input: { id: Id }) {
+    async delete({ actor, todoId }: { actor: Actor; todoId: Id }) {
       return repo.deleteForUser({
-        userId: ctx.actor.userId,
-        id: input.id,
+        userId: actor.id,
+        id: todoId,
       });
     },
   };

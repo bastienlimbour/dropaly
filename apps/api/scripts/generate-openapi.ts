@@ -19,7 +19,7 @@ const fakeAuth = {
   handler: async () => new Response(null, { status: 404 }),
 } as unknown as Auth;
 
-const app = createApp({
+const app = await createApp({
   auth: fakeAuth,
   corsOrigins: [],
   db: {} as Db,

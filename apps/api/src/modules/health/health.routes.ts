@@ -1,15 +1,15 @@
-import type { FastifyInstance } from "fastify";
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-export function registerHealthRoutes(app: FastifyInstance) {
+export const healthRoutes: FastifyPluginAsyncZod = async (app) => {
   app.get("/", {
     handler() {
-      return "OK";
+      return { status: "OK" };
     },
   });
 
   app.get("/health", {
     handler() {
-      return "OK";
+      return { status: "OK" };
     },
   });
-}
+};

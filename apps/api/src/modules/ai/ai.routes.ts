@@ -1,17 +1,15 @@
-import type { FastifyInstance } from "fastify";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
 
-import { getAuthenticatedContext } from "@/fastify-context";
-import { errorResponseSchema } from "@/schemas/error.schemas";
-import { aiChatRequestBodySchema } from "./ai.schemas";
-import { aiService } from "./ai.service";
+import { errorResponseSchema } from "@/schemas/error.schema";
+import { aiChatRequestBodySchema } from "./ai.schema";
+import { makeAiService } from "./ai.service";
 
-export function registerAiRoutes(app: FastifyInstance) {
-  const api = app.withTypeProvider<ZodTypeProvider>();
+export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
+  const aiService = makeAiService();
 
-  api.post("/ai/chat", {
-    preHandler: api.requireAuth,
+  app.post("/ai/chat", {
+    preHandler: app.requireAuth,
     schema: {
       tags: ["ai"],
       body: aiChatRequestBodySchema,
@@ -21,8 +19,8 @@ export function registerAiRoutes(app: FastifyInstance) {
       },
     },
     handler(request) {
-      const ctx = getAuthenticatedContext(request);
-      return aiService(ctx).streamChat({ messages: request.body.messages });
+      const actor = request.getActor();
+      return aiService.streamChat({ actor, messages: request.body.messages });
     },
   });
-}
+};

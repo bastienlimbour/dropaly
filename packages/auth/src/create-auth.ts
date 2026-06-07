@@ -1,12 +1,11 @@
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
-import type { BetterAuthPlugin } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import type { Db } from "@dropaly/db";
 import * as schema from "@dropaly/db/schema";
 
-import { paymentsPlugin } from "./lib/payments";
+import { paymentPlugin } from "./lib/payment";
 
 interface CreateAuthOptions {
   db: Db;
@@ -15,32 +14,21 @@ interface CreateAuthOptions {
   fallbackServerUrl: string;
   corsOrigins: string[];
   secret: string;
-  paymentsEnabled: boolean;
+  paymentEnabled: boolean;
   paymentAccessToken?: string | undefined;
   paymentSuccessUrl?: string | undefined;
 }
 
 export function createAuth(options: CreateAuthOptions) {
-  const plugins: BetterAuthPlugin[] = [expo()];
+  if (options.paymentEnabled && !options.paymentAccessToken) {
+    throw new Error(
+      "POLAR_ACCESS_TOKEN is required when payments are enabled (PAYMENT_ENABLED environment variable)",
+    );
+  }
 
-  if (options.paymentsEnabled) {
-    if (!options.paymentAccessToken) {
-      throw new Error(
-        "POLAR_ACCESS_TOKEN is required when payments are enabled (PAYMENTS_ENABLED environment variable)",
-      );
-    }
-
-    if (!options.paymentSuccessUrl) {
-      throw new Error(
-        "POLAR_SUCCESS_URL is required when payments are enabled (PAYMENTS_ENABLED environment variable)",
-      );
-    }
-
-    plugins.push(
-      paymentsPlugin({
-        accessToken: options.paymentAccessToken,
-        successUrl: options.paymentSuccessUrl,
-      }),
+  if (options.paymentEnabled && !options.paymentSuccessUrl) {
+    throw new Error(
+      "POLAR_SUCCESS_URL is required when payments are enabled (PAYMENT_ENABLED environment variable)",
     );
   }
 
@@ -62,8 +50,25 @@ export function createAuth(options: CreateAuthOptions) {
     ],
     secret: options.secret,
     emailAndPassword: { enabled: true },
-    plugins,
+    plugins: [
+      expo(),
+      ...(options.paymentEnabled &&
+      options.paymentAccessToken &&
+      options.paymentSuccessUrl
+        ? [
+            paymentPlugin({
+              accessToken: options.paymentAccessToken,
+              successUrl: options.paymentSuccessUrl,
+            }),
+          ]
+        : []),
+    ],
   });
 }
 
 export type Auth = ReturnType<typeof createAuth>;
+export type AuthSession = NonNullable<
+  Awaited<ReturnType<Auth["api"]["getSession"]>>
+>;
+export type AuthUser = AuthSession["user"];
+export type AuthSessionData = AuthSession["session"];

@@ -1,24 +1,27 @@
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
-import Fastify from "fastify";
 import type { FastifyServerOptions } from "fastify";
+import Fastify from "fastify";
+import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import {
   jsonSchemaTransform,
   jsonSchemaTransformObject,
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
 
 import type { ServerEnv } from "./env";
-import { registerApiContext } from "./fastify-context";
-import { registerAuthRoutes } from "./modules/auth/auth.routes";
-import { registerHealthRoutes } from "./modules/health/health.routes";
-import { registerCors } from "./plugins/cors";
-import { registerApiRoutes } from "./router";
+import { aiRoutes } from "./modules/ai/ai.routes";
+import { authRoutes } from "./modules/auth/auth.routes";
+import { healthRoutes } from "./modules/health/health.routes";
+import { todoRoutes } from "./modules/todo/todo.routes";
+import { authSession } from "./plugins/auth-session";
+import { cors } from "./plugins/cors";
+import { dependencies } from "./plugins/dependencies";
+import { router } from "./router";
 
 interface CreateAppOptions {
   auth: Auth;
@@ -28,7 +31,7 @@ interface CreateAppOptions {
   nodeEnv: ServerEnv["NODE_ENV"];
 }
 
-export function createApp(options: CreateAppOptions) {
+export async function createApp(options: CreateAppOptions) {
   const app = Fastify({
     logger: options.logger ?? true,
   }).withTypeProvider<ZodTypeProvider>();
@@ -36,12 +39,7 @@ export function createApp(options: CreateAppOptions) {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
-  // Plugins
-  registerCors(app, { corsOrigins: options.corsOrigins });
-
-  // Routes
-  registerAuthRoutes(app, { auth: options.auth });
-  registerHealthRoutes(app);
+  await app.register(cors, { corsOrigins: options.corsOrigins });
 
   app.register(swagger, {
     openapi: {
@@ -58,15 +56,32 @@ export function createApp(options: CreateAppOptions) {
     app.register(swaggerUi, { routePrefix: "/docs" });
   }
 
-  app.register(
-    (apiApp) => {
-      const zodApiApp = apiApp.withTypeProvider<ZodTypeProvider>();
+  await app.register(dependencies, { db: options.db, auth: options.auth });
+  await app.register(authSession);
+  // await app.register(guardsPlugin)
 
-      registerApiContext(zodApiApp, { auth: options.auth, db: options.db });
-      registerApiRoutes(zodApiApp);
+  // Routes / Services
+  await app.register(
+    async (api) => {
+      await api.register(authRoutes);
+      await api.register(todoRoutes);
+      await api.register(aiRoutes);
+      await api.register(healthRoutes);
+
+      await api.register(router);
     },
     { prefix: "/api" },
   );
+
+  // app.register(
+  //   (apiApp) => {
+  //     const zodApiApp = apiApp.withTypeProvider<ZodTypeProvider>();
+
+  //     registerApiContext(zodApiApp, { auth: options.auth, db: options.db });
+  //     registerApiRoutes(zodApiApp);
+  //   },
+  //   { prefix: "/api" },
+  // );
 
   return app;
 }

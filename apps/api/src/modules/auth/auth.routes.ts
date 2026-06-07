@@ -1,26 +1,23 @@
 import { fromNodeHeaders } from "better-auth/node";
-import type { FastifyInstance } from "fastify";
+import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 
-import type { Auth } from "@dropaly/auth/server";
-
-export function registerAuthRoutes(app: FastifyInstance, options: { auth: Auth }) {
+export const authRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: ["GET", "POST"],
-    url: "/api/auth/*",
+    url: "/auth/*",
+
     async handler(request, reply) {
       try {
         const url = new URL(
           request.url,
           `${request.protocol}://${request.headers.host}`,
         );
-        const req = new Request(url.toString(), {
+        const authRequest = new Request(url.toString(), {
           method: request.method,
           headers: fromNodeHeaders(request.headers),
-          ...(request.method !== "GET" && request.body
-            ? { body: JSON.stringify(request.body) }
-            : {}),
+          ...(request.body ? { body: JSON.stringify(request.body) } : {}),
         });
-        const response = await options.auth.handler(req);
+        const response = await app.auth.handler(authRequest);
 
         reply.status(response.status);
 
@@ -28,14 +25,17 @@ export function registerAuthRoutes(app: FastifyInstance, options: { auth: Auth }
           reply.header(key, value);
         });
 
-        return await reply.send(response.body ? await response.text() : null);
+        const body = response.body ? await response.text() : null;
+
+        return await reply.send(body);
       } catch (err) {
         request.log.error({ err }, "Authentication error");
 
-        return reply
-          .status(500)
-          .send({ error: "Internal authentication error", code: "AUTH_FAILURE" });
+        return reply.status(500).send({
+          code: "AUTH_FAILURE",
+          message: "Internal authentication error",
+        });
       }
     },
   });
-}
+};
