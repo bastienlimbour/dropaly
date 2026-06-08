@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import type { Edge, SafeAreaViewProps } from "react-native-safe-area-context";
 import { withUniwind } from "uniwind";
 
-import { cn } from "@dropaly/ui-mobile/lib/utils";
+import { cn } from "@dropaly/ui-mobile/utils";
 
 interface AppScreenProps extends Omit<SafeAreaViewProps, "edges"> {
   edges?: Edge[] | null;

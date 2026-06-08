@@ -7,7 +7,7 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Toaster } from "sonner-native";
 
-import { useThemeColors, useUiTheme } from "@dropaly/ui-mobile/lib/theme";
+import { useThemeColors, useUiTheme } from "@dropaly/ui-mobile/theme";
 
 import { queryClient } from "@/lib/query-client";
 import { useNavigationTheme } from "@/lib/theme";

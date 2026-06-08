@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme } from "expo-router";
 
-import { useThemeColors } from "@dropaly/ui-mobile/lib/theme";
-import type { ThemeColors, ResolvedTheme } from "@dropaly/ui-mobile/lib/theme";
+import { useThemeColors } from "@dropaly/ui-mobile/theme";
+import type { ThemeColors, ResolvedTheme } from "@dropaly/ui-mobile/theme";
 
 export function useNavigationTheme({
   resolvedTheme,

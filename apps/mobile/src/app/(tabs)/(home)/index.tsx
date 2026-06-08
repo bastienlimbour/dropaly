@@ -16,7 +16,7 @@ import {
 } from "@dropaly/ui-mobile/components/card";
 import { Icon } from "@dropaly/ui-mobile/components/icon";
 import { Text } from "@dropaly/ui-mobile/components/text";
-import { cn } from "@dropaly/ui-mobile/lib/utils";
+import { cn } from "@dropaly/ui-mobile/utils";
 
 import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";

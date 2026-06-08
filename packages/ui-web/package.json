@@ -6,7 +6,8 @@
   "exports": {
     "./globals.css": "./src/styles/globals.css",
     "./components/*": "./src/components/*.tsx",
-    "./lib/*": "./src/lib/*.ts"
+    "./theme": "./src/lib/theme.ts",
+    "./utils": "./src/lib/utils.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

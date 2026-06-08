@@ -1,6 +1,6 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 
-import { useThemeColors } from "@dropaly/ui-mobile/lib/theme";
+import { useThemeColors } from "@dropaly/ui-mobile/theme";
 
 export default function TabLayout() {
   const colors = useThemeColors();

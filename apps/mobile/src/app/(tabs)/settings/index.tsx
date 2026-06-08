@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from "@dropaly/ui-mobile/components/card";
 import { Text } from "@dropaly/ui-mobile/components/text";
-import { useUiTheme } from "@dropaly/ui-mobile/lib/theme";
-import type { ThemePreference } from "@dropaly/ui-mobile/lib/theme";
+import { useUiTheme } from "@dropaly/ui-mobile/theme";
+import type { ThemePreference } from "@dropaly/ui-mobile/theme";
 
 import { ScrollViewContainer } from "@/components/container";
 import { authClient } from "@/lib/auth-client";
