@@ -5,7 +5,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import type { Db } from "@dropaly/db";
 import * as schema from "@dropaly/db/schema";
 
-import { paymentPlugin } from "./lib/payment";
+import { paymentPlugin } from "./plugins/payment";
 
 interface CreateAuthOptions {
   db: Db;
