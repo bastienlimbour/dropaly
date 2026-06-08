@@ -21,7 +21,7 @@ export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     handler(request) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       return aiService.streamChat({ actor, messages: request.body.messages });
     },
   });

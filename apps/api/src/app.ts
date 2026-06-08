@@ -19,9 +19,10 @@ import { authRoutes } from "./modules/auth/auth.routes";
 import { healthRoutes } from "./modules/health/health.routes";
 import { privateDataRoutes } from "./modules/private-data/private-data.routes";
 import { todoRoutes } from "./modules/todo/todo.routes";
-import { authSession } from "./plugins/auth-session";
-import { cors } from "./plugins/cors";
-import { dependencies } from "./plugins/dependencies";
+import { appDependenciesPlugin } from "./plugins/app-dependencies";
+import { authContextPlugin } from "./plugins/auth-context";
+import { authGuardsPlugin } from "./plugins/auth-guards";
+import { corsPlugin } from "./plugins/cors";
 
 interface CreateAppOptions {
   auth: Auth;
@@ -39,7 +40,7 @@ export function createApp(options: CreateAppOptions) {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
-  app.register(cors, { corsOrigins: options.corsOrigins });
+  app.register(corsPlugin, { corsOrigins: options.corsOrigins });
 
   app.register(swagger, {
     openapi: {
@@ -56,9 +57,9 @@ export function createApp(options: CreateAppOptions) {
     app.register(swaggerUi, { routePrefix: "/docs" });
   }
 
-  app.register(dependencies, { db: options.db, auth: options.auth });
-  app.register(authSession);
-  // app.register(guardsPlugin)
+  app.register(appDependenciesPlugin, { db: options.db, auth: options.auth });
+  app.register(authContextPlugin);
+  app.register(authGuardsPlugin);
 
   // Routes / Services
   app.register(

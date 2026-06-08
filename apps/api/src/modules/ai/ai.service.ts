@@ -2,7 +2,7 @@ import { convertToModelMessages, streamText, validateUIMessages } from "ai";
 import type { UIMessage } from "ai";
 
 import { requireEntitlement as defaultRequireEntitlement } from "@/modules/billing/billing.index";
-import type { Actor } from "@/plugins/auth-session";
+import type { Actor } from "@/plugins/auth-context";
 import { createAiModel as defaultCreateAiModel } from "./adapters/google";
 
 interface AiServiceDeps {

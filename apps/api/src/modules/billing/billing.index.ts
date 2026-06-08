@@ -1,4 +1,4 @@
-import type { Actor } from "@/plugins/auth-session";
+import type { Actor } from "@/plugins/auth-context";
 
 export const capabilities = ["ai.chat"] as const;
 

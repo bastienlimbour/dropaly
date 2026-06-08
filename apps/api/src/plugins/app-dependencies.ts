@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from "fastify";
-import fastifyPlugin from "fastify-plugin";
+import { fastifyPlugin } from "fastify-plugin";
 
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
@@ -9,12 +9,13 @@ interface DependenciesPluginOptions {
   auth: Auth;
 }
 
-const dependenciesPlugin: FastifyPluginAsync<DependenciesPluginOptions> = async (
-  app,
-  options,
-) => {
+const appDependenciesPluginFn: FastifyPluginAsync<
+  DependenciesPluginOptions
+> = async (app, options) => {
   app.decorate("db", options.db);
   app.decorate("auth", options.auth);
 };
 
-export const dependencies = fastifyPlugin(dependenciesPlugin);
+export const appDependenciesPlugin = fastifyPlugin(appDependenciesPluginFn, {
+  name: "app-dependencies",
+});

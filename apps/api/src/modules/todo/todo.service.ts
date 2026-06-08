@@ -1,6 +1,6 @@
 import type { Db } from "@dropaly/db";
 
-import type { Actor } from "@/plugins/auth-session";
+import type { Actor } from "@/plugins/auth-context";
 import type { Id } from "@/schemas/id.schema";
 import { todoRepository } from "./todo.repository";
 import type { CreateTodo, UpdateTodo } from "./todo.schema";

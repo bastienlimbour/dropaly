@@ -19,7 +19,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
     },
     preHandler: app.requireAuth,
     async handler(request, reply) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       const todos = await todoService.list({ actor });
       return reply.status(200).send(todos);
     },
@@ -39,7 +39,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       const todo = await todoService.create({ actor, data: request.body });
 
       return reply.status(201).send(todo);
@@ -62,7 +62,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       const todo = await todoService.update({
         actor,
         todoId: request.params.id,
@@ -94,7 +94,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       const result = await todoService.delete({ actor, todoId: request.params.id });
 
       if (!result) {

@@ -23,7 +23,7 @@ export const privateDataRoutes: FastifyPluginAsyncZod = async (app) => {
     },
     preHandler: app.requireAuth,
     async handler(request, reply) {
-      const actor = request.getActor();
+      const actor = request.requireActor();
       return reply.status(200).send({
         message: "This is private",
         user: {
