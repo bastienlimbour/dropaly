@@ -21,7 +21,7 @@ export const privateDataRoutes: FastifyPluginAsyncZod = async (app) => {
       operationId: "getPrivateData",
       response: { 200: privateDataSchema, 401: errorResponseSchema },
     },
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     async handler(request, reply) {
       const actor = request.requireActor();
       return reply.status(200).send({

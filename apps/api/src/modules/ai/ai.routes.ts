@@ -11,7 +11,7 @@ export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "POST",
     url: "/ai/chat",
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     schema: {
       tags: ["ai"],
       body: aiChatRequestBodySchema,

@@ -1,4 +1,4 @@
-import type { preHandlerAsyncHookHandler } from "fastify";
+import type { preValidationAsyncHookHandler } from "fastify";
 
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
@@ -10,16 +10,12 @@ declare module "fastify" {
     db: Db;
     auth: Auth;
 
-    requireAuth: preHandlerAsyncHookHandler;
-    requireRole: (role: string) => preHandlerAsyncHookHandler;
+    requireAuth: preValidationAsyncHookHandler;
+    requireRole: (requiredRole: string) => preValidationAsyncHookHandler;
   }
 
   interface FastifyRequest {
     actor: Actor | null;
-    requireActor: () => Actor;
-  }
-
-  interface FastifyContextConfig {
-    auth?: false | { role?: string };
+    requireActor(): Actor;
   }
 }

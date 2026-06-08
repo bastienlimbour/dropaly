@@ -23,7 +23,7 @@ const authGuardsPluginFn: FastifyPluginAsync = async (app) => {
   );
 
   app.decorate("requireRole", (requiredRole: string) => {
-    return async function requireRolePreHandler(
+    return async function requireRolePreValidation(
       request: FastifyRequest,
       reply: FastifyReply,
     ) {

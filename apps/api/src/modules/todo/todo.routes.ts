@@ -17,7 +17,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       operationId: "listTodos",
       response: { 200: todoSchema.array(), 401: errorResponseSchema },
     },
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     async handler(request, reply) {
       const actor = request.requireActor();
       const todos = await todoService.list({ actor });
@@ -28,7 +28,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "POST",
     url: "/todos",
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "createTodo",
@@ -49,7 +49,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "PATCH",
     url: "/todos/:id",
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "updateTodo",
@@ -82,7 +82,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "DELETE",
     url: "/todos/:id",
-    preHandler: app.requireAuth,
+    preValidation: app.requireAuth,
     schema: {
       tags: ["todos"],
       operationId: "deleteTodo",

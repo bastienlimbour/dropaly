@@ -25,7 +25,7 @@ function createActorFromAuthSession(authSession: AuthSession): Actor {
 const authContextPluginFn: FastifyPluginAsync = async (app) => {
   app.decorateRequest("actor", null);
 
-  app.addHook("preHandler", async (request) => {
+  app.addHook("onRequest", async (request) => {
     const authSession = await app.auth.api.getSession({
       headers: fromNodeHeaders(request.headers),
     });
