@@ -1,6 +1,6 @@
 import { and, asc, eq } from "drizzle-orm";
 
-import type { Db } from "@dropaly/db";
+import type { DbClient } from "@dropaly/db";
 import { todo } from "@dropaly/db/schema";
 
 import type { Id } from "@/schemas/id.schema";
@@ -12,7 +12,7 @@ const publicTodoColumns = {
   completed: todo.completed,
 };
 
-export const todoRepository = (db: Db) => ({
+export const todoRepository = (db: DbClient) => ({
   async listByUserId(input: { userId: Id }) {
     const rows = await db
       .select(publicTodoColumns)

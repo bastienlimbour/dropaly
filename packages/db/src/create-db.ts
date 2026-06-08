@@ -23,4 +23,7 @@ export function createDb(options: CreateDbOptions) {
   };
 }
 
+export type DbPool = ReturnType<typeof createDb>["dbPool"];
 export type Db = ReturnType<typeof createDb>["db"];
+export type DbTransaction = Parameters<Parameters<Db["transaction"]>[0]>[0];
+export type DbClient = Db | DbTransaction;

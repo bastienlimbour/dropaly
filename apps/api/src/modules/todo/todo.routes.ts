@@ -25,7 +25,9 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
     },
   });
 
-  app.post("/todos", {
+  app.route({
+    method: "POST",
+    url: "/todos",
     preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],
@@ -44,7 +46,9 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
     },
   });
 
-  app.patch("/todos/:id", {
+  app.route({
+    method: "PATCH",
+    url: "/todos/:id",
     preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],
@@ -71,11 +75,13 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
           .send({ error: "Todo not found", code: "TODO_NOT_FOUND" });
       }
 
-      return todo;
+      return reply.status(200).send(todo);
     },
   });
 
-  app.delete("/todos/:id", {
+  app.route({
+    method: "DELETE",
+    url: "/todos/:id",
     preHandler: app.requireAuth,
     schema: {
       tags: ["todos"],

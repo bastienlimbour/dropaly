@@ -34,7 +34,7 @@ const auth = createAuth({
   paymentSuccessUrl: env.POLAR_SUCCESS_URL,
 });
 
-const app = await createApp({
+const app = createApp({
   db,
   auth,
   logger: loggerOptions[env.NODE_ENV],

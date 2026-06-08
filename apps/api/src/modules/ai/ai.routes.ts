@@ -8,7 +8,9 @@ import { makeAiService } from "./ai.service";
 export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
   const aiService = makeAiService();
 
-  app.post("/ai/chat", {
+  app.route({
+    method: "POST",
+    url: "/ai/chat",
     preHandler: app.requireAuth,
     schema: {
       tags: ["ai"],
