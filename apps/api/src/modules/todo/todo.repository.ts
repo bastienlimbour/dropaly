@@ -13,20 +13,20 @@ const publicTodoColumns = {
 };
 
 export const todoRepository = (db: DbClient) => ({
-  async listByUserId(input: { userId: Id }) {
+  async listByOwnerId(input: { ownerId: Id }) {
     const rows = await db
       .select(publicTodoColumns)
       .from(todo)
-      .where(eq(todo.userId, input.userId))
+      .where(eq(todo.userId, input.ownerId))
       .orderBy(asc(todo.id));
 
     return rows;
   },
 
-  async createForUser(input: { userId: Id; data: CreateTodo }) {
+  async createForOwner(input: { ownerId: Id; data: CreateTodo }) {
     const [row] = await db
       .insert(todo)
-      .values({ userId: input.userId, ...input.data })
+      .values({ userId: input.ownerId, ...input.data })
       .returning(publicTodoColumns);
 
     if (!row) {
@@ -36,20 +36,20 @@ export const todoRepository = (db: DbClient) => ({
     return row;
   },
 
-  async updateForUser(input: { id: Id; userId: Id; data: UpdateTodo }) {
+  async updateOwnedByUser(input: { todoId: Id; ownerId: Id; data: UpdateTodo }) {
     const [row] = await db
       .update(todo)
       .set(input.data)
-      .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
+      .where(and(eq(todo.id, input.todoId), eq(todo.userId, input.ownerId)))
       .returning(publicTodoColumns);
 
     return row ?? null;
   },
 
-  async deleteForUser(input: { id: Id; userId: Id }) {
+  async deleteOwnedByUser(input: { todoId: Id; ownerId: Id }) {
     const [row] = await db
       .delete(todo)
-      .where(and(eq(todo.id, input.id), eq(todo.userId, input.userId)))
+      .where(and(eq(todo.id, input.todoId), eq(todo.userId, input.ownerId)))
       .returning(publicTodoColumns);
 
     return row ?? null;

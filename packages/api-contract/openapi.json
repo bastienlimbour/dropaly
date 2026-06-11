@@ -134,6 +134,71 @@
         }
       }
     },
+    "/api/ai/chat": {
+      "post": {
+        "tags": [
+          "ai"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "messages": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {}
+                  }
+                },
+                "required": [
+                  "messages"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "AI SDK UI message stream",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "AI SDK UI message stream"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/todos": {
       "get": {
         "operationId": "listTodos",
@@ -161,16 +226,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
@@ -212,16 +277,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
@@ -277,16 +342,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
@@ -300,16 +365,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
@@ -357,16 +422,16 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
@@ -380,104 +445,21 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/ai/chat": {
-      "post": {
-        "tags": [
-          "ai"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "messages": {
-                    "minItems": 1,
-                    "type": "array",
-                    "items": {}
-                  }
-                },
-                "required": [
-                  "messages"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "AI SDK UI message stream",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "description": "AI SDK UI message stream"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Default Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    },
-                    "code": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "error",
-                    "code"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/api/health": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Default Response"
           }
         }
       }
@@ -536,21 +518,39 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "code": {
                       "type": "string"
                     },
-                    "code": {
+                    "error": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "error",
-                    "code"
+                    "code",
+                    "error"
                   ],
                   "additionalProperties": false
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
           }
         }
       }

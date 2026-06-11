@@ -53,38 +53,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/todos": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["listTodos"];
-        put?: never;
-        post: operations["createTodo"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/todos/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete: operations["deleteTodo"];
-        options?: never;
-        head?: never;
-        patch: operations["updateTodo"];
-        trace?: never;
-    };
     "/api/ai/chat": {
         parameters: {
             query?: never;
@@ -126,13 +94,61 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            error: string;
                             code: string;
+                            error: string;
                         };
                     };
                 };
             };
         };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/todos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTodos"];
+        put?: never;
+        post: operations["createTodo"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/todos/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteTodo"];
+        options?: never;
+        head?: never;
+        patch: operations["updateTodo"];
+        trace?: never;
+    };
+    "/api/private-data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getPrivateData"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -197,22 +213,6 @@ export interface paths {
                 };
             };
         };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private-data": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["getPrivateData"];
         put?: never;
         post?: never;
         delete?: never;
@@ -291,8 +291,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -327,8 +327,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -361,8 +361,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -373,8 +373,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -411,8 +411,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -423,8 +423,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };
@@ -462,8 +462,8 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        error: string;
                         code: string;
+                        error: string;
                     };
                 };
             };

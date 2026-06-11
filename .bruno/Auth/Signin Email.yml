@@ -1,16 +1,17 @@
 info:
-  name: Health POST
+  name: Signin Email
   type: http
   seq: 2
 
 http:
   method: POST
-  url: "{{API_URL}}/health"
+  url: "{{API_URL}}/auth/sign-in/email"
   body:
     type: json
     data: |-
       {
-        "payload": "healthcheck test"
+        "email": "test@test.test",
+        "password": "test"
       }
   auth: inherit
 

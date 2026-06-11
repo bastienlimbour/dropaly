@@ -1,19 +1,53 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
+import { z } from "zod";
 
 export const healthRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "GET",
     url: "/",
-    handler() {
-      return { status: "OK" };
+    schema: {
+      response: {
+        200: z.object({
+          status: z.string(),
+        }),
+      },
+    },
+    async handler(_request, reply) {
+      return reply.status(200).send({ status: "OK" });
     },
   });
 
   app.route({
     method: "GET",
     url: "/health",
-    handler() {
-      return { status: "OK" };
+    schema: {
+      response: {
+        200: z.object({
+          status: z.string(),
+        }),
+      },
+    },
+    async handler(_request, reply) {
+      return reply.status(200).send({ status: "OK" });
+    },
+  });
+
+  app.route({
+    method: "POST",
+    url: "/health",
+    schema: {
+      body: z.object({
+        payload: z.email(),
+      }),
+      response: {
+        200: z.object({
+          status: z.string(),
+          payload: z.string(),
+        }),
+      },
+    },
+    async handler(request, reply) {
+      return reply.status(200).send({ status: "OK", payload: request.body.payload });
     },
   });
 };
