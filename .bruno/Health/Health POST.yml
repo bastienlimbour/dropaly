@@ -10,7 +10,8 @@ http:
     type: json
     data: |-
       {
-        "payload": "healthcheck test"
+        "stringTest": "test",
+        "numberTest": 12
       }
   auth: inherit
 
