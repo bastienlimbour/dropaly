@@ -53,7 +53,7 @@ export default function AiRoute() {
         edges={["bottom"]}
         scrollViewProps={{ contentContainerClassName: "p-6 gap-4" }}
       >
-        <Text className="text-foreground text-2xl font-semibold">
+        <Text className="text-2xl font-semibold text-foreground">
           Sign in to chat with AI
         </Text>
         <SignIn />
@@ -68,10 +68,10 @@ export default function AiRoute() {
         <View className="flex-1 items-center justify-center px-4">
           <Surface variant="secondary" className="rounded-lg p-4">
             <FieldError isInvalid>
-              <Text className="text-destructive mb-1 text-center font-medium">
+              <Text className="mb-1 text-center font-medium text-destructive">
                 {toUserMessage(error)}
               </Text>
-              <Text className="text-muted-foreground text-center text-xs">
+              <Text className="text-center text-xs text-muted-foreground">
                 Please check your connection and try again.
               </Text>
             </FieldError>
@@ -98,8 +98,8 @@ export default function AiRoute() {
             variant="default"
             className="flex-1 items-center justify-center rounded-xl py-8"
           >
-            <Icon as={IconMessageChatbot} className="text-muted-foreground size-8" />
-            <Text className="text-muted-foreground mt-3 text-sm">
+            <Icon as={IconMessageChatbot} className="size-8 text-muted-foreground" />
+            <Text className="mt-3 text-sm text-muted-foreground">
               Ask me anything to get started
             </Text>
           </Surface>
@@ -111,7 +111,7 @@ export default function AiRoute() {
                 variant={message.role === "user" ? "tertiary" : "secondary"}
                 className={`rounded-xl p-3 ${message.role === "user" ? "ml-8" : "mr-8"}`}
               >
-                <Text className="text-muted-foreground mb-1 text-xs font-medium">
+                <Text className="mb-1 text-xs font-medium text-muted-foreground">
                   {message.role === "user" ? "You" : "AI"}
                 </Text>
                 <View className="gap-1">
@@ -119,14 +119,14 @@ export default function AiRoute() {
                     part.type === "text" ? (
                       <Text
                         key={`${message.id}-${part.type}-${part.text}`}
-                        className="text-foreground text-sm leading-relaxed"
+                        className="text-sm leading-relaxed text-foreground"
                       >
                         {part.text}
                       </Text>
                     ) : (
                       <Text
                         key={`${message.id}-${part.type}-${JSON.stringify(part)}`}
-                        className="text-foreground text-sm leading-relaxed"
+                        className="text-sm leading-relaxed text-foreground"
                       >
                         {JSON.stringify(part)}
                       </Text>
@@ -137,12 +137,12 @@ export default function AiRoute() {
             ))}
             {isBusy && (
               <Surface variant="secondary" className="mr-8 rounded-xl p-3">
-                <Text className="text-muted-foreground mb-1 text-xs font-medium">
+                <Text className="mb-1 text-xs font-medium text-muted-foreground">
                   AI
                 </Text>
                 <View className="flex-row items-center gap-2">
                   <Spinner size="sm" />
-                  <Text className="text-muted-foreground text-sm">Thinking...</Text>
+                  <Text className="text-sm text-muted-foreground">Thinking...</Text>
                 </View>
               </Surface>
             )}
@@ -177,8 +177,8 @@ export default function AiRoute() {
                 as={IconArrowUp}
                 className={
                   input.trim() && !isBusy
-                    ? "text-primary-foreground size-5"
-                    : "text-muted-foreground size-5"
+                    ? "size-5 text-primary-foreground"
+                    : "size-5 text-muted-foreground"
                 }
               />
             </Button>

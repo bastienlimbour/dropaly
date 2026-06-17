@@ -60,7 +60,7 @@ export default function TodosRoute() {
       <ScrollViewContainer
         scrollViewProps={{ contentContainerClassName: "p-6 gap-4" }}
       >
-        <Text className="text-foreground text-2xl font-semibold">
+        <Text className="text-2xl font-semibold text-foreground">
           Sign in to manage your tasks
         </Text>
         <SignIn />
@@ -124,8 +124,8 @@ export default function TodosRoute() {
                     as={IconPlus}
                     className={
                       !newTodoText.trim()
-                        ? "text-muted-foreground size-5"
-                        : "text-primary-foreground size-5"
+                        ? "size-5 text-muted-foreground"
+                        : "size-5 text-primary-foreground"
                     }
                   />
                 )}
@@ -136,7 +136,7 @@ export default function TodosRoute() {
           {isLoading && (
             <View className="items-center justify-center py-12">
               <Spinner size="lg" />
-              <Text className="text-muted-foreground mt-3 text-sm">
+              <Text className="mt-3 text-sm text-muted-foreground">
                 Loading tasks...
               </Text>
             </View>
@@ -149,9 +149,9 @@ export default function TodosRoute() {
             variant="secondary"
             className="items-center justify-center rounded-lg py-10"
           >
-            <Icon as={IconCheckbox} className="text-muted-foreground size-10" />
-            <Text className="text-foreground mt-3 font-medium">No tasks yet</Text>
-            <Text className="text-muted-foreground mt-1 text-xs">
+            <Icon as={IconCheckbox} className="size-10 text-muted-foreground" />
+            <Text className="mt-3 font-medium text-foreground">No tasks yet</Text>
+            <Text className="mt-1 text-xs text-muted-foreground">
               Add your first task to get started
             </Text>
           </Surface>
@@ -181,7 +181,7 @@ export default function TodosRoute() {
               variant="ghost"
               onPress={() => handleDeleteTodo(item.id)}
             >
-              <Icon as={IconTrash} className="text-destructive size-4" />
+              <Icon as={IconTrash} className="size-4 text-destructive" />
             </Button>
           </View>
         </Surface>
