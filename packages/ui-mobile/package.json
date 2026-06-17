@@ -10,6 +10,7 @@
     "./utils": "./src/lib/utils.ts"
   },
   "scripts": {
+    "uniwind:generate": "uniwind generate-artifacts --css ./src/styles/globals.css --dts ./uniwind-types.d.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",

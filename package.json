@@ -7,6 +7,8 @@
   ],
   "type": "module",
   "scripts": {
+    "postinstall": "pnpm run uniwind:generate",
+    "uniwind:generate": "turbo run uniwind:generate --filter=@dropaly/ui-mobile --filter=@dropaly/mobile",
     "typecheck": "turbo run typecheck --continue",
     "lint": "turbo run lint --continue",
     "lint:fix": "turbo run lint:fix",

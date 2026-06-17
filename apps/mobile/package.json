@@ -4,6 +4,7 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
+    "uniwind:generate": "uniwind generate-artifacts --css ./src/styles/index.css --dts ./uniwind-types.d.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -11,7 +12,7 @@
     "format:check": "oxfmt . --check",
     "prebuild": "expo prebuild",
     "dev": "expo start --clear",
-    "start": "expo start",
+    "start": "pnpm run uniwind:generate && expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "clean": "git clean -xdf .cache .expo .turbo dist node_modules"

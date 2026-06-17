@@ -5,6 +5,10 @@
     "transit": {
       "dependsOn": ["^transit"]
     },
+    "uniwind:generate": {
+      "dependsOn": ["^uniwind:generate"],
+      "cache": false
+    },
     "typecheck": {
       "dependsOn": ["transit"]
     },
@@ -21,9 +25,11 @@
       "cache": false
     },
     "format": {
+      "dependsOn": ["uniwind:generate"],
       "cache": false
     },
     "format:check": {
+      "dependsOn": ["uniwind:generate"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "oxfmt.config.ts",
@@ -53,6 +59,7 @@
       ]
     },
     "dev": {
+      "dependsOn": ["uniwind:generate"],
       "persistent": true,
       "cache": false
     },
