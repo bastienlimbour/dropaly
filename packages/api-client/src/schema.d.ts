@@ -94,8 +94,19 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
+                            statusCode: number;
                             code: string;
                             error: string;
+                            message: string;
+                            validation?: {
+                                instancePath: string;
+                                message?: string;
+                                keyword?: string;
+                                schemaPath?: string;
+                                params?: {
+                                    [key: string]: unknown;
+                                };
+                            }[];
                         };
                     };
                 };
@@ -176,7 +187,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
                 };
             };
         };
@@ -209,12 +224,46 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
                 };
             };
         };
         put?: never;
-        post?: never;
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        stringTest: string;
+                        numberTest: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                            stringTest: string;
+                            numberTest: number;
+                        };
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -291,8 +340,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -327,8 +387,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -361,8 +432,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -373,8 +455,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -411,8 +504,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -423,8 +527,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };
@@ -462,8 +577,19 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
+                        statusCode: number;
                         code: string;
                         error: string;
+                        message: string;
+                        validation?: {
+                            instancePath: string;
+                            message?: string;
+                            keyword?: string;
+                            schemaPath?: string;
+                            params?: {
+                                [key: string]: unknown;
+                            };
+                        }[];
                     };
                 };
             };

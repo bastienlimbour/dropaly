@@ -1,11 +1,15 @@
 import type { QueryClient } from "@tanstack/react-query";
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import {
   HeadContent,
   Outlet,
   createRootRouteWithContext,
+  useRouter,
 } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
+import { toUserMessage } from "@dropaly/api-client";
+import { Button } from "@dropaly/ui-web/components/button";
 import { Toaster } from "@dropaly/ui-web/components/sonner";
 
 import Header from "@/components/header";
@@ -35,6 +39,8 @@ export interface RouterAppContext {
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
+  errorComponent: RootErrorComponent,
+  notFoundComponent: RootNotFoundComponent,
   head: () => ({
     meta: [
       { title: "Dropaly" },
@@ -75,5 +81,40 @@ function RootComponent() {
         </Suspense>
       ) : null}
     </>
+  );
+}
+
+function RootErrorComponent({ error, reset }: ErrorComponentProps) {
+  const router = useRouter();
+
+  return (
+    <div className="flex min-h-svh items-center justify-center p-6">
+      <div className="w-full max-w-md rounded-lg border bg-card p-6 text-center shadow-sm">
+        <h1 className="text-xl font-semibold">Une erreur est survenue</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{toUserMessage(error)}</p>
+        <Button
+          className="mt-6"
+          onClick={() => {
+            reset();
+            void router.invalidate();
+          }}
+        >
+          Réessayer
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function RootNotFoundComponent() {
+  return (
+    <div className="flex min-h-svh items-center justify-center p-6">
+      <div className="w-full max-w-md rounded-lg border bg-card p-6 text-center shadow-sm">
+        <h1 className="text-xl font-semibold">Page introuvable</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          La page demandée n'existe pas ou n'est plus disponible.
+        </p>
+      </div>
+    </div>
   );
 }

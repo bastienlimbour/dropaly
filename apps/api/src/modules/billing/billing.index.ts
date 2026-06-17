@@ -1,3 +1,4 @@
+import { HttpError } from "@/errors/http-error";
 import type { Actor } from "@/plugins/auth-context";
 
 export const capabilities = ["ai.chat"] as const;
@@ -9,13 +10,6 @@ export interface BillingState {
   entitlements: Capability[];
 }
 
-export class EntitlementRequiredError extends Error {
-  constructor(capability: Capability) {
-    super(`Missing entitlement: ${capability}`);
-    this.name = "EntitlementRequiredError";
-  }
-}
-
 export async function getBillingState(_actor: Actor): Promise<BillingState> {
   return Promise.resolve({ plan: "free", entitlements: ["ai.chat"] });
 }
@@ -24,7 +18,11 @@ export async function requireEntitlement(actor: Actor, capability: Capability) {
   const billingState = await getBillingState(actor);
 
   if (!billingState.entitlements.includes(capability)) {
-    throw new EntitlementRequiredError(capability);
+    throw new HttpError({
+      statusCode: 403,
+      code: "FORBIDDEN",
+      message: "Missing required entitlement.",
+    });
   }
 
   return billingState;

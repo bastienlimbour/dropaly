@@ -5,7 +5,7 @@ How workflow skills should consume this repo's documentation when exploring the 
 ## Before Exploring Or Working On A Task
 
 - If domain language matters for the task at hand, read the relevant `CONTEXT.md` or `CONTEXT-MAP.md` at the repo root.
-- If ADRs in `docs/adr/` at the repo root or in any `**/docs/adr/` directory touch the area you are about to work on, read them.
+- If ADRs in `docs/decisions/` at the repo root or in any `**/docs/decisions/` directory touch the area you are about to work on, read them.
 
 If any of these files do not exist, proceed silently. Do not flag their absence.
 
@@ -21,9 +21,9 @@ If the concept you need is not in the glossary yet, either reconsider whether yo
 
 `CONTEXT-MAP.md` is a routing document that points to the relevant `CONTEXT.md` when the repo has multiple domains, packages, apps, bounded contexts, or sub-projects. It is not an architecture map.
 
-## ADRs
+## Decisions (ADRs)
 
-Use `docs/adr/` for durable architecture decisions that are hard to reverse, surprising without context, or involve a real tradeoff between options.
+Use `docs/decisions/` for durable architecture decisions that are hard to reverse, surprising without context, or involve a real tradeoff between options.
 
 If your output or a proposed change contradicts an existing ADR, flag the conflict explicitly to the user instead of silently overriding the decision.
 
@@ -34,7 +34,7 @@ Single domain context:
 ```text
 /
 |-- CONTEXT.md
-|-- docs/adr/
+|-- docs/decisions/
 |   |-- 0001-decision-short-slug.md
 |   `-- 0002-decision-short-slug.md
 `-- src/
@@ -45,14 +45,14 @@ Multi-domain context with `CONTEXT-MAP.md` at the repo root:
 ```text
 /
 |-- CONTEXT-MAP.md
-|-- docs/adr/             # system-wide decisions
+|-- docs/decisions/             # system-wide decisions
 `-- src/
     |-- billing/
     |   |-- CONTEXT.md
-    |   `-- docs/adr/     # context-specific decisions
+    |   `-- docs/decisions/     # context-specific decisions
     `-- customers/
         |-- CONTEXT.md
-        `-- docs/adr/
+        `-- docs/decisions/
 ```
 
 ## Security And Privacy

@@ -42,6 +42,10 @@ const app = createApp({
   nodeEnv: env.NODE_ENV,
 });
 
+dbPool.on("error", (err) => {
+  app.log.error({ err }, "Database pool error");
+});
+
 app.addHook("onClose", async () => {
   await dbPool.end();
 });

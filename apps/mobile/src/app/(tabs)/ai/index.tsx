@@ -8,6 +8,7 @@ import {
   KeyboardStickyView,
 } from "react-native-keyboard-controller";
 
+import { toUserMessage } from "@dropaly/api-client";
 import { Button } from "@dropaly/ui-mobile/components/button";
 import { FieldError } from "@dropaly/ui-mobile/components/field-error";
 import { Icon } from "@dropaly/ui-mobile/components/icon";
@@ -68,7 +69,7 @@ export default function AiRoute() {
           <Surface variant="secondary" className="rounded-lg p-4">
             <FieldError isInvalid>
               <Text className="text-destructive mb-1 text-center font-medium">
-                {error.message}
+                {toUserMessage(error)}
               </Text>
               <Text className="text-muted-foreground text-center text-xs">
                 Please check your connection and try again.

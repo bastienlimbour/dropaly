@@ -31,7 +31,7 @@ export default function Home() {
     ...privateDataQueries.get(api),
     enabled: Boolean(session?.user),
   });
-  const isConnected = healthCheck.data === "OK";
+  const isConnected = healthCheck.data?.status === "OK";
   const isLoading = healthCheck.isLoading;
 
   return (

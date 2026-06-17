@@ -1,47 +1,96 @@
+export interface ApiValidationIssue {
+  instancePath: string;
+  message?: string;
+  keyword?: string;
+  schemaPath?: string;
+  params?: Record<string, unknown>;
+}
+
 export interface ApiErrorBody {
-  error: string;
+  statusCode: number;
   code: string;
+  error: string;
+  message: string;
+  validation?: ApiValidationIssue[];
 }
 
 export class ApiClientError extends Error {
   readonly status: number;
   readonly code: string | undefined;
   readonly body: unknown;
+  override readonly cause: unknown;
 
-  constructor(options: {
-    body: unknown;
-    code?: string;
-    message: string;
-    status: number;
-  }) {
-    super(options.message);
+  constructor(
+    message: string,
+    options: {
+      body?: unknown;
+      cause?: unknown;
+      code?: string;
+      status: number;
+    },
+  ) {
+    super(message, { cause: options.cause });
     this.name = "ApiClientError";
     this.status = options.status;
     this.code = options.code;
     this.body = options.body;
+    this.cause = options.cause;
   }
 }
 
-function isApiErrorBody(body: unknown): body is ApiErrorBody {
+export function isApiErrorBody(body: unknown): body is ApiErrorBody {
   return (
     typeof body === "object" &&
     body !== null &&
-    "error" in body &&
+    "statusCode" in body &&
     "code" in body &&
+    "error" in body &&
+    "message" in body &&
+    typeof body.statusCode === "number" &&
+    typeof body.code === "string" &&
     typeof body.error === "string" &&
-    typeof body.code === "string"
+    typeof body.message === "string"
   );
 }
 
-export function throwApiError(error: unknown, response: Response): never {
-  const message = isApiErrorBody(error) ? error.error : response.statusText;
-  const code = isApiErrorBody(error) ? error.code : undefined;
+export function createApiClientError(response: Response, body: unknown) {
+  if (isApiErrorBody(body)) {
+    return new ApiClientError(body.message, {
+      body,
+      code: body.code,
+      status: response.status,
+    });
+  }
 
-  const options = {
-    body: error,
-    message: message || "API request failed",
+  return new ApiClientError(response.statusText || "API request failed.", {
+    body,
     status: response.status,
-  };
+  });
+}
 
-  throw new ApiClientError(code ? { ...options, code } : options);
+function isAbortError(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "name" in error &&
+    error.name === "AbortError"
+  );
+}
+
+export function createNetworkApiError(error: unknown) {
+  if (isAbortError(error)) {
+    return new ApiClientError("Request aborted.", {
+      body: undefined,
+      cause: error,
+      code: "REQUEST_ABORTED",
+      status: 0,
+    });
+  }
+
+  return new ApiClientError("Network request failed.", {
+    body: undefined,
+    cause: error,
+    code: "NETWORK_ERROR",
+    status: 0,
+  });
 }

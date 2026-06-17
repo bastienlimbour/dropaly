@@ -11,6 +11,7 @@
     "lint:fix": "oxlint . --fix",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check",
+    "test": "vitest run",
     "openapi:generate": "tsx scripts/generate-schema.ts",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
@@ -22,6 +23,7 @@
     "@types/node": "catalog:",
     "openapi-typescript": "^7.10.1",
     "tsx": "^4.22.2",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

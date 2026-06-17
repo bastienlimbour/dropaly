@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import z from "zod";
 
+import { toUserMessage } from "@dropaly/api-client";
 import { Button } from "@dropaly/ui-web/components/button";
 import { Input } from "@dropaly/ui-web/components/input";
 import { Label } from "@dropaly/ui-web/components/label";
@@ -21,18 +22,22 @@ export default function SignUpForm({
   const form = useForm({
     defaultValues: { email: "", password: "", name: "" },
     onSubmit: async ({ value }) => {
-      await authClient.signUp.email(
-        { email: value.email, password: value.password, name: value.name },
-        {
-          onSuccess: () => {
-            void navigate({ to: "/dashboard" });
-            toast.success("Sign up successful");
+      try {
+        await authClient.signUp.email(
+          { email: value.email, password: value.password, name: value.name },
+          {
+            onSuccess: () => {
+              void navigate({ to: "/dashboard" });
+              toast.success("Sign up successful");
+            },
+            onError: (error) => {
+              toast.error(toUserMessage(error));
+            },
           },
-          onError: (error) => {
-            toast.error(error.error.message || error.error.statusText);
-          },
-        },
-      );
+        );
+      } catch (error) {
+        toast.error(toUserMessage(error));
+      }
     },
     validators: {
       onSubmit: z.object({

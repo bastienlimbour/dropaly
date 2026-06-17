@@ -48,6 +48,7 @@ export function createAuth(options: CreateAuthOptions) {
       ...options.corsOrigins,
       ...(options.nodeEnv === "development" ? ["exp://"] : []),
     ],
+    onAPIError: { throw: true },
     secret: options.secret,
     emailAndPassword: { enabled: true },
     plugins: [

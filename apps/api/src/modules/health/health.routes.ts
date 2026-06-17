@@ -37,17 +37,23 @@ export const healthRoutes: FastifyPluginAsyncZod = async (app) => {
     url: "/health",
     schema: {
       body: z.object({
-        payload: z.email(),
+        stringTest: z.string(),
+        numberTest: z.number(),
       }),
       response: {
         200: z.object({
           status: z.string(),
-          payload: z.string(),
+          stringTest: z.string(),
+          numberTest: z.number(),
         }),
       },
     },
     async handler(request, reply) {
-      return reply.status(200).send({ status: "OK", payload: request.body.payload });
+      return reply.status(200).send({
+        status: "OK",
+        stringTest: request.body.stringTest,
+        numberTest: request.body.numberTest,
+      });
     },
   });
 };

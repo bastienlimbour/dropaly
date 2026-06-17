@@ -23,6 +23,7 @@ import { appDependenciesPlugin } from "./plugins/app-dependencies";
 import { authContextPlugin } from "./plugins/auth-context";
 import { authGuardsPlugin } from "./plugins/auth-guards";
 import { corsPlugin } from "./plugins/cors";
+import { errorHandlerPlugin } from "./plugins/error-handler";
 
 interface CreateAppOptions {
   auth: Auth;
@@ -39,6 +40,7 @@ export function createApp(options: CreateAppOptions) {
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
+  app.register(errorHandlerPlugin);
 
   app.register(corsPlugin, { corsOrigins: options.corsOrigins });
 

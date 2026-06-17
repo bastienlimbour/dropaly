@@ -4,6 +4,7 @@ import type { TextInput } from "react-native";
 import { View } from "react-native";
 import z from "zod";
 
+import { toUserMessage } from "@dropaly/api-client";
 import { Button } from "@dropaly/ui-mobile/components/button";
 import { FieldError } from "@dropaly/ui-mobile/components/field-error";
 import { Input } from "@dropaly/ui-mobile/components/input";
@@ -68,7 +69,7 @@ function SignIn() {
           onError(error) {
             showToast({
               variant: "danger",
-              label: error.error.message || "Failed to sign in",
+              label: toUserMessage(error),
             });
           },
           onSuccess() {

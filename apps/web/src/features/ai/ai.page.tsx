@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { Streamdown } from "streamdown";
 
+import { toUserMessage } from "@dropaly/api-client";
 import { Button } from "@dropaly/ui-web/components/button";
 import { Input } from "@dropaly/ui-web/components/input";
 
@@ -11,8 +12,9 @@ import { createAiChatTransport } from "./ai.api";
 
 export function AiPage() {
   const [input, setInput] = useState("");
-  const { messages, sendMessage, status } = useChat({
+  const { error, messages, sendMessage, status } = useChat({
     transport: createAiChatTransport(),
+    onError: (err) => console.error("AI chat failed", { error: err }),
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -32,6 +34,12 @@ export function AiPage() {
   return (
     <div className="mx-auto grid w-full grid-rows-[1fr_auto] overflow-hidden p-4">
       <div className="space-y-4 overflow-y-auto pb-4">
+        {error ? (
+          <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+            {toUserMessage(error)}
+          </div>
+        ) : null}
+
         {messages.length === 0 ? (
           <div className="mt-8 text-center text-muted-foreground">
             Ask me anything to get started!
