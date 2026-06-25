@@ -7,8 +7,8 @@ import { z } from "zod";
 import type { Auth } from "@dropaly/auth/server";
 import type { Db } from "@dropaly/db";
 
-import { createApp } from "./app";
-import type { App } from "./app";
+import { createApp } from "@/app";
+import type { App } from "@/app";
 
 let testApp: App | undefined;
 

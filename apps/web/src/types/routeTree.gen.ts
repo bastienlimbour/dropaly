@@ -8,13 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as TodosRouteImport } from './routes/todos'
-import { Route as SuccessRouteImport } from './routes/success'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AiRouteImport } from './routes/ai'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as rootRouteImport } from './../routes/__root'
+import { Route as TodosRouteImport } from './../routes/todos'
+import { Route as SuccessRouteImport } from './../routes/success'
+import { Route as LoginRouteImport } from './../routes/login'
+import { Route as DashboardRouteImport } from './../routes/dashboard'
+import { Route as AiRouteImport } from './../routes/ai'
+import { Route as IndexRouteImport } from './../routes/index'
 
 const TodosRoute = TodosRouteImport.update({
   id: '/todos',

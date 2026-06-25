@@ -2,7 +2,7 @@ import createClient from "openapi-fetch";
 import type { Middleware } from "openapi-fetch";
 
 import { createApiClientError, createNetworkApiError } from "./error";
-import type { paths } from "./schema";
+import type { paths } from "./types/schema.gen";
 
 type ApiHeadersInit = ConstructorParameters<typeof Headers>[0];
 

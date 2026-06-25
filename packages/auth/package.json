@@ -5,7 +5,7 @@
     "./server": "./src/index.server.ts"
   },
   "scripts": {
-    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --config src/auth.cli.ts",
+    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --config scripts/auth.cli.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",

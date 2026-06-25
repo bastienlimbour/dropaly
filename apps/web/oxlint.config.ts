@@ -8,4 +8,5 @@ export default defineConfig({
   rules: {
     "import/no-relative-parent-imports": "error",
   },
+  ignorePatterns: ["*.gen.ts"],
 });

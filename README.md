@@ -192,7 +192,7 @@ pnpm openapi:generate
 Commit both generated files when they change:
 
 - `apps/api/openapi/openapi.json`
-- `packages/api-client/src/schema.d.ts`
+- `packages/api-client/src/types/schema.gen.ts`
 
 ## Drizzle Migration Workflow
 

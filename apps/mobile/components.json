@@ -14,8 +14,8 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@dropaly/ui-web/lib/utils",
-    "ui": "@dropaly/ui-web/components"
+    "utils": "@dropaly/ui-mobile/utils",
+    "ui": "@dropaly/ui-mobile/components"
   },
   "menuColor": "default-translucent",
   "menuAccent": "subtle"

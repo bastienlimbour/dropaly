@@ -1,9 +1,10 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@dropaly/config/typescript/tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["ESNext"],
     "types": ["node", "react"]
   },
-  "include": ["src/**/*", "*.config.*", "*.d.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
 }

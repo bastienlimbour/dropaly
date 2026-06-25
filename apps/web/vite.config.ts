@@ -10,7 +10,12 @@ export default defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
     tailwindcss(),
-    tanstackRouter({ target: "react", autoCodeSplitting: true }),
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+      generatedRouteTree: "src/types/routeTree.gen.ts",
+      quoteStyle: "double",
+    }),
     react(),
     VitePWA({
       registerType: "autoUpdate",

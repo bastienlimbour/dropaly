@@ -1,6 +1,6 @@
 import { createDb } from "@dropaly/db";
 
-import { createAuth } from "./index.server";
+import { createAuth } from "../src/index.server";
 
 const { db } = createDb({
   databaseUrl: "postgres://test:test@localhost:5432/test",

@@ -1,5 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@dropaly/config/typescript/tsconfig.base.json",
-  "include": ["*.config.*", "*.d.ts"],
+  "include": ["*.ts", "*.js"],
   "exclude": [".agents", ".initiatives", ".references", "node_modules"]
 }
