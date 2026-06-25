@@ -10,6 +10,8 @@ export const oxfmtBaseConfig = {
     "skills-lock.json",
     "expo-env.d.ts",
     "uniwind-types.d.ts",
+    "schema.d.ts",
+    "openapi.json",
     "*.gen.ts",
   ],
   printWidth: 85,
