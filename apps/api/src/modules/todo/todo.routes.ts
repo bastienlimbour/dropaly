@@ -91,7 +91,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       operationId: "deleteTodo",
       params: idParamsSchema,
       response: {
-        204: z.null(),
+        204: z.void(),
         401: errorResponseSchema,
         404: errorResponseSchema,
       },
@@ -108,7 +108,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
         });
       }
 
-      return reply.status(204).send(null);
+      return reply.status(204);
     },
   });
 };

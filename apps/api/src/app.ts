@@ -1,7 +1,7 @@
-import swagger from "@fastify/swagger";
-import swaggerUi from "@fastify/swagger-ui";
+import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import type { FastifyServerOptions } from "fastify";
-import Fastify from "fastify";
+import { fastify } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import {
   jsonSchemaTransform,
@@ -26,15 +26,15 @@ import { corsPlugin } from "./plugins/cors";
 import { errorHandlerPlugin } from "./plugins/error-handler";
 
 interface CreateAppOptions {
+  db: Db;
   auth: Auth;
   corsOrigins: ServerEnv["CORS_ORIGINS"];
-  db: Db;
-  logger?: FastifyServerOptions["logger"];
   nodeEnv: ServerEnv["NODE_ENV"];
+  logger?: FastifyServerOptions["logger"];
 }
 
 export function createApp(options: CreateAppOptions) {
-  const app = Fastify({
+  const app = fastify({
     logger: options.logger ?? true,
   }).withTypeProvider<ZodTypeProvider>();
 
@@ -44,7 +44,7 @@ export function createApp(options: CreateAppOptions) {
 
   app.register(corsPlugin, { corsOrigins: options.corsOrigins });
 
-  app.register(swagger, {
+  app.register(fastifySwagger, {
     openapi: {
       info: {
         title: "Dropaly API",
@@ -56,7 +56,7 @@ export function createApp(options: CreateAppOptions) {
   });
 
   if (options.nodeEnv !== "production") {
-    app.register(swaggerUi, { routePrefix: "/docs" });
+    app.register(fastifySwaggerUi, { routePrefix: "/docs" });
   }
 
   app.register(appDependenciesPlugin, { db: options.db, auth: options.auth });

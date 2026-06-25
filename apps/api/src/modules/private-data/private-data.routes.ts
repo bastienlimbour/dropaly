@@ -1,16 +1,7 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import z from "zod";
 
 import { errorResponseSchema } from "@/schemas/error.schema";
-
-const privateDataSchema = z.object({
-  message: z.string(),
-  user: z.object({
-    id: z.string(),
-    email: z.string(),
-    name: z.string(),
-  }),
-});
+import { privateDataSchema } from "./private-data.schema";
 
 export const privateDataRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({

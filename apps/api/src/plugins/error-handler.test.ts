@@ -23,7 +23,9 @@ function createTestApp(
   } = {},
 ) {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-  const auth = {
+  const fakeDb = {} as unknown as Db;
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+  const fakeAuth = {
     api: {
       getSession: options.authGetSession ?? vi.fn().mockResolvedValue(null),
     },
@@ -31,12 +33,11 @@ function createTestApp(
   } as unknown as Auth;
 
   testApp = createApp({
-    auth,
+    db: fakeDb,
+    auth: fakeAuth,
     corsOrigins: [],
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    db: {} as Db,
-    logger: false,
     nodeEnv: "test",
+    logger: false,
   });
 
   return testApp;

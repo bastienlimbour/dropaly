@@ -2,7 +2,7 @@ import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { toUserMessage } from "@dropaly/api-client";
-import { invalidateQueriesAfterMutation } from "@dropaly/api-query";
+import { invalidateQueriesAfterMutation } from "@dropaly/api-queries";
 
 export const queryClient: QueryClient = new QueryClient({
   queryCache: new QueryCache({

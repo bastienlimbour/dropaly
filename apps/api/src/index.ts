@@ -37,9 +37,9 @@ const auth = createAuth({
 const app = createApp({
   db,
   auth,
-  logger: loggerOptions[env.NODE_ENV],
   corsOrigins: env.CORS_ORIGINS,
   nodeEnv: env.NODE_ENV,
+  logger: loggerOptions[env.NODE_ENV],
 });
 
 dbPool.on("error", (err) => {

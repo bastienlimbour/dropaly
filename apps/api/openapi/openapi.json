@@ -6,6 +6,89 @@
   },
   "components": {
     "schemas": {
+      "ErrorResponseInput": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "code": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "validation": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "instancePath": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "keyword": {
+                  "type": "string"
+                },
+                "schemaPath": {
+                  "type": "string"
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              },
+              "required": [
+                "instancePath"
+              ]
+            }
+          }
+        },
+        "required": [
+          "statusCode",
+          "code",
+          "error",
+          "message"
+        ]
+      },
+      "PrivateDataInput": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "message",
+          "user"
+        ]
+      },
       "TodoInput": {
         "type": "object",
         "properties": {
@@ -48,6 +131,93 @@
             "type": "boolean"
           }
         }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "code": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "validation": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "instancePath": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "keyword": {
+                  "type": "string"
+                },
+                "schemaPath": {
+                  "type": "string"
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              },
+              "required": [
+                "instancePath"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "statusCode",
+          "code",
+          "error",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "PrivateData": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "email",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "message",
+          "user"
+        ],
+        "additionalProperties": false
       },
       "Todo": {
         "type": "object",
@@ -178,58 +348,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -262,58 +381,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -351,58 +419,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -454,58 +471,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -515,58 +481,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -595,13 +510,7 @@
             "description": "Default Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "string",
-                  "nullable": true,
-                  "enum": [
-                    null
-                  ]
-                }
+                "schema": {}
               }
             }
           },
@@ -610,58 +519,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -671,58 +529,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -742,37 +549,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "email",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "message",
-                    "user"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/PrivateData"
                 }
               }
             }
@@ -782,58 +559,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "statusCode": {
-                      "type": "integer",
-                      "minimum": -9007199254740991,
-                      "maximum": 9007199254740991
-                    },
-                    "code": {
-                      "type": "string"
-                    },
-                    "error": {
-                      "type": "string"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "validation": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "instancePath": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "keyword": {
-                            "type": "string"
-                          },
-                          "schemaPath": {
-                            "type": "string"
-                          },
-                          "params": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "required": [
-                          "instancePath"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "statusCode",
-                    "code",
-                    "error",
-                    "message"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }

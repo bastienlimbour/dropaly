@@ -24,10 +24,10 @@ import { authClient } from "@/lib/auth-client";
 import { queryClient } from "@/lib/query-client";
 
 export default function Home() {
-  const healthCheck = useQuery(api.health.check());
+  const healthCheck = useQuery(api.health.queryOptions.check());
   const { data: session } = authClient.useSession();
   const privateData = useQuery({
-    ...api.privateData.get(),
+    ...api.privateData.queryOptions.get(),
     enabled: Boolean(session?.user),
   });
   const isConnected = healthCheck.data?.status === "OK";

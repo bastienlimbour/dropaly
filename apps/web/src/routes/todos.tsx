@@ -12,7 +12,7 @@ export const Route = createFileRoute("/todos")({
     }
   },
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(api.todos.queries.list());
+    await context.queryClient.ensureQueryData(api.todos.queryOptions.list());
   },
   component: TodosPage,
 });

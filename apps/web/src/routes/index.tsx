@@ -6,7 +6,7 @@ import { api } from "@/lib/api-queries";
 export const Route = createFileRoute("/")({ component: HomeComponent });
 
 function HomeComponent() {
-  const healthCheck = useQuery(api.health.check());
+  const healthCheck = useQuery(api.health.queryOptions.check());
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">

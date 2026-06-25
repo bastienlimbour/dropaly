@@ -1,4 +1,4 @@
-import { createApiQueries } from "@dropaly/api-query";
+import { createApiQueries } from "@dropaly/api-queries";
 
 import { apiClient } from "./api-client";
 

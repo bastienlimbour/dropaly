@@ -18,7 +18,7 @@
   "dependencies": {
     "@ai-sdk/react": "catalog:ai",
     "@dropaly/api-client": "workspace:*",
-    "@dropaly/api-query": "workspace:*",
+    "@dropaly/api-queries": "workspace:*",
     "@dropaly/ui-web": "workspace:*",
     "@polar-sh/better-auth": "catalog:auth",
     "@t3-oss/env-core": "catalog:",

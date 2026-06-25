@@ -1,7 +1,11 @@
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import type { ApiClient } from "@dropaly/api-client";
-import type { CreateTodoInput, UpdateTodoInput } from "@dropaly/api-client/schema";
+import type {
+  CreateTodoInput,
+  Todo,
+  UpdateTodoInput,
+} from "@dropaly/api-client/schema";
 
 export function createTodoQueries(apiClient: ApiClient) {
   const keys = {
@@ -11,8 +15,6 @@ export function createTodoQueries(apiClient: ApiClient) {
   };
 
   const queries = {
-    all: keys.all,
-    lists: keys.lists,
     list: () =>
       queryOptions({
         queryKey: keys.list(),
@@ -27,10 +29,10 @@ export function createTodoQueries(apiClient: ApiClient) {
   const mutations = {
     create: () =>
       mutationOptions({
-        meta: { invalidates: [queries.lists()] },
-        async mutationFn(input: { data: CreateTodoInput }) {
+        meta: { invalidates: [keys.lists()] },
+        async mutationFn(args: { todoData: CreateTodoInput }) {
           const { data, error } = await apiClient.POST("/api/todos", {
-            body: input.data,
+            body: args.todoData,
           });
           if (error) throw error;
           return data;
@@ -39,11 +41,11 @@ export function createTodoQueries(apiClient: ApiClient) {
 
     update: () =>
       mutationOptions({
-        meta: { invalidates: [queries.lists()] },
-        async mutationFn(input: { id: string; data: UpdateTodoInput }) {
+        meta: { invalidates: [keys.lists()] },
+        async mutationFn(args: { todoId: Todo["id"]; todoData: UpdateTodoInput }) {
           const { data, error } = await apiClient.PATCH("/api/todos/{id}", {
-            params: { path: { id: input.id } },
-            body: input.data,
+            params: { path: { id: args.todoId } },
+            body: args.todoData,
           });
           if (error) throw error;
           return data;
@@ -52,10 +54,10 @@ export function createTodoQueries(apiClient: ApiClient) {
 
     delete: () =>
       mutationOptions({
-        meta: { invalidates: [queries.lists()] },
-        async mutationFn(input: { id: string }) {
+        meta: { invalidates: [keys.lists()] },
+        async mutationFn(args: { todoId: Todo["id"] }) {
           const { data, error } = await apiClient.DELETE("/api/todos/{id}", {
-            params: { path: { id: input.id } },
+            params: { path: { id: args.todoId } },
           });
           if (error) throw error;
           return data;
@@ -63,5 +65,5 @@ export function createTodoQueries(apiClient: ApiClient) {
       }),
   };
 
-  return { queries, mutations };
+  return { queryKeys: keys, queryOptions: queries, mutationOptions: mutations };
 }

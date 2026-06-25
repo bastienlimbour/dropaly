@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions as createQueryOptions } from "@tanstack/react-query";
 
 import type { ApiClient } from "@dropaly/api-client";
 
@@ -7,10 +7,9 @@ export function createPrivateDataQueries(apiClient: ApiClient) {
     all: () => ["private-data"] as const,
   };
 
-  return {
-    all: keys.all,
+  const queries = {
     get: () =>
-      queryOptions({
+      createQueryOptions({
         queryKey: keys.all(),
         async queryFn() {
           const { data, error } = await apiClient.GET("/api/private-data");
@@ -19,4 +18,6 @@ export function createPrivateDataQueries(apiClient: ApiClient) {
         },
       }),
   };
+
+  return { queryKeys: keys, queryOptions: queries };
 }

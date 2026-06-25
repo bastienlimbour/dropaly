@@ -7,6 +7,6 @@ export default defineConfig({
   extends: [oxlintDefaultConfig],
   env: { builtin: true },
   rules: {
-    "no-restricted-imports": noRestrictedImportsForPackage("@dropaly/api-query"),
+    "no-restricted-imports": noRestrictedImportsForPackage("@dropaly/api-queries"),
   },
 });

@@ -21,7 +21,7 @@
     "@ai-sdk/react": "catalog:ai",
     "@better-auth/expo": "catalog:auth",
     "@dropaly/api-client": "workspace:*",
-    "@dropaly/api-query": "workspace:*",
+    "@dropaly/api-queries": "workspace:*",
     "@dropaly/ui-mobile": "workspace:*",
     "@expo-google-fonts/nunito-sans": "^0.4.2",
     "@expo-google-fonts/outfit": "^0.4.3",

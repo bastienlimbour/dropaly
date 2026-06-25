@@ -23,17 +23,17 @@ export default function TodosRoute() {
   const isAuthenticated = Boolean(session?.user);
 
   const todos = useQuery({
-    ...api.todos.queries.list(),
+    ...api.todos.queryOptions.list(),
     enabled: isAuthenticated,
   });
-  const createMutation = useMutation(api.todos.mutations.create());
-  const updateMutation = useMutation(api.todos.mutations.update());
-  const deleteMutation = useMutation(api.todos.mutations.delete());
+  const createTodo = useMutation(api.todos.mutationOptions.create());
+  const updateTodo = useMutation(api.todos.mutationOptions.update());
+  const deleteTodo = useMutation(api.todos.mutationOptions.delete());
 
   function handleAddTodo() {
     if (newTodoText.trim() && isAuthenticated) {
-      createMutation.mutate(
-        { data: { text: newTodoText } },
+      createTodo.mutate(
+        { todoData: { text: newTodoText } },
         {
           onSuccess: () => {
             setNewTodoText("");
@@ -43,17 +43,17 @@ export default function TodosRoute() {
     }
   }
 
-  function handleToggleTodo(id: string, completed: boolean) {
-    updateMutation.mutate({ id, data: { completed: !completed } });
+  function handleToggleTodo(todoId: string, completed: boolean) {
+    updateTodo.mutate({ todoId, todoData: { completed: !completed } });
   }
 
-  function handleDeleteTodo(id: string) {
+  function handleDeleteTodo(todoId: string) {
     Alert.alert("Delete Todo", "Are you sure you want to delete this todo?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Delete",
         style: "destructive",
-        onPress: () => deleteMutation.mutate({ id }),
+        onPress: () => deleteTodo.mutate({ todoId }),
       },
     ]);
   }
@@ -104,7 +104,7 @@ export default function TodosRoute() {
                   value={newTodoText}
                   onChangeText={setNewTodoText}
                   placeholder="Add a new task..."
-                  editable={!createMutation.isPending}
+                  editable={!createTodo.isPending}
                   onSubmitEditing={handleAddTodo}
                   returnKeyType="done"
                 />
@@ -113,14 +113,14 @@ export default function TodosRoute() {
                 size="icon"
                 className="size-9"
                 variant={
-                  createMutation.isPending || !newTodoText.trim()
+                  createTodo.isPending || !newTodoText.trim()
                     ? "secondary"
                     : "default"
                 }
-                disabled={createMutation.isPending || !newTodoText.trim()}
+                disabled={createTodo.isPending || !newTodoText.trim()}
                 onPress={handleAddTodo}
               >
-                {createMutation.isPending ? (
+                {createTodo.isPending ? (
                   <Spinner size="sm" color="default" />
                 ) : (
                   <Icon

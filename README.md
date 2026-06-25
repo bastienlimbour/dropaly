@@ -61,7 +61,7 @@ The frontend apps consume the API through shared packages:
 
 - `apps/api/openapi/openapi.json` stores the generated OpenAPI artifact.
 - `packages/api-client` provides a typed `openapi-fetch` client.
-- `packages/api-query` provides reusable TanStack Query options.
+- `packages/api-queries` provides reusable TanStack Query options.
 - `apps/web` and `apps/mobile` share the same API contract and query layer.
 
 ## Tech Stack
@@ -94,7 +94,7 @@ dropaly/
 |   `-- mobile/    # Expo mobile app with Expo Router
 |-- packages/
 |   |-- api-client/   # Typed OpenAPI client
-|   |-- api-query/    # Shared TanStack Query factories
+|   |-- api-queries/  # Shared TanStack Query factories
 |   |-- auth/         # Better Auth server configuration
 |   |-- config/       # Shared lint/format/TypeScript config
 |   |-- db/           # Drizzle schema and database tooling

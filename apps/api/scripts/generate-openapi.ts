@@ -10,19 +10,20 @@ import { createApp } from "@/app";
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const outputPath = resolve(currentDir, "../openapi/openapi.json");
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion
+const fakeDb = {} as unknown as Db;
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion
 const fakeAuth = {
   api: { getSession: async () => null },
   handler: async () => new Response(null, { status: 404 }),
 } as unknown as Auth;
 
-const fakeDb = {} as unknown as Db;
-
 const app = createApp({
+  db: fakeDb,
   auth: fakeAuth,
   corsOrigins: [],
-  db: fakeDb,
-  logger: false,
   nodeEnv: "test",
+  logger: false,
 });
 
 try {

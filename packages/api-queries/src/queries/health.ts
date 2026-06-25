@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { queryOptions as createQueryOptions } from "@tanstack/react-query";
 
 import type { ApiClient } from "@dropaly/api-client";
 
@@ -7,10 +7,9 @@ export function createHealthQueries(apiClient: ApiClient) {
     all: () => ["health"] as const,
   };
 
-  return {
-    all: keys.all,
+  const queries = {
     check: () =>
-      queryOptions({
+      createQueryOptions({
         queryKey: keys.all(),
         async queryFn() {
           const { data } = await apiClient.GET("/api/health");
@@ -18,4 +17,6 @@ export function createHealthQueries(apiClient: ApiClient) {
         },
       }),
   };
+
+  return { queryKeys: keys, queryOptions: queries };
 }

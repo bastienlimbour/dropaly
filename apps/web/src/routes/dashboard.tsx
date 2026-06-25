@@ -24,7 +24,7 @@ export const Route = createFileRoute("/dashboard")({
 function RouteComponent() {
   const { session, customerState } = Route.useRouteContext();
 
-  const privateData = useQuery(api.privateData.get());
+  const privateData = useQuery(api.privateData.queryOptions.get());
 
   const hasProSubscription = (customerState?.activeSubscriptions ?? []).length > 0;
 

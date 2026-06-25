@@ -8,3 +8,6 @@ export const idParamsSchema = z.object({
 
 export type Id = z.infer<typeof idSchema>;
 export type IdParams = z.infer<typeof idParamsSchema>;
+
+// z.globalRegistry.add(idSchema, { id: "Id" });
+// z.globalRegistry.add(idParamsSchema, { id: "IdParams" });

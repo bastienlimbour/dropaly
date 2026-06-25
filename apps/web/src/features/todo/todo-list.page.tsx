@@ -19,16 +19,16 @@ import { api } from "@/lib/api-queries";
 export function TodosPage() {
   const [newTodoText, setNewTodoText] = useState("");
 
-  const todos = useQuery(api.todos.queries.list());
-  const createTodo = useMutation(api.todos.mutations.create());
-  const updateTodo = useMutation(api.todos.mutations.update());
-  const deleteTodo = useMutation(api.todos.mutations.delete());
+  const todos = useQuery(api.todos.queryOptions.list());
+  const createTodo = useMutation(api.todos.mutationOptions.create());
+  const updateTodo = useMutation(api.todos.mutationOptions.update());
+  const deleteTodo = useMutation(api.todos.mutationOptions.delete());
 
   function handleAddTodo(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (newTodoText.trim()) {
       createTodo.mutate(
-        { data: { text: newTodoText } },
+        { todoData: { text: newTodoText } },
         {
           onSuccess: () => {
             setNewTodoText("");
@@ -38,12 +38,12 @@ export function TodosPage() {
     }
   }
 
-  function handleToggleTodo(id: string, completed: boolean) {
-    updateTodo.mutate({ id, data: { completed: !completed } });
+  function handleToggleTodo(todoId: string, completed: boolean) {
+    updateTodo.mutate({ todoId, todoData: { completed: !completed } });
   }
 
-  function handleDeleteTodo(id: string) {
-    deleteTodo.mutate({ id });
+  function handleDeleteTodo(todoId: string) {
+    deleteTodo.mutate({ todoId });
   }
 
   return (

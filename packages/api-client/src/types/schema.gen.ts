@@ -93,21 +93,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            statusCode: number;
-                            code: string;
-                            error: string;
-                            message: string;
-                            validation?: {
-                                instancePath: string;
-                                message?: string;
-                                keyword?: string;
-                                schemaPath?: string;
-                                params?: {
-                                    [key: string]: unknown;
-                                };
-                            }[];
-                        };
+                        "application/json": components["schemas"]["ErrorResponse"];
                     };
                 };
             };
@@ -274,6 +260,29 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        ErrorResponseInput: {
+            statusCode: number;
+            code: string;
+            error: string;
+            message: string;
+            validation?: {
+                instancePath: string;
+                message?: string;
+                keyword?: string;
+                schemaPath?: string;
+                params?: {
+                    [key: string]: unknown;
+                };
+            }[];
+        };
+        PrivateDataInput: {
+            message: string;
+            user: {
+                id: string;
+                email: string;
+                name: string;
+            };
+        };
         TodoInput: {
             /** Format: uuid */
             id: string;
@@ -286,6 +295,29 @@ export interface components {
         UpdateTodoInput: {
             text?: string;
             completed?: boolean;
+        };
+        ErrorResponse: {
+            statusCode: number;
+            code: string;
+            error: string;
+            message: string;
+            validation?: {
+                instancePath: string;
+                message?: string;
+                keyword?: string;
+                schemaPath?: string;
+                params?: {
+                    [key: string]: unknown;
+                };
+            }[];
+        };
+        PrivateData: {
+            message: string;
+            user: {
+                id: string;
+                email: string;
+                name: string;
+            };
         };
         Todo: {
             /** Format: uuid */
@@ -307,9 +339,13 @@ export interface components {
     headers: never;
     pathItems: never;
 }
+export type ErrorResponseInput = components['schemas']['ErrorResponseInput'];
+export type PrivateDataInput = components['schemas']['PrivateDataInput'];
 export type TodoInput = components['schemas']['TodoInput'];
 export type CreateTodoInput = components['schemas']['CreateTodoInput'];
 export type UpdateTodoInput = components['schemas']['UpdateTodoInput'];
+export type ErrorResponse = components['schemas']['ErrorResponse'];
+export type PrivateData = components['schemas']['PrivateData'];
 export type Todo = components['schemas']['Todo'];
 export type CreateTodo = components['schemas']['CreateTodo'];
 export type UpdateTodo = components['schemas']['UpdateTodo'];
@@ -339,21 +375,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -386,21 +408,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -422,7 +430,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": null;
+                    "application/json": unknown;
                 };
             };
             /** @description Default Response */
@@ -431,21 +439,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Default Response */
@@ -454,21 +448,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -503,21 +483,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Default Response */
@@ -526,21 +492,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };
@@ -560,14 +512,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        message: string;
-                        user: {
-                            id: string;
-                            email: string;
-                            name: string;
-                        };
-                    };
+                    "application/json": components["schemas"]["PrivateData"];
                 };
             };
             /** @description Default Response */
@@ -576,21 +521,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": {
-                        statusCode: number;
-                        code: string;
-                        error: string;
-                        message: string;
-                        validation?: {
-                            instancePath: string;
-                            message?: string;
-                            keyword?: string;
-                            schemaPath?: string;
-                            params?: {
-                                [key: string]: unknown;
-                            };
-                        }[];
-                    };
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
         };

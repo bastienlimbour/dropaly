@@ -1,18 +1,7 @@
-export interface ApiValidationIssue {
-  instancePath: string;
-  message?: string;
-  keyword?: string;
-  schemaPath?: string;
-  params?: Record<string, unknown>;
-}
+import type { ErrorResponse } from "./types/schema.gen";
 
-export interface ApiErrorBody {
-  statusCode: number;
-  code: string;
-  error: string;
-  message: string;
-  validation?: ApiValidationIssue[];
-}
+export type ApiErrorBody = ErrorResponse;
+export type ApiValidationIssue = NonNullable<ErrorResponse["validation"]>[number];
 
 export class ApiClientError extends Error {
   readonly status: number;
