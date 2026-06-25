@@ -2,7 +2,7 @@
 
 ## Initiatives
 
-An initiative is a folder under `.initiatives/` that contains local artifacts for a specific initiative, such as an MVP, feature, redesign, or investigation.
+An initiative is a folder under `.initiatives/` directory that contains local artifacts for a specific initiative, such as an MVP, feature, redesign, or investigation.
 
 Rules:
 
@@ -23,7 +23,7 @@ Rules:
 Examples:
 
 - `.initiatives/<initiative>/brainstorming.md`
-- `.initiatives/<initiative>/brief.md`
+- `.initiatives/<initiative>/product-brief.md`
 - `.initiatives/<initiative>/validation.md`
 - `.initiatives/<initiative>/spec.md`
 - `.initiatives/<initiative>/tasks/*.md`
@@ -31,7 +31,7 @@ Examples:
 
 ## Creating An Initiative
 
-- Scan existing initiative folders before proposing the next ID. Avoid reusing deleted or archived IDs when that history is visible.
+- Scan existing initiative folders under `.initiatives/` before proposing the next ID. Avoid reusing deleted or archived IDs when that history is visible.
 - Propose the next initiative ID and slug, explain what will be created, and ask for confirmation before creating the folder.
 
 ## Creating Local Artifacts

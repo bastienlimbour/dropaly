@@ -1,6 +1,6 @@
-# Instructions for AI Agents
+# Project AI Agent Instructions
 
-## Workflow Conventions
+## Skills Workflow
 
 ### Documentation
 
@@ -19,6 +19,6 @@ Read `docs/agents/issue-tracker.md` if:
 
 Read `docs/agents/local-artifacts.md` if:
 
-- Your task involves working with local markdown artifacts, such as `brainstorming.md`, `brief.md`, or `validation.md`.
+- Your task involves working with local markdown artifacts, such as `brainstorming.md`, `product-brief.md`, or `validation.md`.
 - Your task involves creating, reading, or updating local markdown artifacts.
 - The user or a skill explicitly mentions "local artifact", "local markdown artifact", "local initiative artifact", or any other local artifact-related term.

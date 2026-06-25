@@ -4,7 +4,7 @@ How workflow skills should consume this repo's documentation when exploring the 
 
 ## Before Exploring Or Working On A Task
 
-- If domain language matters for the task at hand, read the relevant `CONTEXT.md` or `CONTEXT-MAP.md` at the repo root.
+- If domain language matters for the task at hand, read `CONTEXT.md` at the repo root.
 - If ADRs in `docs/decisions/` at the repo root or in any `**/docs/decisions/` directory touch the area you are about to work on, read them.
 
 If any of these files do not exist, proceed silently. Do not flag their absence.
@@ -19,7 +19,9 @@ If the concept you need is not in the glossary yet, either reconsider whether yo
 
 ## Context Map
 
-`CONTEXT-MAP.md` is a routing document that points to the relevant `CONTEXT.md` when the repo has multiple domains, packages, apps, bounded contexts, or sub-projects. It is not an architecture map.
+This repo currently uses a single-context convention: one `CONTEXT.md` at the repo root.
+
+Only introduce `CONTEXT-MAP.md` if the repo explicitly moves to multiple domains, bounded contexts, or sub-projects with distinct domain language. `CONTEXT-MAP.md` is a routing document that points to the relevant `CONTEXT.md`; it is not an architecture map.
 
 ## Decisions (ADRs)
 
@@ -40,7 +42,7 @@ Single domain context:
 `-- src/
 ```
 
-Multi-domain context with `CONTEXT-MAP.md` at the repo root:
+Future multi-domain context with `CONTEXT-MAP.md` at the repo root:
 
 ```text
 /
