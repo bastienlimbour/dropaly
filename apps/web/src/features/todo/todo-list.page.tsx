@@ -1,5 +1,5 @@
 import { IconLoader, IconTrash } from "@tabler/icons-react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 
@@ -14,27 +14,27 @@ import {
 import { Checkbox } from "@dropaly/ui-web/components/checkbox";
 import { Input } from "@dropaly/ui-web/components/input";
 
-import { todoMutations, todoQueries } from "./todo.api";
+import { api } from "@/lib/api-queries";
 
 export function TodosPage() {
   const [newTodoText, setNewTodoText] = useState("");
-  const queryClient = useQueryClient();
 
-  const todos = useQuery(todoQueries.list());
-  const createTodo = useMutation(
-    todoMutations.create(queryClient, {
-      onSuccess: () => {
-        setNewTodoText("");
-      },
-    }),
-  );
-  const updateTodo = useMutation(todoMutations.update(queryClient));
-  const deleteTodo = useMutation(todoMutations.delete(queryClient));
+  const todos = useQuery(api.todos.queries.list());
+  const createTodo = useMutation(api.todos.mutations.create());
+  const updateTodo = useMutation(api.todos.mutations.update());
+  const deleteTodo = useMutation(api.todos.mutations.delete());
 
   function handleAddTodo(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (newTodoText.trim()) {
-      createTodo.mutate({ data: { text: newTodoText } });
+      createTodo.mutate(
+        { data: { text: newTodoText } },
+        {
+          onSuccess: () => {
+            setNewTodoText("");
+          },
+        },
+      );
     }
   }
 

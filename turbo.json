@@ -3,17 +3,25 @@
   "ui": "stream",
   "tasks": {
     "transit": {
-      "dependsOn": ["^transit"]
+      "dependsOn": [
+        "^transit"
+      ]
     },
     "uniwind:generate": {
-      "dependsOn": ["^uniwind:generate"],
+      "dependsOn": [
+        "^uniwind:generate"
+      ],
       "cache": false
     },
     "typecheck": {
-      "dependsOn": ["transit"]
+      "dependsOn": [
+        "transit"
+      ]
     },
     "lint": {
-      "dependsOn": ["transit"],
+      "dependsOn": [
+        "transit"
+      ],
       "inputs": [
         "$TURBO_DEFAULT$",
         "oxlint.config.ts",
@@ -25,11 +33,15 @@
       "cache": false
     },
     "format": {
-      "dependsOn": ["uniwind:generate"],
+      "dependsOn": [
+        "uniwind:generate"
+      ],
       "cache": false
     },
     "format:check": {
-      "dependsOn": ["uniwind:generate"],
+      "dependsOn": [
+        "uniwind:generate"
+      ],
       "inputs": [
         "$TURBO_DEFAULT$",
         "oxfmt.config.ts",
@@ -38,12 +50,21 @@
       ]
     },
     "test": {
-      "dependsOn": ["transit"]
+      "dependsOn": [
+        "transit"
+      ]
     },
     "build": {
-      "dependsOn": ["transit"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**"]
+      "dependsOn": [
+        "transit"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
     },
     "//#openapi:generate": {
       "cache": false,
@@ -51,15 +72,17 @@
         "apps/api/src/**/*.ts",
         "apps/api/scripts/**/*.ts",
         "packages/api-client/scripts/**/*.ts",
-        "packages/api-contract/openapi.json"
+        "apps/api/openapi/openapi.json"
       ],
       "outputs": [
-        "packages/api-contract/openapi.json",
+        "apps/api/openapi/openapi.json",
         "packages/api-client/src/schema.d.ts"
       ]
     },
     "dev": {
-      "dependsOn": ["uniwind:generate"],
+      "dependsOn": [
+        "uniwind:generate"
+      ],
       "persistent": true,
       "cache": false
     },

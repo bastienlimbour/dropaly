@@ -1,5 +1,5 @@
 import { IconCheckbox, IconPlus, IconTrash } from "@tabler/icons-react-native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Alert, FlatList, View } from "react-native";
 
@@ -14,29 +14,32 @@ import { Text } from "@dropaly/ui-mobile/components/text";
 
 import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
-import { todoMutations, todoQueries } from "@/features/todo/todo.api";
+import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
 
 export default function TodosRoute() {
   const [newTodoText, setNewTodoText] = useState("");
-  const queryClient = useQueryClient();
   const { data: session } = authClient.useSession();
   const isAuthenticated = Boolean(session?.user);
 
-  const todos = useQuery({ ...todoQueries.list(), enabled: isAuthenticated });
-  const createMutation = useMutation(
-    todoMutations.create(queryClient, {
-      onSuccess: () => {
-        setNewTodoText("");
-      },
-    }),
-  );
-  const updateMutation = useMutation(todoMutations.update(queryClient));
-  const deleteMutation = useMutation(todoMutations.delete(queryClient));
+  const todos = useQuery({
+    ...api.todos.queries.list(),
+    enabled: isAuthenticated,
+  });
+  const createMutation = useMutation(api.todos.mutations.create());
+  const updateMutation = useMutation(api.todos.mutations.update());
+  const deleteMutation = useMutation(api.todos.mutations.delete());
 
   function handleAddTodo() {
     if (newTodoText.trim() && isAuthenticated) {
-      createMutation.mutate({ data: { text: newTodoText } });
+      createMutation.mutate(
+        { data: { text: newTodoText } },
+        {
+          onSuccess: () => {
+            setNewTodoText("");
+          },
+        },
+      );
     }
   }
 

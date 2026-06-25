@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-import { privateDataQueries } from "@dropaly/api-query";
 import { Button } from "@dropaly/ui-web/components/button";
 
 import { env } from "@/env";
-import { api } from "@/lib/api-client";
+import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
 
 export const Route = createFileRoute("/dashboard")({
@@ -25,7 +24,7 @@ export const Route = createFileRoute("/dashboard")({
 function RouteComponent() {
   const { session, customerState } = Route.useRouteContext();
 
-  const privateData = useQuery(privateDataQueries.get(api));
+  const privateData = useQuery(api.privateData.get());
 
   const hasProSubscription = (customerState?.activeSubscriptions ?? []).length > 0;
 

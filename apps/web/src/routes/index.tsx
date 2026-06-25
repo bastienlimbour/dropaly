@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { healthQueries } from "@dropaly/api-query";
-
-import { api } from "@/lib/api-client";
+import { api } from "@/lib/api-queries";
 
 export const Route = createFileRoute("/")({ component: HomeComponent });
 
 function HomeComponent() {
-  const healthCheck = useQuery(healthQueries.check(api));
+  const healthCheck = useQuery(api.health.check());
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-2">

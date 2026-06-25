@@ -59,7 +59,7 @@ The backend is intentionally organized to keep framework code, application logic
 
 The frontend apps consume the API through shared packages:
 
-- `packages/api-contract` stores the generated OpenAPI artifact.
+- `apps/api/openapi/openapi.json` stores the generated OpenAPI artifact.
 - `packages/api-client` provides a typed `openapi-fetch` client.
 - `packages/api-query` provides reusable TanStack Query options.
 - `apps/web` and `apps/mobile` share the same API contract and query layer.
@@ -94,7 +94,6 @@ dropaly/
 |   `-- mobile/    # Expo mobile app with Expo Router
 |-- packages/
 |   |-- api-client/   # Typed OpenAPI client
-|   |-- api-contract/ # Generated OpenAPI artifact
 |   |-- api-query/    # Shared TanStack Query factories
 |   |-- auth/         # Better Auth server configuration
 |   |-- config/       # Shared lint/format/TypeScript config
@@ -192,7 +191,7 @@ pnpm openapi:generate
 
 Commit both generated files when they change:
 
-- `packages/api-contract/openapi.json`
+- `apps/api/openapi/openapi.json`
 - `packages/api-client/src/schema.d.ts`
 
 ## Drizzle Migration Workflow

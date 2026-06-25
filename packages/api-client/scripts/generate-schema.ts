@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import openapiTS, { astToString } from "openapi-typescript";
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
-const contractPath = resolve(currentDir, "../../api-contract/openapi.json");
+const contractPath = resolve(currentDir, "../../../apps/api/openapi/openapi.json");
 const outputPath = resolve(currentDir, "../src/schema.d.ts");
 
 const schema = JSON.parse(await readFile(contractPath, "utf8"));

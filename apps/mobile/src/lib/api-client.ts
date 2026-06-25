@@ -5,7 +5,7 @@ import { createApiClient } from "@dropaly/api-client";
 import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 
-export const api = createApiClient({
+export const apiClient = createApiClient({
   baseUrl: env.EXPO_PUBLIC_API_URL,
   fetch: expoFetch as typeof fetch,
   credentials: "omit",

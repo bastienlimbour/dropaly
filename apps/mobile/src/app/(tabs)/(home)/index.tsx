@@ -6,7 +6,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
 
-import { healthQueries, privateDataQueries } from "@dropaly/api-query";
 import { Badge } from "@dropaly/ui-mobile/components/badge";
 import { Button } from "@dropaly/ui-mobile/components/button";
 import {
@@ -20,15 +19,15 @@ import { cn } from "@dropaly/ui-mobile/utils";
 
 import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
-import { api } from "@/lib/api-client";
+import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
 import { queryClient } from "@/lib/query-client";
 
 export default function Home() {
-  const healthCheck = useQuery(healthQueries.check(api));
+  const healthCheck = useQuery(api.health.check());
   const { data: session } = authClient.useSession();
   const privateData = useQuery({
-    ...privateDataQueries.get(api),
+    ...api.privateData.get(),
     enabled: Boolean(session?.user),
   });
   const isConnected = healthCheck.data?.status === "OK";
