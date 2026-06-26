@@ -1,4 +1,4 @@
-import type { ErrorResponse } from "./types/schema.gen";
+import type { ErrorResponse } from "./types/api-types.gen";
 
 export type ApiErrorBody = ErrorResponse;
 export type ApiValidationIssue = NonNullable<ErrorResponse["validation"]>[number];

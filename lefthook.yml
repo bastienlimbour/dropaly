@@ -1,11 +1,17 @@
 pre-commit:
   parallel: true
   commands:
+    openapi-check:
+      priority: 1
+      run: pnpm openapi:check
     format:
+      priority: 2
       run: pnpm format:check
     lint:
+      priority: 2
       run: pnpm lint
     typecheck:
+      priority: 2
       run: pnpm typecheck
 
 pre-push:

@@ -35,6 +35,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Check OpenAPI artifacts are up to date
+        run: pnpm openapi:check
+
       - name: Typecheck
         run: pnpm typecheck
 

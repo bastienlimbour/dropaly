@@ -1,11 +1,17 @@
 {
   "name": "@dropaly/db",
+  "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./src/schema/index.ts"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt . --check",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -14,11 +20,6 @@
     "db:down": "docker compose down",
     "db:watch": "docker compose up",
     "db:studio": "drizzle-kit studio",
-    "typecheck": "tsc --noEmit",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint . --fix",
-    "format": "oxfmt .",
-    "format:check": "oxfmt . --check",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

@@ -1,6 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
+  "concurrency": "100%",
+  "futureFlags": {
+    "watchUsingTaskInputs": true
+  },
   "tasks": {
     "transit": {
       "dependsOn": [
@@ -70,13 +74,12 @@
       "cache": false,
       "inputs": [
         "apps/api/src/**/*.ts",
-        "apps/api/scripts/**/*.ts",
-        "packages/api-client/scripts/**/*.ts",
-        "apps/api/openapi/openapi.json"
+        "apps/api/scripts/generate-openapi-schema.ts",
+        "packages/api-client/scripts/generate-api-types.ts"
       ],
       "outputs": [
         "apps/api/openapi/openapi.json",
-        "packages/api-client/src/types/schema.gen.ts"
+        "packages/api-client/src/types/api-types.gen.ts"
       ]
     },
     "dev": {

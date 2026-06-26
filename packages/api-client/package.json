@@ -1,18 +1,19 @@
 {
   "name": "@dropaly/api-client",
+  "private": true,
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/types/schema.gen.ts"
+    "./types": "./src/types/api-types.gen.ts"
   },
   "scripts": {
+    "openapi:generate": "tsx scripts/generate-api-types.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check",
     "test": "vitest run",
-    "openapi:generate": "tsx scripts/generate-schema.ts",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

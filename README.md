@@ -170,8 +170,9 @@ Default local URLs:
 - `pnpm lint`: run oxlint across the workspace.
 - `pnpm format:check`: check formatting with oxfmt.
 - `pnpm test`: run tests across packages that define tests.
-- `pnpm check`: run typecheck, lint, format check, and tests.
+- `pnpm check`: run OpenAPI artifact check, typecheck, lint, format check, and tests.
 - `pnpm openapi:generate`: regenerate the OpenAPI contract and typed API schema.
+- `pnpm openapi:check`: verify generated OpenAPI artifacts match the current API source.
 - `pnpm db:start`: start the local PostgreSQL container.
 - `pnpm db:stop`: stop the local PostgreSQL container.
 - `pnpm db:push`: push the current Drizzle schema to the database.
@@ -189,10 +190,20 @@ After changing API routes or schemas, run:
 pnpm openapi:generate
 ```
 
+Or keep a watcher running during API work:
+
+```bash
+pnpm openapi:watch
+```
+
+`openapi:watch` runs a single root task per source change (API OpenAPI export, then client types). It watches only generation inputs, not the committed artifacts.
+
 Commit both generated files when they change:
 
 - `apps/api/openapi/openapi.json`
-- `packages/api-client/src/types/schema.gen.ts`
+- `packages/api-client/src/types/api-types.gen.ts`
+
+`pnpm openapi:check` regenerates those files and fails if the result differs from what is staged (`git diff` vs index). Run `pnpm openapi:generate` and `git add` the artifacts before committing. In CI, the index matches `HEAD`, so outdated committed artifacts still fail the check. This runs in `pnpm check`, in CI, and in the local `pre-commit` lefthook hook.
 
 ## Drizzle Migration Workflow
 

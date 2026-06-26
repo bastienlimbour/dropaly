@@ -1,8 +1,10 @@
 {
   "name": "@dropaly/api",
+  "private": true,
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "openapi:generate": "tsx scripts/generate-openapi-schema.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -11,7 +13,6 @@
     "test": "vitest run",
     "build": "tsdown",
     "dev": "tsx watch src/index.ts",
-    "openapi:generate": "tsx scripts/generate-openapi.ts",
     "start": "node dist/index.mjs",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },

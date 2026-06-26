@@ -5,7 +5,7 @@ import type {
   CreateTodoInput,
   Todo,
   UpdateTodoInput,
-} from "@dropaly/api-client/schema";
+} from "@dropaly/api-client/types";
 
 export function createTodoQueries(apiClient: ApiClient) {
   const keys = {

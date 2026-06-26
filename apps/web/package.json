@@ -1,9 +1,9 @@
 {
   "name": "@dropaly/web",
-  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
+    "generate-pwa-assets": "pwa-assets-generator",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -12,7 +12,6 @@
     "build": "vite build",
     "dev": "vite dev",
     "preview": "vite preview",
-    "generate-pwa-assets": "pwa-assets-generator",
     "clean": "git clean -xdf .cache .turbo dev-dist dist node_modules"
   },
   "dependencies": {
