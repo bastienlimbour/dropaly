@@ -1,7 +1,6 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod";
 
-import { HttpError } from "@/errors/http-error";
 import { errorResponseSchema } from "@/schemas/error.schema";
 import { idParamsSchema } from "@/schemas/id.schema";
 import { createTodoSchema, todoSchema, updateTodoSchema } from "./todo.schema";
@@ -70,14 +69,6 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
         data: request.body,
       });
 
-      if (!todo) {
-        throw new HttpError({
-          statusCode: 404,
-          code: "TODO_NOT_FOUND",
-          message: "Todo not found.",
-        });
-      }
-
       return reply.status(200).send(todo);
     },
   });
@@ -98,15 +89,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
     },
     async handler(request, reply) {
       const actor = request.requireActor();
-      const result = await todoService.delete({ actor, todoId: request.params.id });
-
-      if (!result) {
-        throw new HttpError({
-          statusCode: 404,
-          code: "TODO_NOT_FOUND",
-          message: "Todo not found.",
-        });
-      }
+      await todoService.delete({ actor, todoId: request.params.id });
 
       return reply.status(204);
     },

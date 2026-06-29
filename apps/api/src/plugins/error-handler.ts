@@ -8,7 +8,7 @@ import {
 } from "fastify-type-provider-zod";
 import { DatabaseError } from "pg";
 
-import { createErrorResponse, HttpError } from "@/errors/http-error";
+import { AppError, createErrorResponse } from "@/errors/app-error";
 
 const POSTGRES_UNAVAILABLE_CODES = new Set([
   "08000",
@@ -135,8 +135,8 @@ const errorHandlerPluginFn: FastifyPluginAsync = async (app) => {
       );
     }
 
-    if (error instanceof HttpError) {
-      request.log.info({ err: error, code: error.code }, "Handled HTTP error");
+    if (error instanceof AppError) {
+      request.log.info({ err: error, code: error.code }, "Handled app error");
       return reply.status(error.statusCode).send(
         createErrorResponse({
           statusCode: error.statusCode,

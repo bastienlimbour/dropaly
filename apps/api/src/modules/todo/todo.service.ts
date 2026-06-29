@@ -1,5 +1,6 @@
 import type { Db } from "@dropaly/db";
 
+import { AppError } from "@/errors/app-error";
 import type { Actor } from "@/plugins/auth-context";
 import type { Id } from "@/schemas/id.schema";
 import { todoRepository } from "./todo.repository";
@@ -24,18 +25,36 @@ export function makeTodoService(deps: TodoServiceDeps) {
     },
 
     async update(input: { actor: Actor; todoId: Id; data: UpdateTodo }) {
-      return repo.updateOwnedByUser({
+      const todo = await repo.updateOwnedByUser({
         ownerId: input.actor.id,
         todoId: input.todoId,
         data: input.data,
       });
+
+      if (!todo) {
+        throw new AppError({
+          statusCode: 404,
+          code: "TODO_NOT_FOUND",
+          message: "Todo not found.",
+        });
+      }
+
+      return todo;
     },
 
     async delete(input: { actor: Actor; todoId: Id }) {
-      return repo.deleteOwnedByUser({
+      const todo = await repo.deleteOwnedByUser({
         ownerId: input.actor.id,
         todoId: input.todoId,
       });
+
+      if (!todo) {
+        throw new AppError({
+          statusCode: 404,
+          code: "TODO_NOT_FOUND",
+          message: "Todo not found.",
+        });
+      }
     },
   };
 }

@@ -1,4 +1,4 @@
-import { HttpError } from "@/errors/http-error";
+import { AppError } from "@/errors/app-error";
 import type { Actor } from "@/plugins/auth-context";
 
 export const capabilities = ["ai.chat"] as const;
@@ -18,7 +18,7 @@ export async function requireEntitlement(actor: Actor, capability: Capability) {
   const billingState = await getBillingState(actor);
 
   if (!billingState.entitlements.includes(capability)) {
-    throw new HttpError({
+    throw new AppError({
       statusCode: 403,
       code: "FORBIDDEN",
       message: "Missing required entitlement.",
