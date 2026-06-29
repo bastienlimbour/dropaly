@@ -11,9 +11,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
+    "test": "vitest run",
     "format": "oxfmt .",
     "format:check": "oxfmt . --check",
-    "test": "vitest run",
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {

@@ -17,9 +17,27 @@
       ],
       "cache": false
     },
+    "//#openapi:generate": {
+      "cache": false,
+      "inputs": [
+        "apps/api/src/**/*.ts",
+        "apps/api/scripts/generate-openapi-schema.ts",
+        "packages/api-client/scripts/generate-api-types.ts"
+      ],
+      "outputs": [
+        "apps/api/openapi/openapi.json",
+        "packages/api-client/src/types/api-types.gen.ts"
+      ]
+    },
     "typecheck": {
       "dependsOn": [
         "transit"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "tsconfig.json",
+        "$TURBO_ROOT$/tsconfig.json",
+        "$TURBO_ROOT$/packages/config/typescript/**/*.json"
       ]
     },
     "lint": {
@@ -36,6 +54,11 @@
     "lint:fix": {
       "cache": false
     },
+    "test": {
+      "dependsOn": [
+        "transit"
+      ]
+    },
     "format": {
       "dependsOn": [
         "uniwind:generate"
@@ -50,12 +73,7 @@
         "$TURBO_DEFAULT$",
         "oxfmt.config.ts",
         "$TURBO_ROOT$/oxfmt.config.ts",
-        "$TURBO_ROOT$/packages/config/oxfmt/*.ts"
-      ]
-    },
-    "test": {
-      "dependsOn": [
-        "transit"
+        "$TURBO_ROOT$/packages/config/oxfmt/**/*.ts"
       ]
     },
     "build": {
@@ -68,18 +86,6 @@
       ],
       "outputs": [
         "dist/**"
-      ]
-    },
-    "//#openapi:generate": {
-      "cache": false,
-      "inputs": [
-        "apps/api/src/**/*.ts",
-        "apps/api/scripts/generate-openapi-schema.ts",
-        "packages/api-client/scripts/generate-api-types.ts"
-      ],
-      "outputs": [
-        "apps/api/openapi/openapi.json",
-        "packages/api-client/src/types/api-types.gen.ts"
       ]
     },
     "dev": {
