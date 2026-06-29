@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Db } from "@dropaly/db";
 
 import { AppError } from "@/errors/app-error";
-import type { Actor } from "@/plugins/auth-context";
+import type { AuthenticatedUser } from "@/modules/auth/authenticated-user";
 import { todoRepository } from "./todo.repository";
 import type { TodoRepository } from "./todo.repository";
 import { makeTodoService } from "./todo.service";
@@ -12,13 +12,13 @@ vi.mock("./todo.repository", () => ({
   todoRepository: vi.fn(),
 }));
 
-const actor = {
+const user = {
   id: "user_1",
   email: "user@example.com",
   name: "User",
   role: null,
   sessionId: "session_1",
-} satisfies Actor;
+} satisfies AuthenticatedUser;
 
 function createRepository(): TodoRepository {
   return {
@@ -49,7 +49,7 @@ describe("makeTodoService", () => {
     const service = createService(repository);
 
     await expect(
-      service.update({ actor, todoId: "todo_1", data: { completed: true } }),
+      service.update({ user, todoId: "todo_1", data: { completed: true } }),
     ).rejects.toMatchObject({
       statusCode: 404,
       code: "TODO_NOT_FOUND",
@@ -58,7 +58,7 @@ describe("makeTodoService", () => {
 
     // oxlint-disable-next-line typescript/unbound-method
     expect(repository.updateOwnedByUser).toHaveBeenCalledWith({
-      ownerId: actor.id,
+      ownerId: user.id,
       todoId: "todo_1",
       data: { completed: true },
     });
@@ -70,7 +70,7 @@ describe("makeTodoService", () => {
     const repository = createRepository();
     const service = createService(repository);
 
-    await service.delete({ actor, todoId: "todo_1" }).catch((error: unknown) => {
+    await service.delete({ user, todoId: "todo_1" }).catch((error: unknown) => {
       expect(error).toBeInstanceOf(AppError);
       expect(error).toMatchObject({
         statusCode: 404,

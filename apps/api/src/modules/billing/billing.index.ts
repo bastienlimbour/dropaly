@@ -1,5 +1,5 @@
 import { AppError } from "@/errors/app-error";
-import type { Actor } from "@/plugins/auth-context";
+import type { AuthenticatedUser } from "@/modules/auth/authenticated-user";
 
 export const capabilities = ["ai.chat"] as const;
 
@@ -10,12 +10,17 @@ export interface BillingState {
   entitlements: Capability[];
 }
 
-export async function getBillingState(_actor: Actor): Promise<BillingState> {
+export async function getBillingState(
+  _user: AuthenticatedUser,
+): Promise<BillingState> {
   return Promise.resolve({ plan: "free", entitlements: ["ai.chat"] });
 }
 
-export async function requireEntitlement(actor: Actor, capability: Capability) {
-  const billingState = await getBillingState(actor);
+export async function requireEntitlement(
+  user: AuthenticatedUser,
+  capability: Capability,
+) {
+  const billingState = await getBillingState(user);
 
   if (!billingState.entitlements.includes(capability)) {
     throw new AppError({

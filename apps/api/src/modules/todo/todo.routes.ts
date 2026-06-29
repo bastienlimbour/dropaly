@@ -17,10 +17,10 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       operationId: "listTodos",
       response: { 200: todoSchema.array(), 401: errorResponseSchema },
     },
-    preValidation: app.requireAuth,
+    preValidation: app.requireAuthenticatedUser,
     async handler(request, reply) {
-      const actor = request.requireActor();
-      const todos = await todoService.list({ actor });
+      const user = request.getAuthenticatedUser();
+      const todos = await todoService.list({ user });
       return reply.status(200).send(todos);
     },
   });
@@ -28,7 +28,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "POST",
     url: "/todos",
-    preValidation: app.requireAuth,
+    preValidation: app.requireAuthenticatedUser,
     schema: {
       tags: ["todos"],
       operationId: "createTodo",
@@ -39,8 +39,8 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.requireActor();
-      const todo = await todoService.create({ actor, data: request.body });
+      const user = request.getAuthenticatedUser();
+      const todo = await todoService.create({ user, data: request.body });
 
       return reply.status(201).send(todo);
     },
@@ -49,7 +49,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "PATCH",
     url: "/todos/:id",
-    preValidation: app.requireAuth,
+    preValidation: app.requireAuthenticatedUser,
     schema: {
       tags: ["todos"],
       operationId: "updateTodo",
@@ -62,9 +62,9 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.requireActor();
+      const user = request.getAuthenticatedUser();
       const todo = await todoService.update({
-        actor,
+        user,
         todoId: request.params.id,
         data: request.body,
       });
@@ -76,7 +76,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "DELETE",
     url: "/todos/:id",
-    preValidation: app.requireAuth,
+    preValidation: app.requireAuthenticatedUser,
     schema: {
       tags: ["todos"],
       operationId: "deleteTodo",
@@ -88,8 +88,8 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async handler(request, reply) {
-      const actor = request.requireActor();
-      await todoService.delete({ actor, todoId: request.params.id });
+      const user = request.getAuthenticatedUser();
+      await todoService.delete({ user, todoId: request.params.id });
 
       return reply.status(204);
     },

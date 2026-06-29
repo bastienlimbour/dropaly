@@ -1,25 +1,19 @@
 import type { FastifyPluginAsync, FastifyReply, FastifyRequest } from "fastify";
 import { fastifyPlugin } from "fastify-plugin";
 
-import { AppError } from "@/errors/app-error";
+import {
+  getAuthenticatedUser,
+  requireAuthenticatedUser,
+  requireRole,
+} from "@/modules/auth/authenticated-user";
 
 const authGuardsPluginFn: FastifyPluginAsync = async (app) => {
-  app.decorateRequest("requireActor", function (this: FastifyRequest) {
-    if (!this.actor) {
-      throw new Error("Invariant violation: actor is missing");
-    }
-
-    return this.actor;
+  app.decorateRequest("getAuthenticatedUser", function (this: FastifyRequest) {
+    return getAuthenticatedUser(this.authenticatedUser);
   });
 
-  app.decorate("requireAuth", async (request: FastifyRequest) => {
-    if (!request.actor) {
-      throw new AppError({
-        statusCode: 401,
-        code: "UNAUTHORIZED",
-        message: "Authentication required",
-      });
-    }
+  app.decorate("requireAuthenticatedUser", async (request: FastifyRequest) => {
+    requireAuthenticatedUser(request.authenticatedUser);
   });
 
   app.decorate("requireRole", (requiredRole: string) => {
@@ -27,21 +21,13 @@ const authGuardsPluginFn: FastifyPluginAsync = async (app) => {
       request: FastifyRequest,
       reply: FastifyReply,
     ) {
-      await app.requireAuth(request, reply);
+      await app.requireAuthenticatedUser(request, reply);
 
       if (reply.sent) {
         return;
       }
 
-      const actor = request.requireActor();
-
-      if (actor.role !== requiredRole) {
-        throw new AppError({
-          statusCode: 403,
-          code: "FORBIDDEN",
-          message: "Missing required role",
-        });
-      }
+      requireRole(request.getAuthenticatedUser(), requiredRole);
     };
   });
 };

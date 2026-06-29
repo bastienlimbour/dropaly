@@ -2,28 +2,10 @@ import { fromNodeHeaders } from "better-auth/node";
 import type { FastifyPluginAsync } from "fastify";
 import { fastifyPlugin } from "fastify-plugin";
 
-import type { AuthSession } from "@dropaly/auth/server";
-
-export interface Actor {
-  id: string;
-  email: string;
-  name: string;
-  role: string | null;
-  sessionId: string;
-}
-
-function createActorFromAuthSession(authSession: AuthSession): Actor {
-  return {
-    id: authSession.user.id,
-    email: authSession.user.email,
-    name: authSession.user.name,
-    role: "role" in authSession.user ? String(authSession.user.role) : null,
-    sessionId: authSession.session.id,
-  };
-}
+import { createAuthenticatedUserFromAuthSession } from "@/modules/auth/authenticated-user";
 
 const authContextPluginFn: FastifyPluginAsync = async (app) => {
-  app.decorateRequest("actor", null);
+  app.decorateRequest("authenticatedUser", null);
 
   app.addHook("onRequest", async (request) => {
     const authSession = await app.auth.api.getSession({
@@ -31,11 +13,11 @@ const authContextPluginFn: FastifyPluginAsync = async (app) => {
     });
 
     if (!authSession) {
-      request.actor = null;
+      request.authenticatedUser = null;
       return;
     }
 
-    request.actor = createActorFromAuthSession(authSession);
+    request.authenticatedUser = createAuthenticatedUserFromAuthSession(authSession);
   });
 };
 

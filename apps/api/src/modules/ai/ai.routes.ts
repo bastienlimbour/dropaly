@@ -11,7 +11,7 @@ export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
   app.route({
     method: "POST",
     url: "/ai/chat",
-    preValidation: app.requireAuth,
+    preValidation: app.requireAuthenticatedUser,
     schema: {
       tags: ["ai"],
       body: aiChatRequestBodySchema,
@@ -21,8 +21,8 @@ export const aiRoutes: FastifyPluginAsyncZod = async (app) => {
       },
     },
     handler(request) {
-      const actor = request.requireActor();
-      return aiService.streamChat({ actor, messages: request.body.messages });
+      const user = request.getAuthenticatedUser();
+      return aiService.streamChat({ user, messages: request.body.messages });
     },
   });
 };
