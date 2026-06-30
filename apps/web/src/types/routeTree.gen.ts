@@ -8,76 +8,76 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './../routes/__root'
-import { Route as TodosRouteImport } from './../routes/todos'
-import { Route as SuccessRouteImport } from './../routes/success'
-import { Route as LoginRouteImport } from './../routes/login'
-import { Route as DashboardRouteImport } from './../routes/dashboard'
-import { Route as AiRouteImport } from './../routes/ai'
-import { Route as IndexRouteImport } from './../routes/index'
+import { Route as rootRouteImport } from "./../routes/__root"
+import { Route as TodosRouteImport } from "./../routes/todos"
+import { Route as SuccessRouteImport } from "./../routes/success"
+import { Route as LoginRouteImport } from "./../routes/login"
+import { Route as DashboardRouteImport } from "./../routes/dashboard"
+import { Route as AiRouteImport } from "./../routes/ai"
+import { Route as IndexRouteImport } from "./../routes/index"
 
 const TodosRoute = TodosRouteImport.update({
-  id: '/todos',
-  path: '/todos',
+  id: "/todos",
+  path: "/todos",
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuccessRoute = SuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
+  id: "/success",
+  path: "/success",
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiRoute = AiRouteImport.update({
-  id: '/ai',
-  path: '/ai',
+  id: "/ai",
+  path: "/ai",
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/ai': typeof AiRoute
-  '/dashboard': typeof DashboardRoute
-  '/login': typeof LoginRoute
-  '/success': typeof SuccessRoute
-  '/todos': typeof TodosRoute
+  "/": typeof IndexRoute
+  "/ai": typeof AiRoute
+  "/dashboard": typeof DashboardRoute
+  "/login": typeof LoginRoute
+  "/success": typeof SuccessRoute
+  "/todos": typeof TodosRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/ai': typeof AiRoute
-  '/dashboard': typeof DashboardRoute
-  '/login': typeof LoginRoute
-  '/success': typeof SuccessRoute
-  '/todos': typeof TodosRoute
+  "/": typeof IndexRoute
+  "/ai": typeof AiRoute
+  "/dashboard": typeof DashboardRoute
+  "/login": typeof LoginRoute
+  "/success": typeof SuccessRoute
+  "/todos": typeof TodosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/ai': typeof AiRoute
-  '/dashboard': typeof DashboardRoute
-  '/login': typeof LoginRoute
-  '/success': typeof SuccessRoute
-  '/todos': typeof TodosRoute
+  "/": typeof IndexRoute
+  "/ai": typeof AiRoute
+  "/dashboard": typeof DashboardRoute
+  "/login": typeof LoginRoute
+  "/success": typeof SuccessRoute
+  "/todos": typeof TodosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ai' | '/dashboard' | '/login' | '/success' | '/todos'
+  fullPaths: "/" | "/ai" | "/dashboard" | "/login" | "/success" | "/todos"
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ai' | '/dashboard' | '/login' | '/success' | '/todos'
-  id: '__root__' | '/' | '/ai' | '/dashboard' | '/login' | '/success' | '/todos'
+  to: "/" | "/ai" | "/dashboard" | "/login" | "/success" | "/todos"
+  id: "__root__" | "/" | "/ai" | "/dashboard" | "/login" | "/success" | "/todos"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -89,47 +89,47 @@ export interface RootRouteChildren {
   TodosRoute: typeof TodosRoute
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/todos': {
-      id: '/todos'
-      path: '/todos'
-      fullPath: '/todos'
+    "/todos": {
+      id: "/todos"
+      path: "/todos"
+      fullPath: "/todos"
       preLoaderRoute: typeof TodosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/success': {
-      id: '/success'
-      path: '/success'
-      fullPath: '/success'
+    "/success": {
+      id: "/success"
+      path: "/success"
+      fullPath: "/success"
       preLoaderRoute: typeof SuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
+    "/login": {
+      id: "/login"
+      path: "/login"
+      fullPath: "/login"
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
+    "/dashboard": {
+      id: "/dashboard"
+      path: "/dashboard"
+      fullPath: "/dashboard"
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ai': {
-      id: '/ai'
-      path: '/ai'
-      fullPath: '/ai'
+    "/ai": {
+      id: "/ai"
+      path: "/ai"
+      fullPath: "/ai"
       preLoaderRoute: typeof AiRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
+    "/": {
+      id: "/"
+      path: "/"
+      fullPath: "/"
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
