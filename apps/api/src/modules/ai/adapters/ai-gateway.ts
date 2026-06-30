@@ -1,9 +1,8 @@
-import { google } from "@ai-sdk/google";
-import type { LanguageModel } from "ai";
+import { gateway } from "@ai-sdk/gateway";
 import { wrapLanguageModel } from "ai";
 
-export async function createAiModel(): Promise<LanguageModel> {
-  const model = google("gemini-2.5-flash");
+export async function createAiTextModel() {
+  const model = gateway.languageModel("mistral/ministral-3b");
 
   if (process.env["NODE_ENV"] !== "development") {
     return model;

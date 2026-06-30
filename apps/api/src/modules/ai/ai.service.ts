@@ -3,7 +3,7 @@ import type { UIMessage } from "ai";
 
 import type { AuthenticatedUser } from "@/modules/auth/authenticated-user";
 import { requireEntitlement as defaultRequireEntitlement } from "@/modules/billing/billing.index";
-import { createAiModel as defaultCreateAiModel } from "./adapters/google";
+import { createAiTextModel as defaultCreateAiModel } from "./adapters/ai-gateway";
 
 interface AiServiceDeps {
   createAiModel?: typeof defaultCreateAiModel;
