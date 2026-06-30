@@ -1,4 +1,4 @@
-import { ApiClientError } from "./error";
+import { ApiClientError } from "./api-client-error";
 
 const DEFAULT_MESSAGE = "Une erreur est survenue. Réessayez dans un instant.";
 
@@ -57,9 +57,13 @@ function isNetworkError(error: unknown) {
 }
 
 function getMappedErrorMessage(code: string) {
-  if (!Object.hasOwn(ERROR_MESSAGES, code)) return undefined;
+  if (!isErrorMessageCode(code)) return undefined;
 
-  return ERROR_MESSAGES[code as keyof typeof ERROR_MESSAGES];
+  return ERROR_MESSAGES[code];
+}
+
+function isErrorMessageCode(code: string): code is keyof typeof ERROR_MESSAGES {
+  return Object.hasOwn(ERROR_MESSAGES, code);
 }
 
 export function getErrorCode(error: unknown): string | undefined {

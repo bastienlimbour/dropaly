@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 
+import { createNetworkApiError } from "../errors/api-client-error";
+import { createApiRuntime } from "../runtime/api-runtime";
 import { createApiClient } from "./create-api-client";
-import { createNetworkApiError } from "./error";
 
 describe("ApiClientError", () => {
   it("throws standardized HTTP API errors from middleware", async () => {
@@ -101,6 +102,30 @@ describe("ApiClientError", () => {
     await expect(
       api.DELETE("/api/todos/{id}", { params: { path: { id: "todo-id" } } }),
     ).resolves.toMatchObject({ response: expect.any(Response) });
+  });
+
+  it("accepts an explicit API runtime", async () => {
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response(null, { status: 204 }));
+    const runtime = createApiRuntime({
+      baseUrl: "https://api.test",
+      credentials: "include",
+      fetch,
+    });
+    const api = createApiClient({ runtime });
+
+    await expect(api.GET("/api/health")).resolves.toMatchObject({
+      response: expect.any(Response),
+    });
+
+    const request = fetch.mock.calls[0]?.[0];
+    expect(request).toBeInstanceOf(Request);
+    if (!(request instanceof Request)) {
+      throw new Error("Expected fetch to receive a Request.");
+    }
+
+    expect(request.credentials).toBe("include");
   });
 
   it("wraps network errors", async () => {
