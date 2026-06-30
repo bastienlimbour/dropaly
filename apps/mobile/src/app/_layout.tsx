@@ -11,11 +11,11 @@ import { useThemeColors, useUiTheme } from "@dropaly/ui-mobile/theme";
 
 import { queryClient } from "@/lib/query-client";
 import { useNavigationTheme } from "@/lib/theme";
-import { installPolyfills } from "@/polyfills";
+import { setupPolyfills } from "@/polyfills";
 
 import "@/styles/index.css";
 
-installPolyfills();
+await setupPolyfills();
 
 export const unstable_settings = { initialRouteName: "(tabs)" };
 
