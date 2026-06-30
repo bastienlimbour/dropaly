@@ -15,7 +15,7 @@ import { setupPolyfills } from "@/polyfills";
 
 import "@/styles/index.css";
 
-await setupPolyfills();
+void setupPolyfills();
 
 export const unstable_settings = { initialRouteName: "(tabs)" };
 
