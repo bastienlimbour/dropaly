@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:tooling"
   }
 }

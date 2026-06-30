@@ -23,14 +23,16 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {
-    "dotenv": "catalog:",
-    "drizzle-orm": "catalog:db",
-    "pg": "catalog:db"
+    "dotenv": "catalog:runtime"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
     "@types/pg": "catalog:db",
     "drizzle-kit": "catalog:db",
-    "typescript": "catalog:"
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "drizzle-orm": "catalog:db",
+    "pg": "catalog:db"
   }
 }

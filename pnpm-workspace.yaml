@@ -10,56 +10,130 @@ allowBuilds:
 verifyDepsBeforeRun: false
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
-catalog:
-  "dotenv": ^17.4.2
-  "@types/node": ^22.19.20
-  "@t3-oss/env-core": ^0.13.1
-  "oxfmt": ^0.53.0
-  "oxlint": ^1.68.0
-  "typescript": ^5.9.3
-  "vitest": ^4.1.8
-  "zod": ^4.4.3
 catalogs:
+  tooling:
+    "typescript": 6.0.3
+    "oxfmt": 0.57.0
+    "oxlint": 1.72.0
+    "oxlint-tsgolint": 0.24.0
+    "tsx": ^4.22.4
+    "vitest": ^4.1.9
+  runtime:
+    "dotenv": ^17.4.2
+    "@t3-oss/env-core": ^0.13.1
+    "zod": ^4.4.3
+    "@types/node": ^24.13.2
   ai:
-    "@ai-sdk/devtools": ^0.0.18
-    "@ai-sdk/google": ^3.0.80
-    "@ai-sdk/react": ^3.0.199
-    "ai": ^6.0.197
+    "ai": ^7.0.8
+    "@ai-sdk/react": ^4.0.9
+    "@ai-sdk/gateway": ^4.0.6
+    "@ai-sdk/google": ^4.0.3
+    "@ai-sdk/devtools": ^1.0.1
   auth:
-    "@better-auth/expo": ^1.6.14
+    "better-auth": ^1.6.23
+    "@better-auth/expo": ^1.6.23
     "@polar-sh/better-auth": ^1.8.4
-    "@polar-sh/sdk": ^0.47.0
-    "better-auth": ^1.6.14
+    "@polar-sh/sdk": ^0.47.1
   db:
-    "@types/pg": ^8.20.0
-    "drizzle-kit": ^0.31.10
     "drizzle-orm": ^0.45.2
+    "drizzle-kit": ^0.31.10
     "drizzle-zod": ^0.8.3
-    "pg": ^8.21.0
+    "pg": ^8.22.0
+    "@types/pg": ^8.20.0
   react:
+    # Keep React fixed to 19.2.3 for Expo compatibility
+    "react": 19.2.3
+    "react-dom": 19.2.3
     "@types/react": ~19.2.17
     "@types/react-dom": ~19.2.3
-    "react": 19.2.7
-    "react-dom": 19.2.7
+  native:
+    # Keep React Native fixed to 0.85.* for Expo compatibility
+    "react-native": 0.85.3
+    "react-native-reanimated": 4.3.1
+    "react-native-svg": 15.15.4
+    "react-native-worklets": 0.8.3
+    "uniwind": ^1.9.0
   tanstack:
     "@tanstack/react-form": ^1.33.0
-    "@tanstack/react-query": ^5.101.0
-    "@tanstack/react-query-devtools": ^5.101.0
-    "@tanstack/react-router": ^1.170.12
+    "@tanstack/react-query": ^5.101.2
+    "@tanstack/react-query-devtools": ^5.101.2
+    "@tanstack/react-router": ^1.170.16
     "@tanstack/react-router-devtools": ^1.167.0
-    "@tanstack/router-plugin": ^1.168.15
+    "@tanstack/router-plugin": ^1.168.18
   ui:
-    "@tabler/icons-react": "^3.44.0"
-    "@tabler/icons-react-native": "^3.44.0"
+    "tailwindcss": ^4.3.2
+    "@tailwindcss/vite": ^4.3.2
+    "class-variance-authority": ^0.7.1
     "next-themes": ^0.4.6
     "sonner": ^2.0.7
-    "tailwindcss": ^4.3.0
-    "@tailwindcss/vite": ^4.3.0
+    "@tabler/icons-react": "^3.44.0"
+    "@tabler/icons-react-native": "^3.44.0"
+peerDependencyRules:
+  allowedVersions:
+    "openapi-typescript>typescript": "6.0.3"
 minimumReleaseAgeExclude:
-  - '@tanstack/react-router@1.170.12'
-  - '@tanstack/router-core@1.171.10'
-  - '@tanstack/router-generator@1.167.14'
-  - '@tanstack/router-plugin@1.168.15'
-  - '@tanstack/router-utils@1.162.2'
-  - '@types/node@22.19.20'
-  - '@types/react@19.2.17'
+  - "@ai-sdk/devtools@1.0.1"
+  - "@ai-sdk/gateway@4.0.6"
+  - "@ai-sdk/google@4.0.3"
+  - "@ai-sdk/mcp@2.0.4"
+  - "@ai-sdk/provider-utils@5.0.2"
+  - "@ai-sdk/provider@4.0.1"
+  - "@ai-sdk/react@4.0.9"
+  - "@better-auth/core@1.6.23"
+  - "@better-auth/drizzle-adapter@1.6.23"
+  - "@better-auth/expo@1.6.23"
+  - "@better-auth/kysely-adapter@1.6.23"
+  - "@better-auth/memory-adapter@1.6.23"
+  - "@better-auth/mongo-adapter@1.6.23"
+  - "@better-auth/prisma-adapter@1.6.23"
+  - "@better-auth/telemetry@1.6.23"
+  - "@oxfmt/binding-android-arm-eabi@0.57.0"
+  - "@oxfmt/binding-android-arm64@0.57.0"
+  - "@oxfmt/binding-darwin-arm64@0.57.0"
+  - "@oxfmt/binding-darwin-x64@0.57.0"
+  - "@oxfmt/binding-freebsd-x64@0.57.0"
+  - "@oxfmt/binding-linux-arm-gnueabihf@0.57.0"
+  - "@oxfmt/binding-linux-arm-musleabihf@0.57.0"
+  - "@oxfmt/binding-linux-arm64-gnu@0.57.0"
+  - "@oxfmt/binding-linux-arm64-musl@0.57.0"
+  - "@oxfmt/binding-linux-ppc64-gnu@0.57.0"
+  - "@oxfmt/binding-linux-riscv64-gnu@0.57.0"
+  - "@oxfmt/binding-linux-riscv64-musl@0.57.0"
+  - "@oxfmt/binding-linux-s390x-gnu@0.57.0"
+  - "@oxfmt/binding-linux-x64-gnu@0.57.0"
+  - "@oxfmt/binding-linux-x64-musl@0.57.0"
+  - "@oxfmt/binding-openharmony-arm64@0.57.0"
+  - "@oxfmt/binding-win32-arm64-msvc@0.57.0"
+  - "@oxfmt/binding-win32-ia32-msvc@0.57.0"
+  - "@oxfmt/binding-win32-x64-msvc@0.57.0"
+  - "@oxlint-tsgolint/darwin-arm64@0.24.0"
+  - "@oxlint-tsgolint/darwin-x64@0.24.0"
+  - "@oxlint-tsgolint/linux-arm64@0.24.0"
+  - "@oxlint-tsgolint/linux-x64@0.24.0"
+  - "@oxlint-tsgolint/win32-arm64@0.24.0"
+  - "@oxlint-tsgolint/win32-x64@0.24.0"
+  - "@oxlint/binding-android-arm-eabi@1.72.0"
+  - "@oxlint/binding-android-arm64@1.72.0"
+  - "@oxlint/binding-darwin-arm64@1.72.0"
+  - "@oxlint/binding-darwin-x64@1.72.0"
+  - "@oxlint/binding-freebsd-x64@1.72.0"
+  - "@oxlint/binding-linux-arm-gnueabihf@1.72.0"
+  - "@oxlint/binding-linux-arm-musleabihf@1.72.0"
+  - "@oxlint/binding-linux-arm64-gnu@1.72.0"
+  - "@oxlint/binding-linux-arm64-musl@1.72.0"
+  - "@oxlint/binding-linux-ppc64-gnu@1.72.0"
+  - "@oxlint/binding-linux-riscv64-gnu@1.72.0"
+  - "@oxlint/binding-linux-riscv64-musl@1.72.0"
+  - "@oxlint/binding-linux-s390x-gnu@1.72.0"
+  - "@oxlint/binding-linux-x64-gnu@1.72.0"
+  - "@oxlint/binding-linux-x64-musl@1.72.0"
+  - "@oxlint/binding-openharmony-arm64@1.72.0"
+  - "@oxlint/binding-win32-arm64-msvc@1.72.0"
+  - "@oxlint/binding-win32-ia32-msvc@1.72.0"
+  - "@oxlint/binding-win32-x64-msvc@1.72.0"
+  - ai@7.0.8
+  - better-auth@1.6.23
+  - oxfmt@0.57.0
+  - oxlint-tsgolint@0.24.0
+  - oxlint@1.72.0
+  - vite@8.1.2

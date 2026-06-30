@@ -1,5 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@dropaly/config/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["pg"]
+  },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
 }

@@ -17,14 +17,14 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {
-    "openapi-fetch": "^0.15.0"
+    "openapi-fetch": "^0.17.0"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
-    "@types/node": "catalog:",
-    "openapi-typescript": "^7.10.1",
-    "tsx": "^4.22.2",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "@types/node": "catalog:runtime",
+    "openapi-typescript": "^7.13.0",
+    "tsx": "catalog:tooling",
+    "typescript": "catalog:tooling",
+    "vitest": "catalog:tooling"
   }
 }

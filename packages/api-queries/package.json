@@ -14,11 +14,13 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules"
   },
   "dependencies": {
-    "@dropaly/api-client": "workspace:*",
-    "@tanstack/react-query": "catalog:tanstack"
+    "@dropaly/api-client": "workspace:*"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "catalog:tanstack"
   }
 }

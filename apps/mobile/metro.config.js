@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 const { getDefaultConfig } = require("expo/metro-config");
 const { withUniwindConfig } = require("uniwind/metro");
 const {

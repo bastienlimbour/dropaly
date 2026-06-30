@@ -9,7 +9,7 @@
     "./utils": "./src/lib/utils.ts"
   },
   "scripts": {
-    "uniwind:generate": "uniwind generate-artifacts --css ./src/styles/globals.css --dts ./uniwind-types.d.ts",
+    "uniwind:generate": "pnpm --filter @dropaly/mobile exec uniwind generate-artifacts --css ../../packages/ui-mobile/src/styles/globals.css --dts ../../packages/ui-mobile/uniwind-types.d.ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -24,17 +24,20 @@
     "@rn-primitives/separator": "^1.4.0",
     "@rn-primitives/slot": "^1.4.0",
     "@tabler/icons-react-native": "catalog:ui",
-    "class-variance-authority": "^0.7.1",
-    "react": "catalog:react",
-    "react-native": "0.85.3",
-    "react-native-reanimated": "4.3.1",
-    "react-native-svg": "15.15.4",
-    "uniwind": "^1.6.5"
+    "class-variance-authority": "catalog:ui"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
     "@types/react": "catalog:react",
     "tailwindcss": "catalog:ui",
-    "typescript": "catalog:"
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "react": "catalog:react",
+    "react-native": "catalog:native",
+    "react-native-reanimated": "catalog:native",
+    "react-native-svg": "catalog:native",
+    "react-native-worklets": "catalog:native",
+    "uniwind": "catalog:native"
   }
 }

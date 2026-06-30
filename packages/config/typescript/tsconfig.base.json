@@ -1,41 +1,45 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    // Base
+    // Runtime environment
     "target": "ESNext",
     "lib": ["ESNext"],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "allowImportingTsExtensions": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
 
-    // Transpile using bundler (not tsc)
-    "noEmit": true,
+    // Module system and resolution
     "module": "Preserve",
     "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
 
-    // Types
-    "types": ["node"],
+    // Emit strategy
+    "noEmit": true,
+    "isolatedModules": true,
 
-    // Strictness
-    "strict": true,
+    // JavaScript support
+    "allowJs": true,
     "checkJs": true,
+
+    // Type checking strictness
+    "strict": true,
+    "erasableSyntaxOnly": true,
+    "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
-    "forceConsistentCasingInFileNames": true,
-    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
 
-    // Quality
+    // Code quality
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitOverride": true,
-    // "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "erasableSyntaxOnly": true,
     "allowUnreachableCode": false,
-    "allowUnusedLabels": false
+    "allowUnusedLabels": false,
+
+    // Dependency checking
+    "skipLibCheck": true,
+
+    // Filesystem consistency
+    "forceConsistentCasingInFileNames": true
   }
 }

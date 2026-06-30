@@ -18,11 +18,13 @@
     "@better-auth/expo": "catalog:auth",
     "@dropaly/db": "workspace:*",
     "@polar-sh/better-auth": "catalog:auth",
-    "@polar-sh/sdk": "catalog:auth",
-    "better-auth": "catalog:auth"
+    "@polar-sh/sdk": "catalog:auth"
   },
   "devDependencies": {
     "@dropaly/config": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "better-auth": "catalog:auth"
   }
 }

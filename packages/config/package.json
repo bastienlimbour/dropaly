@@ -15,8 +15,8 @@
     "format:check": "oxfmt . --check"
   },
   "devDependencies": {
-    "oxfmt": "catalog:",
-    "oxlint": "catalog:",
-    "typescript": "catalog:"
+    "oxfmt": "catalog:tooling",
+    "oxlint": "catalog:tooling",
+    "typescript": "catalog:tooling"
   }
 }
