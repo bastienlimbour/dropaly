@@ -91,7 +91,7 @@ export const todoRoutes: FastifyPluginAsyncZod = async (app) => {
       const user = request.getAuthenticatedUser();
       await todoService.delete({ user, todoId: request.params.id });
 
-      return reply.status(204);
+      return reply.status(204).send();
     },
   });
 };
