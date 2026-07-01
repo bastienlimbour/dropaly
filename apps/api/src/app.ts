@@ -10,7 +10,7 @@ import {
   validatorCompiler,
 } from "fastify-type-provider-zod";
 
-import type { Auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth";
 import type { Db } from "@dropaly/db";
 
 import type { ServerEnv } from "./env";
@@ -63,7 +63,6 @@ export function createApp(options: CreateAppOptions) {
   app.register(authContextPlugin);
   app.register(authGuardsPlugin);
 
-  // Routes / Services
   app.register(
     (api) => {
       api.register(authRoutes);

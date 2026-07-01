@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { Auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth";
 import type { Db } from "@dropaly/db";
 
 import { createApp } from "@/app";

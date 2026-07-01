@@ -1,6 +1,6 @@
 import type { preValidationAsyncHookHandler } from "fastify";
 
-import type { Auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth";
 import type { Db } from "@dropaly/db";
 
 import type { AuthenticatedUser } from "@/modules/auth/authenticated-user";

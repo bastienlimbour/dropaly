@@ -4,7 +4,7 @@ import { DatabaseError } from "pg";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
-import type { Auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth";
 import type { Db } from "@dropaly/db";
 
 import { createApp } from "@/app";

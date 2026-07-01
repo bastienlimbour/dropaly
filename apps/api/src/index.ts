@@ -1,4 +1,4 @@
-import { createAuth } from "@dropaly/auth/server";
+import { createAuth } from "@dropaly/auth";
 import { createDb } from "@dropaly/db";
 
 import { createApp } from "./app";

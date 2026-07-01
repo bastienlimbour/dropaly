@@ -4,8 +4,8 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Button } from "@dropaly/ui-web/components/button";
 
 import { env } from "@/env";
-import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
+import { api } from "@/lib/query-client";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,

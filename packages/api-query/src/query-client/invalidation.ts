@@ -1,7 +1,7 @@
 import { matchQuery } from "@tanstack/react-query";
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 
-export interface MutationInvalidationMeta {
+interface MutationInvalidationMeta {
   invalidates?: "all" | readonly QueryKey[];
   awaits?: readonly QueryKey[];
 }

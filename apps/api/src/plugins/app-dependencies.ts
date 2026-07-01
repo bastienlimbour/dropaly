@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import { fastifyPlugin } from "fastify-plugin";
 
-import type { Auth } from "@dropaly/auth/server";
+import type { Auth } from "@dropaly/auth";
 import type { Db } from "@dropaly/db";
 
 interface DependenciesPluginOptions {

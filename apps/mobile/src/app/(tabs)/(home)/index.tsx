@@ -19,8 +19,8 @@ import { cn } from "@dropaly/ui-mobile/utils";
 
 import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
-import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
+import { api } from "@/lib/query-client";
 import { queryClient } from "@/lib/query-client";
 
 export default function Home() {

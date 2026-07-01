@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { createApiRuntime } from "./api-runtime";
+import { createApiRuntime } from "./create-api-runtime";
 
 describe("createApiRuntime", () => {
   it("resolves relative API paths against the base URL", () => {

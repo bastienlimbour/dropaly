@@ -5,15 +5,18 @@ import {
   createApiClientError,
   createNetworkApiError,
 } from "../errors/api-client-error";
-import { createApiRuntime } from "../runtime/api-runtime";
-import type { ApiRuntime, CreateApiRuntimeOptions } from "../runtime/api-runtime";
+import { createApiRuntime } from "../runtime/create-api-runtime";
+import type {
+  ApiRuntime,
+  CreateApiRuntimeOptions,
+} from "../runtime/create-api-runtime";
 import type { paths } from "../types/api-types.gen";
 
-export interface CreateApiClientRuntimeOptions {
+interface CreateApiClientRuntimeOptions {
   runtime: ApiRuntime;
 }
 
-export type CreateApiClientOptions =
+type CreateApiClientOptions =
   | CreateApiClientRuntimeOptions
   | CreateApiRuntimeOptions;
 

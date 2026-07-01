@@ -1,7 +1,7 @@
 import type { ErrorResponse } from "../types/api-types.gen";
 
-export type ApiErrorBody = ErrorResponse;
-export type ApiValidationIssue = NonNullable<ErrorResponse["validation"]>[number];
+type ApiErrorBody = ErrorResponse;
+// type ApiValidationIssue = NonNullable<ErrorResponse["validation"]>[number];
 
 export class ApiClientError extends Error {
   readonly status: number;
@@ -27,7 +27,7 @@ export class ApiClientError extends Error {
   }
 }
 
-export function isApiErrorBody(body: unknown): body is ApiErrorBody {
+function isApiErrorBody(body: unknown): body is ApiErrorBody {
   return (
     typeof body === "object" &&
     body !== null &&

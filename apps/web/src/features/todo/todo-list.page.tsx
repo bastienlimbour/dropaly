@@ -14,7 +14,7 @@ import {
 import { Checkbox } from "@dropaly/ui-web/components/checkbox";
 import { Input } from "@dropaly/ui-web/components/input";
 
-import { api } from "@/lib/api-queries";
+import { api } from "@/lib/query-client";
 
 export function TodosPage() {
   const [newTodoText, setNewTodoText] = useState("");

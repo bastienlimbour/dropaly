@@ -14,8 +14,8 @@ import { Text } from "@dropaly/ui-mobile/components/text";
 
 import { ScrollViewContainer } from "@/components/container";
 import { SignIn, SignUp } from "@/features/auth";
-import { api } from "@/lib/api-queries";
 import { authClient } from "@/lib/auth-client";
+import { api } from "@/lib/query-client";
 
 export default function TodosRoute() {
   const [newTodoText, setNewTodoText] = useState("");

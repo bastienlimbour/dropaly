@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { AuthSession } from "@dropaly/auth/server";
+import type { AuthSession } from "@dropaly/auth";
 
 import { AppError } from "@/errors/app-error";
 import {

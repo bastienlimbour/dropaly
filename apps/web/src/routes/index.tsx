@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { api } from "@/lib/api-queries";
+import { api } from "@/lib/query-client";
 
 export const Route = createFileRoute("/")({ component: HomeComponent });
 

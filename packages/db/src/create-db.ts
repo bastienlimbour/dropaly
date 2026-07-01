@@ -3,7 +3,7 @@ import { Pool } from "pg";
 
 import * as schema from "./schema";
 
-export interface CreateDbOptions {
+interface CreateDbOptions {
   databaseUrl: string;
 }
 

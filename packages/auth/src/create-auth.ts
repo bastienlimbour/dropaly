@@ -71,5 +71,5 @@ export type Auth = ReturnType<typeof createAuth>;
 export type AuthSession = NonNullable<
   Awaited<ReturnType<Auth["api"]["getSession"]>>
 >;
-export type AuthUser = AuthSession["user"];
+export type AuthSessionUser = AuthSession["user"];
 export type AuthSessionData = AuthSession["session"];

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { createNetworkApiError } from "../errors/api-client-error";
-import { createApiRuntime } from "../runtime/api-runtime";
+import { createApiRuntime } from "../runtime/create-api-runtime";
 import { createApiClient } from "./create-api-client";
 
 describe("ApiClientError", () => {

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./server": "./src/index.server.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --config scripts/auth.cli.ts",

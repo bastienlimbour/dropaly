@@ -1,29 +1,18 @@
-import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
+import { createQueryClient, createApiQueries } from "@dropaly/api-query";
 
-import { toUserMessage } from "@dropaly/api-client";
-import { invalidateQueriesAfterMutation } from "@dropaly/api-queries";
-
+import { apiClient } from "./api-client";
 import { showToast } from "./toast";
 
-export const queryClient: QueryClient = new QueryClient({
-  queryCache: new QueryCache({
-    onError: (error, query) => {
-      console.error("Query failed", { error, queryKey: query.queryKey });
-
-      if (query.state.data === undefined) return;
-
-      showToast({ variant: "danger", label: toUserMessage(error) });
-    },
-  }),
-  mutationCache: new MutationCache({
-    onSuccess: (_data, _variables, _context, mutation): Promise<void> | void =>
-      invalidateQueriesAfterMutation(queryClient, mutation),
-    onError: (error) => {
-      console.error("Mutation failed", { error });
-      showToast({ variant: "danger", label: toUserMessage(error) });
-    },
-  }),
+export const queryClient = createQueryClient({
   defaultOptions: {
     queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: false },
   },
+  notifyQueryError: ({ message }) => {
+    showToast({ variant: "danger", label: message });
+  },
+  notifyMutationError: ({ message }) => {
+    showToast({ variant: "danger", label: message });
+  },
 });
+
+export const api = createApiQueries(apiClient);

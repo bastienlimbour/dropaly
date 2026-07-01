@@ -64,9 +64,6 @@ export function createApiRuntime(options: CreateApiRuntimeOptions): ApiRuntime {
         return fetchImpl(new Request(input, requestInit));
       }
 
-      // const requestInput: ApiFetchInput =
-      //   typeof input === "string" ? createApiUrl(options.baseUrl, input) : input;
-
       const requestInput: ApiFetchInput = createApiUrl(
         options.baseUrl,
         String(input),
