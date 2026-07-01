@@ -13,7 +13,9 @@ interface IconBaseProps {
 
 type IconComponent = React.ComponentType<IconBaseProps>;
 
-type IconProps = IconBaseProps & { as: IconComponent };
+interface IconProps extends IconBaseProps {
+  as: IconComponent;
+}
 
 function IconImpl({ as: IconComponent, ...props }: IconProps) {
   return <IconComponent {...props} />;

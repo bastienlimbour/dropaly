@@ -2,9 +2,9 @@ import { View } from "react-native";
 
 import { cn } from "../lib/utils";
 
-type SurfaceProps = React.ComponentProps<typeof View> & {
+interface SurfaceProps extends React.ComponentProps<typeof View> {
   variant?: "default" | "secondary" | "tertiary";
-};
+}
 
 function Surface({ className, variant = "default", ...props }: SurfaceProps) {
   return (

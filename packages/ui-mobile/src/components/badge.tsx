@@ -50,10 +50,13 @@ const badgeTextVariants = cva("text-xs font-medium", {
   defaultVariants: { variant: "default" },
 });
 
-type BadgeProps = React.ComponentProps<typeof View> &
-  React.RefAttributes<View> & { asChild?: boolean } & VariantProps<
-    typeof badgeVariants
-  >;
+interface BadgeProps
+  extends
+    React.ComponentProps<typeof View>,
+    React.RefAttributes<View>,
+    VariantProps<typeof badgeVariants> {
+  asChild?: boolean;
+}
 
 function Badge({ className, variant, asChild, ...props }: BadgeProps) {
   const Component = asChild ? Slot : View;

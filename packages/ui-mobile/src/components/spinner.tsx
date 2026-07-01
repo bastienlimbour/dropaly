@@ -3,10 +3,10 @@ import type { ActivityIndicatorProps } from "react-native";
 
 import { cn } from "../lib/utils";
 
-type SpinnerProps = Omit<ActivityIndicatorProps, "size" | "color"> & {
+interface SpinnerProps extends Omit<ActivityIndicatorProps, "size" | "color"> {
   size?: "sm" | "lg" | ActivityIndicatorProps["size"];
   color?: "default" | "primary" | "muted";
-};
+}
 
 function Spinner({ size = "sm", color = "primary", ...props }: SpinnerProps) {
   const indicatorSize = size === "sm" ? "small" : size === "lg" ? "large" : size;

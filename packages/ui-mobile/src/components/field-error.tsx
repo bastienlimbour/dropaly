@@ -1,7 +1,9 @@
 import { cn } from "../lib/utils";
 import { Text } from "./text";
 
-type FieldErrorProps = React.ComponentProps<typeof Text> & { isInvalid?: boolean };
+interface FieldErrorProps extends React.ComponentProps<typeof Text> {
+  isInvalid?: boolean;
+}
 
 function FieldError({ children, className, isInvalid, ...props }: FieldErrorProps) {
   if (!isInvalid || !children) {
