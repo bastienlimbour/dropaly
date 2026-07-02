@@ -24,6 +24,7 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
     SERVER_HOST: z.string().min(1),
     SERVER_PORT: z.coerce.number().int().min(1).max(65535),
+    API_RESPONSE_DELAY_MS: z.coerce.number().int().min(0).default(0),
     DATABASE_URL: z.string().min(1),
     CORS_ORIGINS: commeaSeparatedListToUrlArray,
     BETTER_AUTH_URL: z.url(),

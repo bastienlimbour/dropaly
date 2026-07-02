@@ -39,6 +39,7 @@ const app = createApp({
   auth,
   corsOrigins: env.CORS_ORIGINS,
   nodeEnv: env.NODE_ENV,
+  responseDelayMs: env.API_RESPONSE_DELAY_MS,
   logger: loggerOptions[env.NODE_ENV],
 });
 

@@ -30,6 +30,7 @@ interface CreateAppOptions {
   auth: Auth;
   corsOrigins: ServerEnv["CORS_ORIGINS"];
   nodeEnv: ServerEnv["NODE_ENV"];
+  responseDelayMs?: ServerEnv["API_RESPONSE_DELAY_MS"];
   logger?: FastifyServerOptions["logger"];
 }
 
@@ -41,6 +42,14 @@ export function createApp(options: CreateAppOptions) {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   app.register(errorHandlerPlugin);
+
+  const responseDelayMs = options.responseDelayMs ?? 0;
+  if (options.nodeEnv === "development" && responseDelayMs > 0) {
+    app.addHook("onSend", async (_request, _reply, payload) => {
+      await new Promise((resolve) => setTimeout(resolve, responseDelayMs));
+      return payload;
+    });
+  }
 
   app.register(corsPlugin, { corsOrigins: options.corsOrigins });
 
