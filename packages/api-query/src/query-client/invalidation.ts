@@ -1,7 +1,14 @@
 import { matchQuery } from "@tanstack/react-query";
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 
-interface MutationInvalidationMeta {
+/**
+ * Mutation metadata used by the shared QueryClient to invalidate queries.
+ *
+ * `invalidates` defaults to `"all"`. Use query keys to limit invalidation to a
+ * subset, or `awaits` when the mutation should not settle until specific query
+ * invalidations have completed.
+ */
+export interface MutationInvalidationMeta {
   invalidates?: "all" | readonly QueryKey[];
   awaits?: readonly QueryKey[];
 }
@@ -17,6 +24,7 @@ interface MutationWithInvalidationMeta {
   options?: { meta?: Record<string, unknown> | undefined } | undefined;
 }
 
+/** Applies Dropaly's mutation invalidation convention to a completed mutation. */
 export function invalidateQueriesAfterMutation(
   queryClient: QueryClient,
   mutation: MutationWithInvalidationMeta,

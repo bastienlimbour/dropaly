@@ -6,7 +6,9 @@ interface PaymentPluginOptions {
   successUrl: string;
 }
 
-export function paymentPlugin(options: PaymentPluginOptions) {
+export function paymentPlugin(
+  options: PaymentPluginOptions,
+): ReturnType<typeof polar> {
   const polarClient = new Polar({
     accessToken: options.accessToken,
     server: "sandbox",

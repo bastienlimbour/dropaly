@@ -1,5 +1,6 @@
 import type { OxlintConfig } from "oxlint";
 
+/** Import restrictions that keep workspace package boundaries explicit. */
 export const restrictedImportPatterns = [
   {
     regex: "^@dropaly/.*/src(/.*)?$",
@@ -18,6 +19,13 @@ type RestrictedImportPattern =
       message: string;
     };
 
+/**
+ * Creates a package-local import restriction rule.
+ *
+ * Use this from a package's own lint config to prevent importing itself through
+ * its public package name. Internal files should use relative imports so public
+ * package exports remain reserved for external consumers.
+ */
 export function noRestrictedImportsForPackage(
   packageName: string,
 ): ["error", { patterns: RestrictedImportPattern[] }] {
@@ -35,6 +43,7 @@ export function noRestrictedImportsForPackage(
   ];
 }
 
+/** Base Oxlint config shared by all Dropaly packages. */
 export const oxlintBaseConfig = {
   plugins: ["typescript", "oxc", "eslint", "unicorn", "import", "promise"],
   options: {

@@ -1,13 +1,31 @@
 import { Uniwind, useCSSVariable, useUniwind } from "uniwind";
 
+/** Theme currently resolved by Uniwind after applying system preferences. */
 export type ResolvedTheme = "light" | "dark";
+
+/** Theme preference persisted through Uniwind. */
 export type ThemePreference = ResolvedTheme | "system";
 
-function setTheme(newTheme: ThemePreference) {
+/** Theme state and actions exposed to mobile UI components. */
+export interface UiTheme {
+  resolvedTheme: ResolvedTheme;
+  themePreference: ThemePreference;
+  isDark: boolean;
+  hasAdaptiveThemes: boolean;
+  setTheme: (newTheme: ThemePreference) => void;
+}
+
+function setTheme(newTheme: ThemePreference): void {
   Uniwind.setTheme(newTheme);
 }
 
-export function useUiTheme() {
+/**
+ * Reads and updates the mobile UI theme.
+ *
+ * `themePreference` is `"system"` when adaptive themes are active. `resolvedTheme`
+ * always reflects the concrete theme currently applied to the UI.
+ */
+export function useUiTheme(): UiTheme {
   const { hasAdaptiveThemes, theme } = useUniwind();
   const resolvedTheme: ResolvedTheme = theme === "dark" ? "dark" : "light";
   const themePreference: ThemePreference = hasAdaptiveThemes
@@ -23,13 +41,28 @@ export function useUiTheme() {
   };
 }
 
-function stringValue(value: string | number | undefined) {
+function stringValue(value: string | number | undefined): string {
   return value == null ? "" : String(value);
 }
 
-export type ThemeColors = ReturnType<typeof useThemeColors>;
+/** CSS variable colors resolved for native integrations. */
+export interface ThemeColors {
+  background: string;
+  foreground: string;
+  card: string;
+  border: string;
+  destructive: string;
+  primary: string;
+  mutedForeground: string;
+}
 
-export function useThemeColors() {
+/**
+ * Returns selected theme colors from Uniwind CSS variables.
+ *
+ * Missing variables are normalized to empty strings, which lets native callers
+ * pass values directly to APIs that do not accept `undefined`.
+ */
+export function useThemeColors(): ThemeColors {
   const [
     background,
     foreground,

@@ -97,7 +97,13 @@ function getErrorStatus(error: unknown): number | undefined {
   return undefined;
 }
 
-export function toUserMessage(error: unknown) {
+/**
+ * Converts API, auth, validation, and network errors to a safe user-facing message.
+ *
+ * Known machine-readable codes win over HTTP status fallbacks. Unknown inputs use
+ * a generic message so raw server details are not shown to users.
+ */
+export function toUserMessage(error: unknown): string {
   const code = getErrorCode(error);
   const message = code ? getMappedErrorMessage(code) : undefined;
   if (message) return message;

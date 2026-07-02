@@ -3,21 +3,32 @@ import type { ErrorResponse } from "../types/api-types.gen";
 type ApiErrorBody = ErrorResponse;
 // type ApiValidationIssue = NonNullable<ErrorResponse["validation"]>[number];
 
+/** Options used to create a normalized API client error. */
+export interface ApiClientErrorOptions {
+  /** Parsed response body when an HTTP response was available. */
+  body?: unknown;
+  /** Original error that caused a network-level failure. */
+  cause?: unknown;
+  /** Stable machine-readable error code when one is known. */
+  code?: string;
+  /** HTTP status, or `0` when no response was received. */
+  status: number;
+}
+
+/**
+ * Error thrown by the API client for HTTP failures and network failures.
+ *
+ * `status` is `0` when no HTTP response exists, such as aborted requests or
+ * failed network calls. `body` contains the parsed error response when parsing
+ * succeeds, otherwise the raw response text or `undefined`.
+ */
 export class ApiClientError extends Error {
   readonly status: number;
   readonly code: string | undefined;
   readonly body: unknown;
   override readonly cause: unknown;
 
-  constructor(
-    message: string,
-    options: {
-      body?: unknown;
-      cause?: unknown;
-      code?: string;
-      status: number;
-    },
-  ) {
+  constructor(message: string, options: ApiClientErrorOptions) {
     super(message, { cause: options.cause });
     this.name = "ApiClientError";
     this.status = options.status;
@@ -42,7 +53,10 @@ function isApiErrorBody(body: unknown): body is ApiErrorBody {
   );
 }
 
-export function createApiClientError(response: Response, body: unknown) {
+export function createApiClientError(
+  response: Response,
+  body: unknown,
+): ApiClientError {
   if (isApiErrorBody(body)) {
     return new ApiClientError(body.message, {
       body,
@@ -66,7 +80,7 @@ function isAbortError(error: unknown) {
   );
 }
 
-export function createNetworkApiError(error: unknown) {
+export function createNetworkApiError(error: unknown): ApiClientError {
   if (isAbortError(error)) {
     return new ApiClientError("Request aborted.", {
       body: undefined,

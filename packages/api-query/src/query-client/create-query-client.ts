@@ -9,21 +9,35 @@ import { toUserMessage } from "@dropaly/api-client";
 
 import { invalidateQueriesAfterMutation } from "./invalidation";
 
-interface QueryErrorNotification {
+/** Notification emitted when a background query with existing data fails. */
+export interface QueryErrorNotification {
   message: string;
   retry: () => void;
 }
 
-interface MutationErrorNotification {
+/** Notification emitted when a mutation fails. */
+export interface MutationErrorNotification {
   message: string;
 }
 
-interface CreateQueryClientOptions {
+/** Options used to create Dropaly's TanStack Query client. */
+export interface CreateQueryClientOptions {
+  /** Optional defaults forwarded to TanStack Query. */
   defaultOptions?: QueryClientConfig["defaultOptions"];
+  /** Called for failed background refetches only, so initial loading errors stay local to queries. */
   notifyQueryError: (notification: QueryErrorNotification) => void;
+  /** Called for failed mutations after the error has been logged. */
   notifyMutationError: (notification: MutationErrorNotification) => void;
 }
 
+/**
+ * Creates the shared TanStack Query client used by Dropaly apps.
+ *
+ * Query errors are logged and only shown through `notifyQueryError` when stale
+ * data already exists. Mutation errors are logged and passed to
+ * `notifyMutationError`. Successful mutations use mutation metadata to invalidate
+ * related queries automatically.
+ */
 export function createQueryClient(
   options: CreateQueryClientOptions,
 ): TanStackQueryClient {

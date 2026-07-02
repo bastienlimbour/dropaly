@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, uuid, index } from "drizzle-orm/pg-core";
 
+/** Better Auth users. Deleting a user cascades through sessions and accounts. */
 export const user = pgTable("user", {
   id: uuid("id")
     .default(sql`pg_catalog.gen_random_uuid()`)
@@ -16,6 +17,7 @@ export const user = pgTable("user", {
     .notNull(),
 });
 
+/** Better Auth sessions keyed by token and owned by a user. */
 export const session = pgTable(
   "session",
   {
@@ -37,6 +39,7 @@ export const session = pgTable(
   (table) => [index("session_userId_idx").on(table.userId)],
 );
 
+/** External provider or password credentials linked to a user. */
 export const account = pgTable(
   "account",
   {
@@ -63,6 +66,7 @@ export const account = pgTable(
   (table) => [index("account_userId_idx").on(table.userId)],
 );
 
+/** Better Auth verification records used for short-lived flows. */
 export const verification = pgTable(
   "verification",
   {
@@ -81,11 +85,13 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+/** Drizzle relations from a user to authentication records. */
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
 }));
 
+/** Drizzle relation from a session to its owning user. */
 export const sessionRelations = relations(session, ({ one }) => ({
   user: one(user, {
     fields: [session.userId],
@@ -93,6 +99,7 @@ export const sessionRelations = relations(session, ({ one }) => ({
   }),
 }));
 
+/** Drizzle relation from an account credential to its owning user. */
 export const accountRelations = relations(account, ({ one }) => ({
   user: one(user, {
     fields: [account.userId],

@@ -1,5 +1,6 @@
 import type { OxlintConfig } from "oxlint";
 
+/** Shared React lint rules used by web and native packages. */
 export const oxlintReactConfig = {
   plugins: ["react"],
   settings: {

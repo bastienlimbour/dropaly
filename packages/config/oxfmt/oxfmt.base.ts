@@ -1,5 +1,11 @@
 import type { OxfmtConfig } from "oxfmt";
 
+/**
+ * Shared formatter config for Dropaly workspaces.
+ *
+ * Generated artifacts and local AI/reference folders are ignored so formatting
+ * stays focused on source files maintained by the repo.
+ */
 export const oxfmtBaseConfig = {
   ignorePatterns: [
     ".agents/**",

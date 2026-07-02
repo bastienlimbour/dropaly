@@ -12,13 +12,18 @@ import type {
 } from "../runtime/create-api-runtime";
 import type { paths } from "../types/api-types.gen";
 
-interface CreateApiClientRuntimeOptions {
+/** Options for creating a client from an already configured API runtime. */
+export interface CreateApiClientRuntimeOptions {
   runtime: ApiRuntime;
 }
 
-type CreateApiClientOptions =
+/** Options accepted by `createApiClient`. */
+export type CreateApiClientOptions =
   | CreateApiClientRuntimeOptions
   | CreateApiRuntimeOptions;
+
+/** OpenAPI client configured for the Dropaly API schema. */
+export type ApiClient = ReturnType<typeof createClient<paths>>;
 
 async function parseErrorBody(response: Response): Promise<unknown> {
   const text = await response
@@ -46,13 +51,20 @@ const errorMiddleware: Middleware = {
   },
 };
 
-function resolveRuntime(options: CreateApiClientOptions) {
+function resolveRuntime(options: CreateApiClientOptions): ApiRuntime {
   if ("runtime" in options) return options.runtime;
 
   return createApiRuntime(options);
 }
 
-export function createApiClient(options: CreateApiClientOptions) {
+/**
+ * Creates a typed client for the Dropaly API.
+ *
+ * The client installs a middleware that throws `ApiClientError` for non-2xx HTTP
+ * responses and network failures. Successful responses keep the default
+ * `openapi-fetch` parsing behavior, including parse errors for invalid bodies.
+ */
+export function createApiClient(options: CreateApiClientOptions): ApiClient {
   const runtime = resolveRuntime(options);
   const client = createClient<paths>({
     baseUrl: runtime.url(""),
@@ -62,5 +74,3 @@ export function createApiClient(options: CreateApiClientOptions) {
 
   return client;
 }
-
-export type ApiClient = ReturnType<typeof createApiClient>;

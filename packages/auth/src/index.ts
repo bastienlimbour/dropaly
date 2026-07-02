@@ -4,4 +4,5 @@ export type {
   AuthSession,
   AuthSessionUser,
   AuthSessionData,
+  CreateAuthOptions,
 } from "./create-auth";

@@ -27,24 +27,20 @@ const StyledIcon = withUniwind(IconImpl, {
 });
 
 /**
- * A wrapper component for Tabler icons with Uniwind `className` support via `withUniwind`.
+ * Renders an icon component with Uniwind utility-class support.
  *
- * This component allows you to render any Tabler icon while applying utility classes
- * using `uniwind`. It avoids the need to wrap or configure each icon individually.
+ * Text color context is applied before the caller's `className`, so icons inherit
+ * nearby text styling while remaining overrideable. Use this wrapper instead of
+ * rendering React Native SVG icons directly when utility classes should control
+ * size or color.
  *
- * @component
  * @example
  * ```tsx
- * import { IconArrowRight } from '@tabler/icons-react-native';
- * import { Icon } from '@dropaly/ui-mobile/components/icon';
+ * import { IconArrowRight } from "@tabler/icons-react-native";
+ * import { Icon } from "@dropaly/ui-mobile/components/icon";
  *
  * <Icon as={IconArrowRight} className="text-red-500 size-4" />
  * ```
- *
- * @param {TablerIcon} as - The Tabler icon component to render.
- * @param {string} className - Utility classes to style the icon using Uniwind.
- * @param {number} size - Icon size (overrides the size class).
- * @param {...TablerIconProps} ...props - Additional Tabler icon props passed to the "as" icon.
  */
 function Icon({ as: IconComponent, className, ...props }: IconProps) {
   const textClass = React.useContext(TextClassContext);
