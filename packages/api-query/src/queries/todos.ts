@@ -7,17 +7,17 @@ import type {
   UpdateTodoInput,
 } from "@dropaly/api-client/types";
 
-export function createTodoQueries(apiClient: ApiClient) {
-  const keys = {
-    all: () => ["todos"] as const,
-    lists: () => [...keys.all(), "list"] as const,
-    list: () => [...keys.lists()] as const,
-  };
+export const todoQueryKeys = {
+  all: () => ["todos"] as const,
+  lists: () => [...todoQueryKeys.all(), "list"] as const,
+  list: () => [...todoQueryKeys.lists()] as const,
+};
 
-  const queries = {
+export function createTodoQueries(apiClient: ApiClient) {
+  const todoQueryOptions = {
     list: () =>
       queryOptions({
-        queryKey: keys.list(),
+        queryKey: todoQueryKeys.list(),
         async queryFn() {
           const { data, error } = await apiClient.GET("/api/todos");
           if (error) throw error;
@@ -26,10 +26,10 @@ export function createTodoQueries(apiClient: ApiClient) {
       }),
   };
 
-  const mutations = {
+  const todoMutationOptions = {
     create: () =>
       mutationOptions({
-        meta: { invalidates: [keys.lists()] },
+        meta: { invalidates: [todoQueryKeys.lists()] },
         async mutationFn(args: { todoData: CreateTodoInput }) {
           const { data, error } = await apiClient.POST("/api/todos", {
             body: args.todoData,
@@ -41,7 +41,7 @@ export function createTodoQueries(apiClient: ApiClient) {
 
     update: () =>
       mutationOptions({
-        meta: { invalidates: [keys.lists()] },
+        meta: { invalidates: [todoQueryKeys.lists()] },
         async mutationFn(args: { todoId: Todo["id"]; todoData: UpdateTodoInput }) {
           const { data, error } = await apiClient.PATCH("/api/todos/{id}", {
             params: { path: { id: args.todoId } },
@@ -54,7 +54,7 @@ export function createTodoQueries(apiClient: ApiClient) {
 
     delete: () =>
       mutationOptions({
-        meta: { invalidates: [keys.lists()] },
+        meta: { invalidates: [todoQueryKeys.lists()] },
         async mutationFn(args: { todoId: Todo["id"] }) {
           const { data, error } = await apiClient.DELETE("/api/todos/{id}", {
             params: { path: { id: args.todoId } },
@@ -65,5 +65,9 @@ export function createTodoQueries(apiClient: ApiClient) {
       }),
   };
 
-  return { queryKeys: keys, queryOptions: queries, mutationOptions: mutations };
+  return {
+    queryKeys: todoQueryKeys,
+    queryOptions: todoQueryOptions,
+    mutationOptions: todoMutationOptions,
+  };
 }
