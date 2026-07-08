@@ -1,6 +1,6 @@
 import { IconLoader, IconTrash } from "@tabler/icons-react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense, useState } from "react";
 import type { SubmitEvent } from "react";
 
 import { Button } from "@dropaly/ui-web/components/button";
@@ -19,7 +19,6 @@ import { api } from "@/lib/query-client";
 export function TodosPage() {
   const [newTodoText, setNewTodoText] = useState("");
 
-  const todos = useQuery(api.todos.queryOptions.list());
   const createTodo = useMutation(api.todos.mutationOptions.create());
   const updateTodo = useMutation(api.todos.mutationOptions.update());
   const deleteTodo = useMutation(api.todos.mutationOptions.delete());
@@ -76,48 +75,81 @@ export function TodosPage() {
             </Button>
           </form>
 
-          {todos.isLoading ? (
-            <div className="flex justify-center py-4">
-              <IconLoader className="h-6 w-6 animate-spin" />
-            </div>
-          ) : todos.data?.length === 0 ? (
-            <p className="py-4 text-center">No todos yet. Add one above!</p>
-          ) : (
-            <ul className="space-y-2">
-              {todos.data?.map((todo) => (
-                <li
-                  key={todo.id}
-                  className="flex items-center justify-between rounded-md border p-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={todo.completed}
-                      onCheckedChange={() =>
-                        handleToggleTodo(todo.id, todo.completed)
-                      }
-                      id={`todo-${todo.id}`}
-                    />
-                    <label
-                      htmlFor={`todo-${todo.id}`}
-                      className={todo.completed ? "line-through" : ""}
-                    >
-                      {todo.text}
-                    </label>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleDeleteTodo(todo.id)}
-                    aria-label="Delete todo"
-                  >
-                    <IconTrash className="h-4 w-4" />
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <Suspense fallback={<TodoListSkeleton />}>
+            <TodoList
+              onToggleTodo={handleToggleTodo}
+              onDeleteTodo={handleDeleteTodo}
+            />
+          </Suspense>
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+interface TodoListProps {
+  onToggleTodo: (todoId: string, completed: boolean) => void;
+  onDeleteTodo: (todoId: string) => void;
+}
+
+function TodoList({ onToggleTodo, onDeleteTodo }: TodoListProps) {
+  const { data: todos } = useSuspenseQuery(api.todos.queryOptions.list());
+
+  if (todos.length === 0) {
+    return <p className="py-4 text-center">No todos yet. Add one above!</p>;
+  }
+
+  return (
+    <ul className="space-y-2">
+      {todos.map((todo) => (
+        <li
+          key={todo.id}
+          className="flex items-center justify-between rounded-md border p-2"
+        >
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              checked={todo.completed}
+              onCheckedChange={() => onToggleTodo(todo.id, todo.completed)}
+              id={`todo-${todo.id}`}
+            />
+            <label
+              htmlFor={`todo-${todo.id}`}
+              className={todo.completed ? "line-through" : ""}
+            >
+              {todo.text}
+            </label>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => onDeleteTodo(todo.id)}
+            aria-label="Delete todo"
+          >
+            <IconTrash className="h-4 w-4" />
+          </Button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const todoSkeletonRows = [1, 2, 3];
+
+export function TodoListSkeleton() {
+  return (
+    <ul className="space-y-2" aria-label="Loading todos">
+      {todoSkeletonRows.map((row) => (
+        <li
+          key={row}
+          className="flex items-center justify-between rounded-md border p-2"
+        >
+          <div className="flex items-center space-x-2">
+            <div className="h-4 w-4 animate-pulse rounded-sm bg-muted" />
+            <div className="h-4 w-32 animate-pulse rounded bg-muted" />
+          </div>
+          <div className="h-8 w-8 animate-pulse rounded-md bg-muted" />
+        </li>
+      ))}
+    </ul>
   );
 }

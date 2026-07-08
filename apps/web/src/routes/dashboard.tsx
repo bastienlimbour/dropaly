@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { Suspense } from "react";
 
 import { Button } from "@dropaly/ui-web/components/button";
 
@@ -19,12 +20,13 @@ export const Route = createFileRoute("/dashboard")({
       : null;
     return { session, customerState };
   },
+  loader: ({ context }) => {
+    void context.queryClient.prefetchQuery(api.privateData.queryOptions.get());
+  },
 });
 
 function RouteComponent() {
   const { session, customerState } = Route.useRouteContext();
-
-  const privateData = useQuery(api.privateData.queryOptions.get());
 
   const hasProSubscription = (customerState?.activeSubscriptions ?? []).length > 0;
 
@@ -32,7 +34,9 @@ function RouteComponent() {
     <div>
       <h1>Dashboard</h1>
       <p>Welcome {session.data?.user.name}</p>
-      <p>API: {privateData.data?.message}</p>
+      <Suspense fallback={<PrivateDataStatusSkeleton />}>
+        <PrivateDataStatus />
+      </Suspense>
       {env.VITE_PAYMENT_ENABLED && (
         <>
           <p>Plan: {hasProSubscription ? "Pro" : "Free"}</p>
@@ -49,4 +53,14 @@ function RouteComponent() {
       )}
     </div>
   );
+}
+
+function PrivateDataStatus() {
+  const { data: privateData } = useSuspenseQuery(api.privateData.queryOptions.get());
+
+  return <p>API: {privateData.message}</p>;
+}
+
+export function PrivateDataStatusSkeleton() {
+  return <p className="h-6 w-32 animate-pulse rounded bg-muted" />;
 }

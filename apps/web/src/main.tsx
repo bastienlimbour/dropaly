@@ -9,6 +9,7 @@ import { routeTree } from "./types/routeTree.gen";
 const router = createRouter({
   routeTree,
   defaultPreload: "intent",
+  defaultPreloadStaleTime: 0,
   scrollRestoration: true,
   defaultPendingComponent: () => <Loader />,
   context: { queryClient },

@@ -11,8 +11,8 @@ export const Route = createFileRoute("/todos")({
       redirect({ to: "/login", throw: true });
     }
   },
-  loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(api.todos.queryOptions.list());
+  loader: ({ context }) => {
+    void context.queryClient.prefetchQuery(api.todos.queryOptions.list());
   },
   component: TodosPage,
 });
